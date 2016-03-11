@@ -38,7 +38,7 @@ create table saved_searches (
   internal_id int AUTO_INCREMENT PRIMARY KEY,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  user_id int NOT NULL,
+  user_id int NOT NULL
 );
 
 create table jobs_saved_searches (
@@ -46,14 +46,14 @@ create table jobs_saved_searches (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   jobkey_id nvarchar(30) NOT NULL,
-  saved_search_id int NOT NULL,
+  saved_search_id int NOT NULL
 );
 
 create table workflow_state (
 	internal_id int AUTO_INCREMENT PRIMARY KEY,
 	state nvarchar(15) NOT NULL,
 	jobkey_id nvarchar(30) NOT NULL,
-	user_id int NOT NULL,
+	user_id int NOT NULL
 );
 
 create table users (
@@ -66,11 +66,11 @@ create table users (
   github_avatar_url nvarchar(100),
   github_html_url nvarchar(100),
   github_access_token nvarchar(60),
-  github_refresh_token nvarchar(60),
+  github_refresh_token nvarchar(60)
 );
 
 ALTER TABLE saved_searches ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (internal_id);
 ALTER TABLE jobs_saved_searches ADD CONSTRAINT fk_jobkey FOREIGN KEY (jobkey_id) REFERENCES indeed_jobs (jobkey);
 ALTER TABLE jobs_saved_searches ADD CONSTRAINT fk_saved_search_id FOREIGN KEY (saved_search_id) REFERENCES saved_searches (internal_id);
 ALTER TABLE workflow_state ADD CONSTRAINT fk_jobkey_id FOREIGN KEY (jobkey_id) REFERENCES indeed_jobs (jobkey);
-ALTER TABLE workflow_state ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (internal_id);
+ALTER TABLE workflow_state ADD CONSTRAINT fk_user_id_workflow FOREIGN KEY (user_id) REFERENCES users (internal_id);
