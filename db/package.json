@@ -1,0 +1,21 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "testoutfetch",
+  "main": "batchFetchIndeedJobsFromAPI.js",
+  "dependencies": {
+    "dateformat": "^1.0.12",
+    "knex": "^0.10.0",
+    "lodash": "^4.6.1",
+    "lodash.merge": "^4.3.2",
+    "mysql": "^2.10.2",
+    "request-promise": "^2.0.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
