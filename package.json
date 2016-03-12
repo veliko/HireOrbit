@@ -10,8 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/shivg/ProjectXYZ.git"
   },
-   "dependencies": {
+  "dependencies": {
     "dateformat": "^1.0.12",
+    "jquery": "^2.2.1",
     "knex": "^0.10.0",
     "lodash": "^4.6.1",
     "lodash.merge": "^4.3.2",
