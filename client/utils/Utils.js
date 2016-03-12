@@ -2,9 +2,7 @@
 // const mergeDefault = require('lodash.defaults');
 // const Promise = require('bluebird');
 const mergeDefault = _.defaults
-window.indeedCallback = (data) => {
-  $('body').text(data);
-}
+
 const Utils = {
   getClientIP: function () {
     console.log('jquery is: ', $)
@@ -31,14 +29,16 @@ const Utils = {
       url: 'http://api.indeed.com/ads/apisearch',
       type: 'GET',
       dataType: 'jsonp',
-      data: queryStr,
+      data: query,
       success: (res) => {
         console.log('Got data from server in getJobsFromIndeed');
-        indeedCallback(JSON.stringify(res.results));
+        // indeedCallback(JSON.stringify(res.results));
+        successCb(JSON.stringify(res));
+
       },
       error: (err) => {
         console.log('Error in getJobsFromIndeed');
-        // errorCb(err);
+        errorCb(err);
       }
   }
     // makes the call with above options.
@@ -55,4 +55,4 @@ const Utils = {
 }
 // module.exports = Utils;
 
-Utils.getJobsFromIndeed(null)
+Utils.getJobsFromIndeed({q:'plumber'}, (res) => $('body').text(res), null);
