@@ -46,12 +46,14 @@ const Utils = {
     Utils.getClientIP()
       .done((data) => {
         options.data.userip = data.ip;
+        console.log(options)
+        // make an ajax get request finally
         $.ajax(options)
       })
       .fail((err) => {
         console.log('Failed to get IP')
       })
-  }
+  }  // Add some logic to enable pagination in redux state and fetch from index based on page
 }
 // module.exports = Utils;
 
