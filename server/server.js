@@ -8,6 +8,8 @@ var methodOverride = require('method-override');
 var config = require('./config');
 var path = require('path');
 
+var routes = require('./routes');
+
 
 var app = express();
 
