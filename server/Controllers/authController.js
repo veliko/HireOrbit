@@ -1,5 +1,7 @@
-var GITHUB_CLIENT_ID = config.githubClientId;
-var GITHUB_CLIENT_SECRET = config.githubSecret;
+const config = require('../config/config')
+
+var GITHUB_CLIENT_ID = config.githubClientID;
+var GITHUB_CLIENT_SECRET = config.githubClientSecret;
 
 passport.serializeUser(function(user, done) {
   done(null, user);

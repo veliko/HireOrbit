@@ -1,17 +1,17 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var db = require('./db/database');
-var passport = require('passport');
-var session = require('express-session');
-var GitHubStrategy = require('passport-github2').Strategy;
-var methodOverride = require('method-override');
-var config = require('./config');
-var path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('./db/database');
+const passport = require('passport');
+const session = require('express-session');
+const GitHubStrategy = require('passport-github2').Strategy;
+const methodOverride = require('method-override');
+const config = require('./config');
+const path = require('path');
 
-var routes = require('./routes');
+const router = require('./routes');
 
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
@@ -22,8 +22,16 @@ app.use(session({ secret: 'unguessable password secret', resave: false, saveUnin
 app.use(passport.initialize());
 app.use(passport.session());
 
-var distDir = path.resolve(__dirname, '../client');
+const staticOptions = {
+  dotfiles: 'ignore',
+  extensions: ['htm', 'html'],
+  maxAge: '1d',
+}
+const distDir = path.resolve(__dirname, '../client');
 app.use(express.static(distDir));
+
+// apply the api and auth routes from the router module
+router(app);
 
 // allow cors
 app.use(function(req, res, next) {
