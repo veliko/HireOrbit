@@ -9,8 +9,8 @@ const config = require('./config');
 const path = require('path');
 
 const router = require('./routes');
-
-
+const productionIP = process.env.PORT || 80
+const devIP = 3000
 const app = express();
 
 app.use(bodyParser.json());
@@ -40,7 +40,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-
+if(process.NODE.ENV === 'production'){
+  app.listen(productionIP);
+  console.log('Listening at port ', productionIP )
+} else {
+  app.listen(devIP);
+  console.log('Listening at port ', devIP)
+}
 
 
 
