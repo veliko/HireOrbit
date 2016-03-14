@@ -1,7 +1,9 @@
 const config = require('../config/config')
+const passport = require('passport');
+const GitHubStrategy = require('passport-github2').Strategy;
 
-var GITHUB_CLIENT_ID = config.githubClientID;
-var GITHUB_CLIENT_SECRET = config.githubClientSecret;
+const GITHUB_CLIENT_ID = config.githubClientID;
+const GITHUB_CLIENT_SECRET = config.githubClientSecret;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -49,6 +51,10 @@ passport.use(new GitHubStrategy({
 
 
 module.exports = function (app) {
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
   app.get('/auth/github', 
   passport.authenticate('github', {scope: ['user', 'repo']}));
 

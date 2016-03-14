@@ -1,12 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('./db/database');
+const db = require('../db/dbKnex');
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const GitHubStrategy = require('passport-github2').Strategy;
-const methodOverride = require('method-override');
-const config = require('./config');
+const config = require('./config/config');
 const path = require('path');
 
 const router = require('./routes');
@@ -18,22 +16,21 @@ app.use(cookieParser());
 
 app.use(bodyParser.json());
 
-app.use(methodOverride());
 app.use(session({ secret: 'unguessable password secret', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
-app.use(passport.initialize());
-app.use(passport.session());
 
+
+// express route for static assets 
 const staticOptions = {
   dotfiles: 'ignore',
   extensions: ['htm', 'html'],
   maxAge: '1d',
 }
 const distDir = path.resolve(__dirname, '../client');
-app.use(express.static(distDir));
+app.use(express.static(distDir, staticOptions));
 
-// apply the api and auth routes from the router module
+// apply the api, auth routes & passport from the router module 
 router(app);
 
 // allow cors
@@ -43,7 +40,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-if(process.NODE.ENV === 'production'){
+if(process.env.NODE_ENV === 'production'){
   app.listen(productionIP);
   console.log('Listening at port ', productionIP )
 } else {
