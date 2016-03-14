@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('./db/database');
 const passport = require('passport');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const GitHubStrategy = require('passport-github2').Strategy;
 const methodOverride = require('method-override');
 const config = require('./config');
@@ -12,6 +13,8 @@ const router = require('./routes');
 const productionIP = process.env.PORT || 80
 const devIP = 3000
 const app = express();
+
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 

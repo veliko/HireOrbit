@@ -5,7 +5,7 @@ module.exports = function (app) {
 
   app.post('/api/searches', searchController.saveSearch);
 
+  //routes for passport github OAuth2 login and sessions are here
   authGithubPassportHandler(app);
-
 
 }
