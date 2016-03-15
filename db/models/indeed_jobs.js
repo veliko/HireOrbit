@@ -40,16 +40,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
     snippet: {
       type: DataTypes.TEXT,
       allowNull: true

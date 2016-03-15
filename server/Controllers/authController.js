@@ -19,6 +19,10 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
+
+"internal_id", "created_at", "updated_at", "username", "name", 
+"github_avatar_url", "github_html_url", "github_access_token", 
+"github_refresh_token" 
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
@@ -26,16 +30,17 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      User.findOrCreate({where: {id: profile.id}})
+      return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
+        console.log('Updating user model in sequelize', profile._json)
         user.update({
           username: profile._json.login,
           name: profile._json.name,
-          html_url: profile._json.html_url,
-          repos_url: profile._json.repos_url,
-          avatar_url: profile._json.avatar_url,
-          access_token: accessToken,
-          refresh_token: refreshToken
+          github_html_url: profile._json.html_url,
+          github_repos_url: profile._json.repos_url,
+          github_avatar_url: profile._json.avatar_url,
+          github_access_token: accessToken,
+          github_refresh_token: refreshToken
         }).then(function(user){
           console.log('updated user: ', JSON.stringify(user));
           return done(null, user);
@@ -44,7 +49,6 @@ passport.use(new GitHubStrategy({
           return done(error, null);
         });
       });
-      console.log('profile is........', profile)
       return done(null, profile);
     });
   }

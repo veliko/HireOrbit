@@ -1,7 +1,11 @@
 const Sequelize = require('sequelize');
 const config = require('./config')
 const Jobs = require('./models/indeed_jobs')
-const db = new Sequelize( config.dbName, config.dbUser );
+const db = new Sequelize( config.dbName, config.dbUser, null, {
+  host: config.dbHost,
+  port:5432,
+  dialect: 'postgres'
+} ); 
 
 
 var models = [
@@ -13,7 +17,6 @@ var models = [
 ]
 
 models.forEach(model => module.exports[model] = db.import(__dirname + '/'+ 'models/' + model));
-
 
 module.exports.sequelize = db;
 

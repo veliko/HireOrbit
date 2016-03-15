@@ -12,16 +12,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
