@@ -5,7 +5,9 @@ const db = require('../../db/dbKnex');
 const User = require('../../db/models/users')
 const GITHUB_CLIENT_ID = config.githubClientID;
 const GITHUB_CLIENT_SECRET = config.githubClientSecret;
-console.log('github stuff.....................', GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
+
+
+// This sets up sessions for the authenticated user 
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -51,19 +53,20 @@ passport.use(new GitHubStrategy({
 
 
 
-module.exports = function (app) {
-
+const AuthController = function (app) {
+// set up passport
   app.use(passport.initialize());
   app.use(passport.session());
 
+// initial end point for github auth
   app.get('/auth/github', 
   passport.authenticate('github', {scope: ['user', 'repo']}));
 
-
+// subsequent callback endpoint for github to send the logged user profile
   app.get('/auth/github/callback', 
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-      // console.log('github callback : req..', req)
+      // add the user_id to the cookie
       res.cookie('userid', req.user.id, { maxAge: 2592000000 });
       res.redirect('/');
   });
@@ -74,3 +77,5 @@ module.exports = function (app) {
     });
   });
 }
+
+module.exports = AuthController;
