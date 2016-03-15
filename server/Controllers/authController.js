@@ -1,11 +1,11 @@
 const config = require('../config/config')
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
-const db = require('../../db/dbKnex');
+const db = require('../../db/dbSequelize').sequelize;
 const User = require('../../db/models/users')
 const GITHUB_CLIENT_ID = config.githubClientID;
 const GITHUB_CLIENT_SECRET = config.githubClientSecret;
-
+const User = require('../../db/dbSequelize').users
 
 // This sets up sessions for the authenticated user 
 passport.serializeUser(function(user, done) {
@@ -27,24 +27,24 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
-      // User.findOrCreate({where: {id: profile.id}})
-      // .spread(function(user, created) {
-      //   user.update({
-      //     username: profile._json.login,
-      //     name: profile._json.name,
-      //     html_url: profile._json.html_url,
-      //     repos_url: profile._json.repos_url,
-      //     avatar_url: profile._json.avatar_url,
-      //     access_token: accessToken,
-      //     refresh_token: refreshToken
-      //   }).then(function(user){
-      //     console.log('updated user: ', JSON.stringify(user));
-      //     return done(null, user);
-      //   }).catch(function(error) {
-      //     console.error('error updating user: ', error);
-      //     return done(error, null);
-      //   });
-      // });
+      User.findOrCreate({where: {id: profile.id}})
+      .spread(function(user, created) {
+        user.update({
+          username: profile._json.login,
+          name: profile._json.name,
+          html_url: profile._json.html_url,
+          repos_url: profile._json.repos_url,
+          avatar_url: profile._json.avatar_url,
+          access_token: accessToken,
+          refresh_token: refreshToken
+        }).then(function(user){
+          console.log('updated user: ', JSON.stringify(user));
+          return done(null, user);
+        }).catch(function(error) {
+          console.error('error updating user: ', error);
+          return done(error, null);
+        });
+      });
       console.log('profile is........', profile)
       return done(null, profile);
     });

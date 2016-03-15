@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
         key: 'jobkey'
       }
     },
+    notes: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -27,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'users',
         key: 'internal_id'
       }
+    },
+    rank: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     tableName: 'workflow_state',

@@ -46,6 +46,7 @@ create table users (
 
 create table saved_searches (
   internal_id SERIAL PRIMARY KEY,
+  name text,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id integer NOT NULL REFERENCES users (internal_id)
@@ -63,6 +64,7 @@ create table workflow_state (
   internal_id SERIAL PRIMARY KEY,
   state text NOT NULL,
   jobkey_id text NOT NULL REFERENCES indeed_jobs (jobkey),
+  notes text,
   user_id integer NOT NULL REFERENCES users (internal_id),
   rank integer NOT NULL
 );
