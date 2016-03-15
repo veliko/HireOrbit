@@ -1,6 +1,7 @@
 const config = require('../config/config')
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
+const db = require('../db/dbKnex');
 
 const GITHUB_CLIENT_ID = config.githubClientID;
 const GITHUB_CLIENT_SECRET = config.githubClientSecret;
