@@ -4,6 +4,18 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+  lowerCaseObjKeys: function (obj) {
+    var keys = Object.keys(obj)
+    var newObj = {};
+
+    for (var i = 0; i<keys.length;i++){
+      var key = keys[i].toLowerCase();
+      newObj[key] = obj[keys[i]];
+    }
+    console.log('lowercase obj is: ', newObj);
+    return newObj;
+  },
+
   getClientIP: function () {
     console.log('jquery is: ', $)
     return $.ajax({
