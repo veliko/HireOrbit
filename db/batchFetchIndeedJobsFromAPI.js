@@ -23,6 +23,7 @@ var indeedOptions = {
 };
 
 var fetchAndStoreIndeedJobs = function (index, end) {
+  console.log('In Indeed Jobs')
   function randIP() {
     return (parseInt(Math.random()*255)+"")+"."+ (parseInt(Math.random()*255)+"")+"."+ (parseInt(Math.random()*255)+"")+"."+ (parseInt(Math.random()*255)+"")
   }
@@ -39,11 +40,11 @@ var fetchAndStoreIndeedJobs = function (index, end) {
   mergeObj(options, indeedOptions);
   return request(options)
     .then(function (res) {
-      console.log('query options are: ', options)
-      console.log('results are : ', res)
       var results = translateIndeedJSONToDB(res.results);
       if(!results) throw new Error('Got no data in this request, at Index: ', index);
       console.log(`Results page number is ${res.pageNumber}`);
+      // Lowercase Keys
+      results = results.map(obj => lowerCaseObjKeys(obj));
       return db('indeed_jobs').insert(results)
     })
     .then(function(dbres) {
@@ -70,6 +71,18 @@ var translateIndeedJSONToDB = function (results) {
   });
   return results;
 } 
+
+var lowerCaseObjKeys = function (obj) {
+  var keys = Object.keys(obj)
+  var newObj = {};
+
+  for (var i = 0; i<keys.length;i++){
+    var key = keys[i].toLowerCase();
+    newObj[key] = obj[keys[i]];
+  }
+  console.log('lowercase obj is: ', newObj);
+  return newObj;
+}
 
 return fetchAndStoreIndeedJobs(1,10000);
 

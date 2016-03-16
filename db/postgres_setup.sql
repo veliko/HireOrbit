@@ -35,7 +35,7 @@ create table users (
   internal_id SERIAL PRIMARY KEY,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  username text NOT NULL,
+  username text,
   UNIQUE (username),
   name text,
   github_avatar_url text,
@@ -46,6 +46,7 @@ create table users (
 
 create table saved_searches (
   internal_id SERIAL PRIMARY KEY,
+  name text,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id integer NOT NULL REFERENCES users (internal_id)
@@ -61,8 +62,11 @@ create table jobs_saved_searches (
 
 create table workflow_state (
   internal_id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   state text NOT NULL,
   jobkey_id text NOT NULL REFERENCES indeed_jobs (jobkey),
+  notes text,
   user_id integer NOT NULL REFERENCES users (internal_id),
   rank integer NOT NULL
 );
@@ -71,7 +75,7 @@ create table workflow_state (
 CREATE OR REPLACE FUNCTION update_modified_column() 
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.modified = now();
+    NEW.updated_at = now();
     RETURN NEW; 
 END;
 $$ language 'plpgsql';

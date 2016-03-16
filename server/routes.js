@@ -2,7 +2,7 @@ const githubPassportHandler = require('./Controllers/authController');
 const searchController = require('./Controllers/searchController');
 
 module.exports = function (app) {
-  app.get('/api/searches', searchController.getSavedSearches);
+  app.get('/api/searches/:id', searchController.getSavedSearch);
 
   app.post('/api/searches', searchController.saveSearch);
 
