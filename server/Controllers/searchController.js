@@ -20,9 +20,11 @@ const searchController = {
   },
 
   saveSearch: function (req, res, next) {
-    console.log(`Route: POST /api/searches`);
+    console.log(`Route: POST /api/searches ${req}`, req);
     // save the search to the db for the logged in user
-
+    // save the search into saved_searches for the user_id and then use the id to 
+    // save saved_search_id and jobkey in jss join table / and finally save all jobs in indeed_job
+    res.json({ok:'ok'})
   }
 }
 
@@ -35,3 +37,9 @@ module.exports = searchController;
 
 // select * from indeed_jobs ij where ij.jobkey in (select jss.jobkey_id from jobs_saved_searches jss
 //  where jss.saved_search_id = 1)
+
+// Shape of the POST request data for saving a serach for the user
+// POST : {
+//   name: 'name',
+//   jobs: [{},{}]
+// }

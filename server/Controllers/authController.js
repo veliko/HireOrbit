@@ -70,7 +70,7 @@ const AuthController = function (app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       // add the user_id to the cookie
-      res.cookie('userid', req.user.id, { maxAge: 2592000000 });
+      res.cookie('userid', req.user.dataValues.internal_id, { maxAge: 2592000000 });
       res.redirect('/');
   });
 
