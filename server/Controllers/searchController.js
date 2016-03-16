@@ -30,7 +30,7 @@ const searchController = {
         var id = created.internal_id;
 
         // create insert data for join table
-        var job_searches = jobs.map(job => {jobkey_id: job.jobkey, saved_search_id: id });
+        var job_searches = jobs.map( job => ({jobkey_id: job.jobkey, saved_search_id: id }) );
         Jobs_Searches.bulkCreate( job_searches ); 
       })
       .then( () => {
