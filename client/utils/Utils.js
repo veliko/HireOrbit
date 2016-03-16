@@ -67,6 +67,5 @@ const Utils = {
       })
   }  // Add some logic to enable pagination in redux state and fetch from index based on page
 }
-// module.exports = Utils;
+export default Utils;
 
-Utils.getJobsFromIndeed({q:'plumber'}, (res) => $('body').text(res), null);
