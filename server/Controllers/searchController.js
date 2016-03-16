@@ -1,6 +1,8 @@
 const User = require('../../db/dbSequelize').users;
 const Searches = require('../../db/dbSequelize').saved_searches;
 const db = require('../../db/dbSequelize').sequelize;
+const Jobs_Searches = require('../../db/dbSequelize').jobs_saved_searches;
+const IndeedJobs = require('../../db/dbSequelize').indeed_jobs;
 
 const searchController = {
   getSavedSearch: function (req, res, next) {
@@ -21,10 +23,27 @@ const searchController = {
 
   saveSearch: function (req, res, next) {
     console.log(`Route: POST /api/searches ${req}`, req);
+    var user_id = req.cookie.userid;
+    var jobs = req.body.jobs;
+    Searches.create({name:req.body.name, user_id: user_id})
+      .then(created => {
+        var id = created.internal_id;
+        var job_searches = jobs.map(job => {jobkey_id: job.jobkey, saved_search_id: id });
+        return  Jobs_Searches.bulkCreate( job_searches );
+      })
+      .then( () => {
+        IndeedJobs.bulkCreate(jobs);
+        console.log('Saved the search for the user')
+        res.sendStatus(201);
+      })
+      .catch( err => {
+        console.log('Error saving search: ', err);
+        res.sendStatus(500)
+      });
     // save the search to the db for the logged in user
     // save the search into saved_searches for the user_id and then use the id to 
     // save saved_search_id and jobkey in jss join table / and finally save all jobs in indeed_job
-    res.json({ok:'ok'})
+    
   }
 }
 
