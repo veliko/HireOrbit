@@ -22,17 +22,20 @@ const searchController = {
   },
 
   saveSearch: function (req, res, next) {
-    console.log(`Route: POST /api/searches ${req}`, req);
+    console.log(`Route: POST /api/searches`);
     var user_id = req.cookie.userid;
     var jobs = req.body.jobs;
     Searches.create({name:req.body.name, user_id: user_id})
       .then(created => {
         var id = created.internal_id;
+
+        // create insert data for join table
         var job_searches = jobs.map(job => {jobkey_id: job.jobkey, saved_search_id: id });
-        return  Jobs_Searches.bulkCreate( job_searches );
+        Jobs_Searches.bulkCreate( job_searches ); 
       })
       .then( () => {
-        IndeedJobs.bulkCreate(jobs);
+        // copy the jobs over to master table to maintain FK references
+        IndeedJobs.bulkCreate( jobs, { ignoreDuplicates: true });
         console.log('Saved the search for the user')
         res.sendStatus(201);
       })
@@ -40,9 +43,6 @@ const searchController = {
         console.log('Error saving search: ', err);
         res.sendStatus(500)
       });
-    // save the search to the db for the logged in user
-    // save the search into saved_searches for the user_id and then use the id to 
-    // save saved_search_id and jobkey in jss join table / and finally save all jobs in indeed_job
     
   }
 }
