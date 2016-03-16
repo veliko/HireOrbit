@@ -8,15 +8,9 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
+    name: {
+      type: DataTypes.TEXT,
+      allowNull: true
     },
     user_id: {
       type: DataTypes.INTEGER,

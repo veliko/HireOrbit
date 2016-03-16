@@ -8,19 +8,9 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
     username: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     name: {
       type: DataTypes.TEXT,
@@ -44,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'users',
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   });
 };

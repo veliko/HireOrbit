@@ -8,16 +8,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
     jobkey_id: {
       type: DataTypes.TEXT,
       allowNull: false,

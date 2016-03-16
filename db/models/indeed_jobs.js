@@ -1,3 +1,4 @@
+/* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('indeed_jobs', {
@@ -38,16 +39,6 @@ module.exports = function(sequelize, DataTypes) {
     date: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      defaultValue: 'now()'
     },
     snippet: {
       type: DataTypes.TEXT,
