@@ -16,13 +16,14 @@ let store = createStore(reducers, applyMiddleware(promise));
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')
       if (!Auth.isLoggedIn()) {
-        replace({
-          pathname: '/auth/github',
-          state: { nextPathname: nextState.location.pathname }
-        })
         window.location.assign('/auth/github');
       }
     }
+
+const logOut = () => {
+  Auth.logOut();
+  window.location.assign('/logout');
+}
 
 export default () =>
   <Provider store={store}>
@@ -31,6 +32,8 @@ export default () =>
         <IndexRoute component={Search}/>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>
         <Route path="/data-vis" onEnter={requireAuth} component={DataVis}/>
+        <Route path="/logout" onEnter={logOut} />
+        <Route path="/auth/github" onEnter={requireAuth} />
       </Route>
     </Router>
   </Provider>

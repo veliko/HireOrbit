@@ -15,6 +15,7 @@ export default class App extends React.Component {
     return (
       <div className="container">
 
+
         <aside>
           <nav>
             <h1><Link to="/">HireOrbit</Link></h1>
@@ -22,6 +23,8 @@ export default class App extends React.Component {
               <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
               <li><NavLink to="/kanban">Kanban</NavLink></li>
               <li><NavLink to="/data-vis">Data</NavLink></li>
+              {loggedIn ? <li><NavLink to="/logout">Log Out</NavLink></li> :
+              <li><NavLink to="/auth/github">Log In</NavLink></li>}
             </ul>
           </nav>
         </aside>
@@ -34,4 +37,4 @@ export default class App extends React.Component {
   }
 }
 
-// onEnter 
+// Login /Logout condition - LogOut calls Auth.logout 

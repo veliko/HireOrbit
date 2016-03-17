@@ -23,7 +23,7 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
-bundle.js
+client/bundle.js
 
 # Ignore the BUILD file
 client/bundle.js
