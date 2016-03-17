@@ -3,9 +3,15 @@ import Note from './Note';
 import { Link } from 'react-router';
 import NavLink from './NavLink';
 import Search from './Search';
+import Auth from '../utils/Auth';
 
 export default class App extends React.Component {
   render() {
+    
+
+    const loggedIn = Auth.isLoggedIn();
+
+    // const LogNav = loggedIn ? <Link to='/logout'></Link> 
     return (
       <div className="container">
 
@@ -27,3 +33,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+// onEnter 
