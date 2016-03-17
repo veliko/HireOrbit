@@ -16,7 +16,8 @@ class Search extends React.Component {
     console.log(e.target.value);
     this.setState({searchVal: e.target.value});
     if (e.charCode === 13 || e.keyCode === 13){
-      this.getSearchJobs()
+      console.log('In search on input enter')
+      this.getSearchJobs(this.state.searchVal).bind(this)
     }
   }
 
@@ -43,7 +44,7 @@ class Search extends React.Component {
     return (
       <div>
         <input name='search' type='text' value={this.state.searchVal} 
-        className='search-bar' placeholder='Search for jobs' onChange={this.handleSearch.bind(this)} />
+        className='search-bar' placeholder='Search for jobs' onChange={this.handleSearch.bind(this)} onKeyUp={this.handleSearch.bind(this)} />
         <AdvancedSearch /><br/>
 
         <JobsList jobs={this.state.jobs}/>
