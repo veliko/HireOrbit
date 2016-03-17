@@ -7,7 +7,6 @@ import DataVis from './DataVis';
 import promise from 'redux-promise';
 import reducers from '../reducers';
 
-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
