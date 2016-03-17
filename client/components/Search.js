@@ -21,35 +21,40 @@ class Search extends React.Component {
     }
   }
 
-
   getSearchJobs(query){
     query = query || this.state.searchVal;
-    Utils.getJobsFromIndeed({q:query}, 
+    Utils.getJobsFromIndeed({q:query},
       function (res) {
         console.log('inside jobs setState');
         this.setState({jobs: res.results});
         console.log(this.state)
-       }.bind(this), 
+       }.bind(this),
       console.log.bind(console));
   }
 
   componentDidMount(){
     this.getSearchJobs('software engineer');
   }
+
   render(){
     // overlay with advanced options
-    const AdvancedSearch = () => 
-      <input type='button' value='Advanced Search'></input>
 
     return (
       <div>
-        <input name='search' type='text' value={this.state.searchVal} 
-        className='search-bar' placeholder='Search for jobs' onChange={this.handleSearch.bind(this)} onKeyUp={this.handleSearch.bind(this)} />
-        <AdvancedSearch /><br/>
+        <div className="search-box">
+          <input name='search' type='text' value={this.state.searchVal}
+          className='search-bar' placeholder='Search for jobs' onChange={this.handleSearch.bind(this)} onKeyUp={this.handleSearch.bind(this)} />
 
-        <JobsList jobs={this.state.jobs}/>
+          <button>Search</button>
+          <button>Advanced Search</button>
+
+        </div>
+
+        <div className="results">
+          <JobsList jobs={this.state.jobs}/>
+        </div>
       </div>
-      )
+    )
   }
 }
 
