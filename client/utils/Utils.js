@@ -4,6 +4,18 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+  lowerCaseObjKeys: function (obj) {
+    var keys = Object.keys(obj)
+    var newObj = {};
+
+    for (var i = 0; i<keys.length;i++){
+      var key = keys[i].toLowerCase();
+      newObj[key] = obj[keys[i]];
+    }
+    console.log('lowercase obj is: ', newObj);
+    return newObj;
+  },
+
   getClientIP: function () {
     console.log('jquery is: ', $)
     return $.ajax({
@@ -31,9 +43,9 @@ const Utils = {
       dataType: 'jsonp',
       data: query,
       success: (res) => {
-        console.log('Got data from server in getJobsFromIndeed');
+        console.log('Got data from server in getJobsFromIndeed', res);
         // indeedCallback(JSON.stringify(res.results));
-        successCb(JSON.stringify(res));
+        successCb(res);
 
       },
       error: (err) => {
@@ -55,6 +67,5 @@ const Utils = {
       })
   }  // Add some logic to enable pagination in redux state and fetch from index based on page
 }
-// module.exports = Utils;
+export default Utils;
 
-Utils.getJobsFromIndeed({q:'plumber'}, (res) => $('body').text(res), null);
