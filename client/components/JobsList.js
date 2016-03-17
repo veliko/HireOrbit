@@ -1,13 +1,17 @@
 import React from 'react';
 
-
 const JobsList = (props) => {
   console.log(props);
 
-  return (<ul>
-            {props.jobs.map(job => <li key={job.id}> {job.jobtitle} <br/> 
-                                    <div dangerouslySetInnerHTML={{__html: job.snippet}}></div><br/></li>)}
-          </ul>)
+  return (
+    <div className="jobs">
+    {props.jobs.map(job =>
+      <div className="job" key={job.id}>
+        <h2>{job.jobtitle}</h2>
+        <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
+      </div>)}
+    </div>
+  )
 }
 
 export default JobsList;
