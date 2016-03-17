@@ -44,6 +44,10 @@ const searchController = {
         res.sendStatus(500)
       });
     
+  },
+
+  getAllSearches: function (req,res,next) {
+    
   }
 }
 
