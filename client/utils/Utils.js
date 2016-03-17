@@ -43,9 +43,9 @@ const Utils = {
       dataType: 'jsonp',
       data: query,
       success: (res) => {
-        console.log('Got data from server in getJobsFromIndeed');
+        console.log('Got data from server in getJobsFromIndeed', res);
         // indeedCallback(JSON.stringify(res.results));
-        successCb(JSON.stringify(res));
+        successCb(res);
 
       },
       error: (err) => {
