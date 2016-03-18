@@ -1,11 +1,11 @@
 import { actions } from '../constants';
 import update from 'react-addons-update';
 
-const INITIAL_STATE = [
+export const INITIAL_STATE = [
   {
     card_id: '837bbee9c53d1557',
     status: 'interested',
-    job_data: { 
+    job_data: {
       jobtitle: 'Software Engineer',
       company: 'DHG',
       city: 'San Francisco',
@@ -25,7 +25,7 @@ const INITIAL_STATE = [
       formattedRelativeTime: '6 days ago',
       noUniqueUrl: false,
       latitude: undefined,
-      longitude: undefined 
+      longitude: undefined
     }
   },
   {
@@ -136,6 +136,12 @@ const INITIAL_STATE = [
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
+    
+    case actions.ADD_CARDS_TO_KANBAN: 
+      return update(state, {
+        $push: [...action.payload.cards]
+      });
+    
     case actions.UPDATE_CARD_STATUS:
       let cardIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
       return update(state, {
@@ -143,6 +149,7 @@ export default function(state = INITIAL_STATE, action) {
             status: {$set: action.payload.status}
           }
       });
+
     case actions.UPDATE_CARD_POSITION: 
       let hoverCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
       let cardBelowIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
@@ -153,6 +160,7 @@ export default function(state = INITIAL_STATE, action) {
           [cardBelowIndex, 0, hoverCard]
         ]
       });
+    
     default: return state;
   }
 }

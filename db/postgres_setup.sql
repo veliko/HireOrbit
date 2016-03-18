@@ -14,8 +14,8 @@ create table indeed_jobs (
   formattedLocation text,
   source text,
   date timestamp,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   snippet text,
   url text,
   latitude text,
@@ -47,8 +47,8 @@ create table users (
 create table saved_searches (
   internal_id SERIAL PRIMARY KEY,
   name text,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id integer NOT NULL REFERENCES users (internal_id)
 );
 
@@ -75,7 +75,7 @@ create table workflow_state (
 CREATE OR REPLACE FUNCTION update_modified_column() 
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updated_at = now();
+    NEW.updatedAt = now();
     RETURN NEW; 
 END;
 $$ language 'plpgsql';

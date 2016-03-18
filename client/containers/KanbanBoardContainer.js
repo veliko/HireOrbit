@@ -28,10 +28,10 @@ KanbanBoardContainer.propTypes = {
 }
 
 function mapStateToProps(state) {
-  return { 
-    cards: state.cards, 
-    filter: state.filter 
+  return {
+    cards: state.cards,
+    filter: state.filter
   }
 }
-
+export { KanbanBoardContainer };
 export default connect(mapStateToProps, null)(KanbanBoardContainer);

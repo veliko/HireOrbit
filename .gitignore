@@ -4,6 +4,8 @@
 logs
 *.log
 
+.DS_Store
+
 # Runtime data
 pids
 *.pid
@@ -21,6 +23,10 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
+client/bundle.js
+
+# Ignore the BUILD file
+client/bundle.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:

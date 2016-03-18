@@ -17,4 +17,5 @@ function mapDispatchToProps(state) {
   }
 }
 
+export{ ToolbarContainer };
 export default connect(mapDispatchToProps, { updateFilterValue })(ToolbarContainer);
