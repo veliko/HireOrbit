@@ -11,7 +11,7 @@ import Auth from '../utils/Auth';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-let store = createStore(reducers, applyMiddleware(promise));
+let store = createStore(reducers);
 
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')

@@ -3,6 +3,7 @@ const Searches = require('../../db/dbSequelize').saved_searches;
 const db = require('../../db/dbSequelize').sequelize;
 const Jobs_Searches = require('../../db/dbSequelize').jobs_saved_searches;
 const IndeedJobs = require('../../db/dbSequelize').indeed_jobs;
+const knex = require('../../db/dbKnex');
 
 const searchController = {
   getSavedSearch: function (req, res, next) {
@@ -22,20 +23,36 @@ const searchController = {
   },
 
   saveSearch: function (req, res, next) {
-    console.log(`Route: POST /api/searches`);
-    var user_id = req.cookie.userid;
-    var jobs = req.body.jobs;
-    Searches.create({name:req.body.name, user_id: user_id})
+    var user_id = req.cookies.userid;
+    var result;
+    console.log(`Route: POST /api/searches`, req.cookies);
+    var jobs = req.body.jobs, name = req.body.name
+    db.query(`INSERT INTO "saved_searches" ("name","user_id") VALUES('${name}', ${user_id})`)
       .then(created => {
-        var id = created.internal_id;
-
+        return db.query(`SELECT internal_id from "saved_searches" where name='${name}' AND user_id=${user_id}`)
         // create insert data for join table
-        var job_searches = jobs.map( job => ({jobkey_id: job.jobkey, saved_search_id: id }) );
-        Jobs_Searches.bulkCreate( job_searches ); 
+        
+        // var job_searches = jobs.map( job => ({jobkey_id: job.jobkey, saved_search_id: id}) );
+        // Jobs_Searches.bulkCreate( job_searches ); 
+      })
+      .then((results) => {
+        // var insertJobs = `insert into "indeed_jobs" ("jobtitle", "company",
+        // "city", "state", "country", "formattedlocation", "source", "date" , "url", "latitude",
+        // "jobkey", "sponsored", "expired", "indeedapply", "formattedlocationfull", "nouniqueurl"
+        // "formattedrelativetime", "onmousedown") VALUES(${})`
+        result = results;
+        // jobs.reduce((a,b) => a+)
+        IndeedJobs.bulkCreate( jobs )
+        
       })
       .then( () => {
+        console.log('results.......', result[0][result[0].length-1]);
+        var id = result[0][result[0].length-1].internal_id;
+        var bigInsert = jobs.reduce((a,b) => a+`INSERT INTO "jobs_saved_searches" ("jobkey_id","saved_search_id") VALUES('${b.jobkey}', ${id});`, "");
+        // console.log('bigInsert', bigInsert)
+        db.query(bigInsert)
         // copy the jobs over to master table to maintain FK references
-        IndeedJobs.bulkCreate( jobs, { ignoreDuplicates: true });
+        
         console.log('Saved the search for the user')
         res.sendStatus(201);
       })

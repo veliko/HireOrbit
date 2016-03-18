@@ -4,6 +4,25 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+  saveSearch: function (searchObj) {
+    console.log('In saveSearch Utils: ')
+    var options = {
+      url: '/api/searches',
+      method: 'POST',
+      data: searchObj
+    }
+
+      $.ajax(options)    
+      .done((data, textStatus) => {
+        console.log("Save search succeeded: ", textStatus);
+      })
+      .fail((error) => {
+        console.log("Save search failed: ", error);
+        // setState back to prevState
+      });
+
+  },
+
   lowerCaseObjKeys: function (obj) {
     var keys = Object.keys(obj)
     var newObj = {};
@@ -12,7 +31,7 @@ const Utils = {
       var key = keys[i].toLowerCase();
       newObj[key] = obj[keys[i]];
     }
-    // console.log('lowercase obj is: ', newObj);
+    console.log('lowercase obj is: ', newObj);
     return newObj;
   },
 
@@ -38,11 +57,12 @@ const Utils = {
 
     var options = {
       url: 'http://api.indeed.com/ads/apisearch',
-      type: 'GET',
+      method: 'GET',
       dataType: 'jsonp',
       data: query,
       success: (res) => {
-        console.log('Got data from server in getJobsFromIndeed', res);
+        res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
+        console.log('Got data from server in getJobsFromIndeed', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 

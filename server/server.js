@@ -12,6 +12,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({ secret: 'unguessable password secret', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
