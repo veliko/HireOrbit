@@ -46,13 +46,10 @@ const searchController = {
             '${b.nouniqueurl}', '${b.formattedrelativetime}') ON CONFLICT DO NOTHING;`
         }
 
-     
-
-
         result = results;
         bulkInsert = jobs.reduce((a,b) => a + insertJobs(b), "");
-        // console.log('bulkInsert is............: ', bulkInsert)
         // IndeedJobs.bulkCreate( jobs )
+        // copy the jobs over to master table to maintain FK references
         return knex.raw( bulkInsert )
         
       })
@@ -63,7 +60,6 @@ const searchController = {
         var bigInsert = jobs.reduce((a,b) => a+`INSERT INTO "jobs_saved_searches" ("jobkey_id","saved_search_id") VALUES('${b.jobkey}', ${id});`, "");
 
         return db.query(bigInsert)
-        // copy the jobs over to master table to maintain FK references
         
       })
       .then(() => {

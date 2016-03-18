@@ -1,8 +1,10 @@
-create database if not exists hireorbit;
+create database hireorbit;
 
+create user hireorbit;
 
-\connect hireorbit;
+GRANT ALL PRIVILEDGES ON hireorbit to hireorbit;
 
+use hireorbit;
 
 create table indeed_jobs (
   internal_id SERIAL PRIMARY KEY,
