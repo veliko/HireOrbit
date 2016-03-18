@@ -16,6 +16,5 @@ ListContainer.propTypes = {
   updateCardPosition: PropTypes.func.isRequired
 }
 
+export { ListContainer };
 export default connect(null, { updateCardStatus, updateCardPosition })(ListContainer);
-
-
