@@ -7,11 +7,12 @@ import DataVis from './DataVis';
 import promise from 'redux-promise';
 import reducers from '../reducers';
 import Auth from '../utils/Auth';
+import logger from 'redux-logger';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-let store = createStore(reducers);
+let store = createStore(reducers, applyMiddleware(logger()));
 
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')

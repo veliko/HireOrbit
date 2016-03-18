@@ -9,6 +9,7 @@ const JobsList = (props) => {
         <div className="job" key={job.jobkey}>
           <h2>{job.jobtitle}</h2>
           <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
+          <button>Add to Kanban</button>
         </div>)}
     </div>
   )

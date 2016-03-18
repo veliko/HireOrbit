@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { updateCurrentSearch } from '../actions';
+import { updateCurrentSearch, fetchSavedSearches, addCardsToKanban } from '../actions';
 import Search from '../components/Search';
 
 class SearchContainer extends Component {
@@ -23,4 +23,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect( mapStateToProps, { updateCurrentSearch } )(SearchContainer);
+export default connect( mapStateToProps, { 
+                          updateCurrentSearch, 
+                          fetchSavedSearches,
+                          addCardsToKanban } )(SearchContainer);

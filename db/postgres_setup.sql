@@ -47,8 +47,8 @@ create table users (
 create table saved_searches (
   internal_id SERIAL PRIMARY KEY,
   name text,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   user_id integer NOT NULL REFERENCES users (internal_id)
 );
 

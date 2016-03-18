@@ -41,8 +41,8 @@ const searchController = {
           return `insert into "indeed_jobs" ("jobtitle", "company",
             "city", "state", "country", "formattedlocation", "source", "date", "snippet", "url","latitude",
             "jobkey", "sponsored", "expired", "indeedapply", "formattedlocationfull", "nouniqueurl",
-            "formattedrelativetime") VALUES('${b.jobtitle}','${b.company}','${b.city}','${b.state}','${b.country}',
-            '${b.formattedlocation}','${b.source}','${b.date}', $$${b.snippet}$$, $$${b.url}$$, '${b.latitude}', '${b.jobkey}', '${b.sponsored}', '${b.expired}', '${b.indeedapply}', '${b.formattedlocationfull}', 
+            "formattedrelativetime") VALUES($$${b.jobtitle}$$,$$${b.company}$$,'${b.city}','${b.state}','${b.country}',
+            '${b.formattedlocation}',$$${b.source}$$,'${b.date}', $$${b.snippet}$$, $$${b.url}$$, '${b.latitude}', '${b.jobkey}', '${b.sponsored}', '${b.expired}', '${b.indeedapply}', '${b.formattedlocationfull}', 
             '${b.nouniqueurl}', '${b.formattedrelativetime}') ON CONFLICT DO NOTHING;`
         }
 
@@ -82,10 +82,11 @@ const searchController = {
     
     Searches.findAll({where: {user_id: user_id}})
       .then((results) => {
+        console.log("sending all saved searches back to client: ", results);
         res.json(results);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error fetching saved searches: ", err);
         res.sendStatus(500);
       })
 

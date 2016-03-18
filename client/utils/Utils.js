@@ -7,11 +7,11 @@ const Utils = {
 
   getAllSearches: function () {
     console.log('In getAllSearches');
-
-    $.ajax({
+    return $.ajax({
       url: '/api/searches',
       method: 'GET'
     })
+    
   },
 
   saveSearch: function (searchObj) {
