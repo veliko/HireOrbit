@@ -22,7 +22,7 @@ let collectDrag = (connect, monitor) => {
 
 const cardDropSpec = {
   hover(props, monitor) {
-    let hoverCardId = monitor.getItem().id; 
+    let hoverCardId = monitor.getItem().id;
     let cardBelowId = props.id;
     props.updateCardPosition(hoverCardId, cardBelowId);
   }
@@ -35,7 +35,7 @@ let collectDrop = (connect, monitor) => {
 };
 
 class Card extends Component {
-  
+
   render() {
     const { connectDragSource, connectDropTarget, isDragging } = this.props;
 
@@ -53,7 +53,7 @@ class Card extends Component {
 
     return connectDropTarget(connectDragSource(
       <div className="card">
-        { isDragging ? isDraggingOverlay : <div style={sideColor} /> }      
+        { isDragging ? isDraggingOverlay : <div style={sideColor} /> }
         <div className="card_title">{this.props.title}</div>
         <div className="card_company_name">{this.props.company}</div>
         <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
