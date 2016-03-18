@@ -37,3 +37,21 @@ export function updateCurrentSearch(jobs) {
     }
   };
 }
+
+export function fetchSavedSearches(savedSearches) {
+  return {
+    type: actions.FETCH_SAVED_SEARCHES,
+    payload: {
+      savedSearches
+    }
+  }
+}
+
+export function addCardsToKanban(cards) {
+  return {
+    type: actions.ADD_CARDS_TO_KANBAN,
+    payload: {
+      cards
+    }
+  }
+}

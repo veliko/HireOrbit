@@ -136,6 +136,12 @@ export const INITIAL_STATE = [
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
+    
+    case actions.ADD_CARDS_TO_KANBAN: 
+      return update(state, {
+        $push: [...action.payload.cards]
+      });
+    
     case actions.UPDATE_CARD_STATUS:
       let cardIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
       return update(state, {
@@ -143,7 +149,8 @@ export default function(state = INITIAL_STATE, action) {
             status: {$set: action.payload.status}
           }
       });
-    case actions.UPDATE_CARD_POSITION:
+
+    case actions.UPDATE_CARD_POSITION: 
       let hoverCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
       let cardBelowIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
       let hoverCard = state[hoverCardIndex];
@@ -153,6 +160,7 @@ export default function(state = INITIAL_STATE, action) {
           [cardBelowIndex, 0, hoverCard]
         ]
       });
+    
     default: return state;
   }
 }

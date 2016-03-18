@@ -28,11 +28,21 @@ class Search extends React.Component {
     console.log('searchObj: ', searchObj);
     // send post request to the server ro save
     Utils.saveSearch(searchObj);
-
   }
 
   componentDidMount(){
-    this.getSearchJobs();
+    var self = this;
+
+    self.getSearchJobs();
+
+    Utils.getAllSearches()
+      .done(results => {
+        console.log("successfullu fetched saved searches: ", results);
+        self.props.fetchSavedSearches(results);
+      })
+      .fail(error => {
+        console.log('Error fetching saved searches: ', error);
+      });
   }
 
   render(){
@@ -58,7 +68,8 @@ class Search extends React.Component {
           <button onClick={this.saveCurrentSearch.bind(this)}>Save Search</button>
 
         <div className="results">
-          <JobsList jobs={this.props.currentSearch.results}/>
+          <JobsList addCardsToKanban={this.props.addCardsToKanban} 
+                    jobs={this.props.currentSearch.results}/>
         </div>
       </div>
     )
