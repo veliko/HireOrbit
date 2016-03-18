@@ -12,12 +12,11 @@ const Utils = {
       var key = keys[i].toLowerCase();
       newObj[key] = obj[keys[i]];
     }
-    console.log('lowercase obj is: ', newObj);
+    // console.log('lowercase obj is: ', newObj);
     return newObj;
   },
 
   getClientIP: function () {
-    console.log('jquery is: ', $)
     return $.ajax({
       url: "http://jsonip.com/?callback=?",
       dataType: 'json'

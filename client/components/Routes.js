@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './App';
-import Search from './Search';
+import SearchContainer from '../containers/SearchContainer';
 import KanbanBoardContainer from '../containers/KanbanBoardContainer';
 import DataVis from './DataVis';
 import promise from 'redux-promise';
@@ -29,7 +29,7 @@ export default () =>
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Search}/>
+        <IndexRoute component={SearchContainer}/>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>
         <Route path="/data-vis" onEnter={requireAuth} component={DataVis}/>
         <Route path="/logout" onEnter={logOut} />
