@@ -4,6 +4,16 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+
+  getAllSearches: function () {
+    console.log('In getAllSearches');
+
+    $.ajax({
+      url: '/api/searches',
+      method: 'GET'
+    })
+  },
+
   saveSearch: function (searchObj) {
     console.log('In saveSearch Utils: ')
     var options = {
@@ -31,7 +41,6 @@ const Utils = {
       var key = keys[i].toLowerCase();
       newObj[key] = obj[keys[i]];
     }
-    console.log('lowercase obj is: ', newObj);
     return newObj;
   },
 
@@ -50,6 +59,7 @@ const Utils = {
         radius: 200,
         format: 'json',
         limit:25,
+        highlight:0,
         v:2,
     }
     //use query as default and add in defaults from queryStr. query is the determining factor in the resulting object

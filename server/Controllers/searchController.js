@@ -25,34 +25,48 @@ const searchController = {
   saveSearch: function (req, res, next) {
     var user_id = req.cookies.userid;
     var result;
-    console.log(`Route: POST /api/searches`, req.cookies);
-    var jobs = req.body.jobs, name = req.body.name
-    db.query(`INSERT INTO "saved_searches" ("name","user_id") VALUES('${name}', ${user_id})`)
+    console.log(`Route: POST /api/searches`);
+    var jobs = req.body.jobs, name = req.body.name;
+
+    db.query(`INSERT INTO saved_searches ("name","user_id") VALUES('${name}', ${user_id})`)
       .then(created => {
-        return db.query(`SELECT internal_id from "saved_searches" where name='${name}' AND user_id=${user_id}`)
+        return db.query(`SELECT internal_id from saved_searches where name='${name}' AND user_id=${user_id} ORDER BY internal_id LIMIT 1`)
         // create insert data for join table
         
         // var job_searches = jobs.map( job => ({jobkey_id: job.jobkey, saved_search_id: id}) );
         // Jobs_Searches.bulkCreate( job_searches ); 
       })
       .then((results) => {
-        // var insertJobs = `insert into "indeed_jobs" ("jobtitle", "company",
-        // "city", "state", "country", "formattedlocation", "source", "date" , "url", "latitude",
-        // "jobkey", "sponsored", "expired", "indeedapply", "formattedlocationfull", "nouniqueurl"
-        // "formattedrelativetime", "onmousedown") VALUES(${})`
+        function insertJobs(b) {
+          return `insert into "indeed_jobs" ("jobtitle", "company",
+            "city", "state", "country", "formattedlocation", "source", "date", "snippet", "url","latitude",
+            "jobkey", "sponsored", "expired", "indeedapply", "formattedlocationfull", "nouniqueurl",
+            "formattedrelativetime") VALUES('${b.jobtitle}','${b.company}','${b.city}','${b.state}','${b.country}',
+            '${b.formattedlocation}','${b.source}','${b.date}', $$${b.snippet}$$, $$${b.url}$$, '${b.latitude}', '${b.jobkey}', '${b.sponsored}', '${b.expired}', '${b.indeedapply}', '${b.formattedlocationfull}', 
+            '${b.nouniqueurl}', '${b.formattedrelativetime}') ON CONFLICT DO NOTHING;`
+        }
+
+     
+
+
         result = results;
-        // jobs.reduce((a,b) => a+)
-        IndeedJobs.bulkCreate( jobs )
+        bulkInsert = jobs.reduce((a,b) => a + insertJobs(b), "");
+        // console.log('bulkInsert is............: ', bulkInsert)
+        // IndeedJobs.bulkCreate( jobs )
+        return knex.raw( bulkInsert )
         
       })
       .then( () => {
-        console.log('results.......', result[0][result[0].length-1]);
-        var id = result[0][result[0].length-1].internal_id;
+        result = result[0][result[0].length-1];
+        var id = result.internal_id;
+
         var bigInsert = jobs.reduce((a,b) => a+`INSERT INTO "jobs_saved_searches" ("jobkey_id","saved_search_id") VALUES('${b.jobkey}', ${id});`, "");
-        // console.log('bigInsert', bigInsert)
-        db.query(bigInsert)
+
+        return db.query(bigInsert)
         // copy the jobs over to master table to maintain FK references
         
+      })
+      .then(() => {
         console.log('Saved the search for the user')
         res.sendStatus(201);
       })
@@ -64,7 +78,17 @@ const searchController = {
   },
 
   getAllSearches: function (req,res,next) {
+    var user_id = req.cookies.userid;
     
+    Searches.findAll({where: {user_id: user_id}})
+      .then((results) => {
+        res.json(results);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      })
+
   }
 }
 
