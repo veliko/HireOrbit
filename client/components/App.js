@@ -3,11 +3,18 @@ import Note from './Note';
 import { Link } from 'react-router';
 import NavLink from './NavLink';
 import Search from './Search';
+import Auth from '../utils/Auth';
 
 export default class App extends React.Component {
   render() {
+    
+
+    const loggedIn = Auth.isLoggedIn();
+
+    // const LogNav = loggedIn ? <Link to='/logout'></Link> 
     return (
       <div className="container">
+
 
         <aside>
           <nav>
@@ -16,6 +23,8 @@ export default class App extends React.Component {
               <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
               <li><NavLink to="/kanban">Kanban</NavLink></li>
               <li><NavLink to="/data-vis">Data</NavLink></li>
+              {loggedIn ? <li><NavLink to="/logout">Log Out</NavLink></li> :
+              <li><NavLink to="/auth/github">Log In</NavLink></li>}
             </ul>
           </nav>
         </aside>
@@ -27,3 +36,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+// Login /Logout condition - LogOut calls Auth.logout 

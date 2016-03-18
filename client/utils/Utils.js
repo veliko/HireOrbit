@@ -4,6 +4,35 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+
+  getAllSearches: function () {
+    console.log('In getAllSearches');
+
+    $.ajax({
+      url: '/api/searches',
+      method: 'GET'
+    })
+  },
+
+  saveSearch: function (searchObj) {
+    console.log('In saveSearch Utils: ')
+    var options = {
+      url: '/api/searches',
+      method: 'POST',
+      data: searchObj
+    }
+
+      $.ajax(options)    
+      .done((data, textStatus) => {
+        console.log("Save search succeeded: ", textStatus);
+      })
+      .fail((error) => {
+        console.log("Save search failed: ", error);
+        // setState back to prevState
+      });
+
+  },
+
   lowerCaseObjKeys: function (obj) {
     var keys = Object.keys(obj)
     var newObj = {};
@@ -12,12 +41,10 @@ const Utils = {
       var key = keys[i].toLowerCase();
       newObj[key] = obj[keys[i]];
     }
-    console.log('lowercase obj is: ', newObj);
     return newObj;
   },
 
   getClientIP: function () {
-    console.log('jquery is: ', $)
     return $.ajax({
       url: "http://jsonip.com/?callback=?",
       dataType: 'json'
@@ -32,6 +59,7 @@ const Utils = {
         radius: 200,
         format: 'json',
         limit:25,
+        highlight:0,
         v:2,
     }
     //use query as default and add in defaults from queryStr. query is the determining factor in the resulting object
@@ -39,11 +67,12 @@ const Utils = {
 
     var options = {
       url: 'http://api.indeed.com/ads/apisearch',
-      type: 'GET',
+      method: 'GET',
       dataType: 'jsonp',
       data: query,
       success: (res) => {
-        console.log('Got data from server in getJobsFromIndeed', res);
+        res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
+        console.log('Got data from server in getJobsFromIndeed', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 

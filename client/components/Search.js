@@ -5,53 +5,60 @@ import JobsList from './JobsList';
 class Search extends React.Component {
   constructor(props){
     super(props);
-
-    this.state = {
-      searchVal: 'software engineer',
-      jobs: []
-    }
   }
 
-  handleSearch(e){
-    console.log(e.target.value);
-    this.setState({searchVal: e.target.value});
-    if (e.charCode === 13 || e.keyCode === 13){
-      console.log('In search on input enter')
-      this.getSearchJobs(this.state.searchVal).bind(this)
-    }
-  }
-
-  getSearchJobs(query){
-    query = query || this.state.searchVal;
-    Utils.getJobsFromIndeed({q:query},
-      function (res) {
-        console.log('inside jobs setState');
-        this.setState({jobs: res.results});
-        console.log(this.state)
-       }.bind(this),
+  getSearchJobs(){
+    let query = this.refs.searchQuery.value || 'software engineer';
+    let self = this;
+    Utils.getJobsFromIndeed({q:query}, 
+      (res) => {
+        self.props.updateCurrentSearch(res);
+      },
       console.log.bind(console));
   }
 
+  saveCurrentSearch(){
+    var prevState = this.props.currentSearch;
+    var self = this;
+    var searchObj = {
+      name: self.refs.searchName.value,
+      jobs: self.props.currentSearch.results
+    }
+    // update savedSearches redux state
+    console.log('searchObj: ', searchObj);
+    // send post request to the server ro save
+    Utils.saveSearch(searchObj);
+
+  }
+
   componentDidMount(){
-    this.getSearchJobs('software engineer');
+    this.getSearchJobs();
   }
 
   render(){
     // overlay with advanced options
-
-    return (
+    console.log('this.props...........', this.props);
+    return (  
       <div>
         <div className="search-box">
-          <input name='search' type='text' value={this.state.searchVal}
-          className='search-bar' placeholder='Search for jobs' onChange={this.handleSearch.bind(this)} onKeyUp={this.handleSearch.bind(this)} />
+          <input name='search' 
+                 ref='searchQuery' 
+                 type='text'
+                 className='search-bar' 
+                 placeholder='Search for jobs' />
 
-          <button>Search</button>
+          <button onClick={this.getSearchJobs.bind(this)}>Search</button>
           <button>Advanced Search</button>
-
+          <br/>
+          <input ref='searchName' 
+                 type='text' 
+                 placeholder='Enter name to save search'
+                 className='search-bar' />
         </div>
+          <button onClick={this.saveCurrentSearch.bind(this)}>Save Search</button>
 
         <div className="results">
-          <JobsList jobs={this.state.jobs}/>
+          <JobsList jobs={this.props.currentSearch.results}/>
         </div>
       </div>
     )

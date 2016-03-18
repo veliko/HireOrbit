@@ -28,3 +28,12 @@ export function updateFilterValue(filterValue) {
     }
   };
 }
+
+export function updateCurrentSearch(jobs) {
+  return {
+    type: actions.UPDATE_CURRENT_SEARCH,
+    payload: {
+      jobs
+    }
+  };
+}

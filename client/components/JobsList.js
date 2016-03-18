@@ -5,11 +5,11 @@ const JobsList = (props) => {
 
   return (
     <div className="jobs">
-    {props.jobs.map(job =>
-      <div className="job" key={job.id}>
-        <h2>{job.jobtitle}</h2>
-        <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
-      </div>)}
+      {props.jobs.map(job =>
+        <div className="job" key={job.jobkey}>
+          <h2>{job.jobtitle}</h2>
+          <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
+        </div>)}
     </div>
   )
 }

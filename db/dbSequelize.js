@@ -4,7 +4,9 @@ const Jobs = require('./models/indeed_jobs')
 const db = new Sequelize( config.dbName, config.dbUser, null, {
   host: config.dbHost,
   port:5432,
-  dialect: 'postgres'
+  dialect: 'postgres',
+  underscored:true,
+  timestamps: false
 } ); 
 
 
