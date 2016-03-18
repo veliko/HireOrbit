@@ -6,7 +6,7 @@ import {updateCardStatus, updateCardPosition, updateFilterValue} from '../../cli
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-console.log('asdfadfads', ListContainer);
+console.log('asdfadfads', KanbanBoardContainer);
 // One solution is to mock out other components from the test with __Rewire__.
 
 describe('KanbanBoardContainer', () => {
@@ -35,9 +35,9 @@ describe('KanbanBoardContainer', () => {
 
   it('KanbanBoardContainer container', function(){
     // render into....ListContainer
-    let doc = TestUtils.renderIntoDocument(<KanbanBoardContainer {...props} />);
+    // let doc = TestUtils.renderIntoDocument(<KanbanBoardContainer {...props} />);
     // scryRenderedDOMComponentsWithTag(reactComponent tree, 'string tag name')
-    let questionElements = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'div');
+    // let questionElements = TestUtils.scryRenderedDOMComponentsWithTag(doc, 'div');
     // console.log('questionElements', questionElements)
     // expect(link).not.to.be.undefined;
     // might want to say, render a link back to '/';
