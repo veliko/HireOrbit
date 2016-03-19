@@ -33,8 +33,8 @@ create table indeed_jobs (
 
 create table users (
   internal_id SERIAL PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   username text,
   UNIQUE (username),
   name text,
@@ -54,16 +54,16 @@ create table saved_searches (
 
 create table jobs_saved_searches (
   internal_id SERIAL PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   jobkey_id text NOT NULL REFERENCES indeed_jobs (jobkey),
   saved_search_id integer NOT NULL REFERENCES saved_searches (internal_id)
 );
 
 create table workflow_state (
   internal_id SERIAL PRIMARY KEY,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   state text NOT NULL,
   jobkey_id text NOT NULL REFERENCES indeed_jobs (jobkey),
   notes text,
@@ -75,7 +75,7 @@ create table workflow_state (
 CREATE OR REPLACE FUNCTION update_modified_column() 
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updatedAt = now();
+    NEW."updatedAt" = now();
     RETURN NEW; 
 END;
 $$ language 'plpgsql';
