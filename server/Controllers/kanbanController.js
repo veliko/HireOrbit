@@ -26,17 +26,19 @@ const kanbanController = {
         return knex.raw(`select rank from workflow_state where user_id = ${user_id} ORDER BY rank DESC LIMIT 1`)
       })
       .then((results) => {
-        console.log('rank from workflow table: ', results)
-        // var kanbanUpdate = kanbanJobs.reduce((a, b) => {
-        //   console.log('b..................in reduce: ', b)
-        //   return a+`insert into workflow_state("state", "jobkey_id", "notes", "user_id") 
-        //   VALUES('${b.state}', '${b.job.jobkey}', '${b.notes}', ${user_id})`
-        // }, "");
+        console.log('rank from workflow table: ', results.rows[0].rank)
+        var currentMaxRank = results.rows[0].rank;
 
-        // return knex.raw( kanbanUpdate );
+        var kanbanUpdate = kanbanJobs.reduce((a, b) => {
+          currentMaxRank+=1000
+          return a+`insert into workflow_state("state", "jobkey_id", "notes", "user_id", "rank") 
+          VALUES('${b.state}', '${b.job.jobkey}', '${b.notes}', ${user_id}, ${currentMaxRank})`
+        }, "");
+
+        return knex.raw( kanbanUpdate );
       })
-      .then(() => {
-        console.log('Updated kanban to db');
+      .then((message) => {
+        console.log('Updated kanban to db: ', message);
         res.sendStatus(201);
       })
       .catch((err) => {
