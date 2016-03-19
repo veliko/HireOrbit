@@ -1,6 +1,7 @@
 const githubPassportHandler = require('./Controllers/authController');
 const searchController = require('./Controllers/searchController');
 const cardsController = require('./Controllers/cardsController');
+const kanbanController = require('./Controllers/kanbanController');
 
 module.exports = function (app) {
   app.get('/api/searches/:id', searchController.getSavedSearch);

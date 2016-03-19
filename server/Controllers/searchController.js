@@ -47,7 +47,7 @@ const searchController = {
         }
 
         result = results;
-        bulkInsert = jobs.reduce((a,b) => a + insertJobs(b), "");
+        var bulkInsert = jobs.reduce((a,b) => a + insertJobs(b), "");
         // IndeedJobs.bulkCreate( jobs )
         // copy the jobs over to master table to maintain FK references
         return knex.raw( bulkInsert )
