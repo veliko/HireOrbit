@@ -6,7 +6,7 @@ const mergeDefault = _.defaults
 const Utils = {
 
   getAllSearches: function () {
-    console.log('In getAllSearches');
+    // console.log('In getAllSearches');
     return $.ajax({
       url: '/api/searches',
       method: 'GET'
@@ -15,7 +15,7 @@ const Utils = {
   },
 
   saveSearch: function (searchObj) {
-    console.log('In saveSearch Utils: ')
+    // console.log('In saveSearch Utils: ')
     var options = {
       url: '/api/searches',
       method: 'POST',
@@ -72,7 +72,7 @@ const Utils = {
       data: query,
       success: (res) => {
         res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
-        console.log('Got data from server in getJobsFromIndeed', res.results);
+        // console.log('Got data from server in getJobsFromIndeed', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 

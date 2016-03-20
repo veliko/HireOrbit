@@ -31,8 +31,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: 'a19f92bc75717d65',
-    status: 'applied',
     rank: 2000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'Autodesk',
@@ -58,8 +58,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: 'b7d99606d4896bb3',
-    status: 'applied',
     rank: 3000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'hc1.com',
@@ -85,8 +85,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: '67706ccd851e9664',
-    status: 'interview',
     rank: 4000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Games Publishing Software Engineer (Cardboard and Google VR)',
       company: 'Google',
@@ -112,8 +112,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: '4c1cdd949b5a7b99',
-    status: 'offer',
     rank: 5000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'Renaissance Learning, Inc.',
