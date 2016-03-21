@@ -3,12 +3,21 @@ import ListContainer from '../containers/ListContainer';
 import ToolbarContainer from '../containers/ToolbarContainer';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import Utils from '../utils/Utils';
 
 
 class KanbanBoard extends Component {
   constructor() {
     super(...arguments);
     this.filterCardsByStatus = this.filterCardsByStatus.bind(this);
+  }
+
+  componentWillMount() {
+    Utils.fetchKanbanCards()
+      .done(() => {
+        console.log('managed to get cards')
+      })
+      .fail((error) => console.log('error fetching cards: ', error));
   }
 
   filterCardsByStatus(status) {

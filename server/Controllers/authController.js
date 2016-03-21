@@ -20,15 +20,16 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
 
-"internal_id", "created_at", "updated_at", "username", "name", 
-"github_avatar_url", "github_html_url", "github_access_token", 
-"github_refresh_token" 
+// "internal_id", "created_at", "updated_at", "username", "name", 
+// "github_avatar_url", "github_html_url", "github_access_token", 
+// "github_refresh_token" 
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: config.authCallbackUrl
   },
   function(accessToken, refreshToken, profile, done) {
+    console.log('trying to write user info to db');
     process.nextTick(function () {
       return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
@@ -70,6 +71,7 @@ const AuthController = function (app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       // add the user_id to the cookie
+      console.log('github callback was called successfully');
       res.cookie('userid', req.user.dataValues.internal_id, { maxAge: 2592000000 });
       res.redirect('/');
   });

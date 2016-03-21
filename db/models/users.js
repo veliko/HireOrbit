@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     github_refresh_token: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    card_positions: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     tableName: 'users',

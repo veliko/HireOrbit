@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
-    "start": "webpack --config ./webpack.config.js; node server/server.js",
+    "start": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js; nodemon server/server.js",
     "dev": "webpack-dev-server --inline --content-base ./client/"
   },
   "repository": {

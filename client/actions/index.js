@@ -10,12 +10,14 @@ export function updateCardStatus(card_id, status) {
   }
 }
 
-export function updateCardPosition(hoverCardId, cardBelowId) {
+export function updateCardPosition(hoverCardId, cardBelowId, cardBeforeId) {
+  console.log("about to fire position update");
   return {
     type: actions.UPDATE_CARD_POSITION,
     payload: {
       hoverCardId,
-      cardBelowId
+      cardBelowId,
+      cardBeforeId
     }
   };
 }

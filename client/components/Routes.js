@@ -12,11 +12,12 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
-let store = createStore(reducers, applyMiddleware(logger()));
+let store = createStore(reducers/*, applyMiddleware(logger())*/);
 
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')
       if (!Auth.isLoggedIn()) {
+        console.log("sending to github");
         window.location.assign('/auth/github');
       }
     }

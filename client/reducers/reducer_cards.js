@@ -4,6 +4,7 @@ import update from 'react-addons-update';
 export const INITIAL_STATE = [
   {
     card_id: '837bbee9c53d1557',
+    rank: 1000,
     status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
@@ -30,7 +31,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: 'a19f92bc75717d65',
-    status: 'applied',
+    rank: 2000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'Autodesk',
@@ -56,7 +58,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: 'b7d99606d4896bb3',
-    status: 'applied',
+    rank: 3000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'hc1.com',
@@ -82,7 +85,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: '67706ccd851e9664',
-    status: 'interview',
+    rank: 4000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Games Publishing Software Engineer (Cardboard and Google VR)',
       company: 'Google',
@@ -108,7 +112,8 @@ export const INITIAL_STATE = [
   },
   {
     card_id: '4c1cdd949b5a7b99',
-    status: 'offer',
+    rank: 5000,
+    status: 'interested',
     job_data: {
       jobtitle: 'Software Engineer',
       company: 'Renaissance Learning, Inc.',
@@ -134,12 +139,16 @@ export const INITIAL_STATE = [
   }
 ];
 
-export default function(state = INITIAL_STATE, action) {
+export default function(state = [], action) {
   switch (action.type) {
     
     case actions.ADD_CARDS_TO_KANBAN: 
+      let duplicatesRemoved = action.payload.cards.filter((card) => {
+        var cardExists = state.find((existingCard) => card.card_id === existingCard.card_id);
+        return !cardExists;
+      });
       return update(state, {
-        $push: [...action.payload.cards]
+        $push: [...duplicatesRemoved]
       });
     
     case actions.UPDATE_CARD_STATUS:
@@ -151,13 +160,22 @@ export default function(state = INITIAL_STATE, action) {
       });
 
     case actions.UPDATE_CARD_POSITION: 
-      let hoverCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
-      let cardBelowIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
-      let hoverCard = state[hoverCardIndex];
+      let draggedCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
+      let dropTargetCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
+      // let sandwichCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBeforeId);
+
+      let draggedCard = state[draggedCardIndex];
+      let dropTargetCard = state[dropTargetCardIndex];
+      // let sandwichCard = state[sandwichCardIndex];
+
+      // console.log('draged card rank: ', draggedCard.rank);
+      // console.log('inserted between cards: ', dropTargetCard.rank, ' and ', 
+      //             sandwichCard ? (sandwichCard.rank === draggedCard.rank ? 'no card' : sandwichCard.rank) : 'no card');
+
       return update(state, {
         $splice: [
-          [hoverCardIndex, 1],
-          [cardBelowIndex, 0, hoverCard]
+          [draggedCardIndex, 1],
+          [dropTargetCardIndex, 0, draggedCard]
         ]
       });
     
