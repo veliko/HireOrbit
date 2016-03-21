@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-if(process.env.NODE_ENV === 'production'){
+if(process.env.NODE_ENV === 'PRODUCTION'){
   app.listen(productionIP);
   console.log('Listening at port ', productionIP )
 } else {
