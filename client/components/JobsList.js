@@ -37,8 +37,6 @@ class JobsList extends Component {
     } else {
       console.log("card is already in Kanban");
     }
-    
-
   }
 
   render(){

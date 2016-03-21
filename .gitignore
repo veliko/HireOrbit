@@ -39,5 +39,7 @@ node_modules/
 */node_modules/
 bower_components/
 
+db/config.js
+
 # DS_Store
 .DS_Store

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import KanbanBoard from '../components/KanbanBoard';
 import { connect } from 'react-redux';
+import { addCardsToKanban } from '../actions'
 
 class KanbanBoardContainer extends Component {
   constructor() {
@@ -18,7 +19,7 @@ class KanbanBoardContainer extends Component {
   render() {
     let filterValue = this.props.filter;
     return (
-      <KanbanBoard cards={this.filterCardsByGlobalFilterValue(filterValue)} />
+      <KanbanBoard cards={this.filterCardsByGlobalFilterValue(filterValue)} addCardsToKanban={this.props.addCardsToKanban} />
     );
   }
 }
@@ -34,4 +35,4 @@ function mapStateToProps(state) {
   }
 }
 export { KanbanBoardContainer };
-export default connect(mapStateToProps, null)(KanbanBoardContainer);
+export default connect(mapStateToProps, { addCardsToKanban })(KanbanBoardContainer);

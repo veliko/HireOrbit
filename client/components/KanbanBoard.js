@@ -13,9 +13,11 @@ class KanbanBoard extends Component {
   }
 
   componentWillMount() {
+    var self = this;
     Utils.fetchKanbanCards()
-      .done(() => {
-        console.log('managed to get cards')
+      .done((cards) => {
+        console.log('managed to get cards: ', cards);
+        self.props.addCardsToKanban(cards);
       })
       .fail((error) => console.log('error fetching cards: ', error));
   }

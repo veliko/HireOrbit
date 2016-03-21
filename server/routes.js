@@ -15,6 +15,10 @@ module.exports = function (app) {
 
   app.get('/api/cards', cardsController.sendAllCards);
 
+  app.put('/api/cards/positions', cardsController.persistCardPositions);
+
+  app.put('/api/cards/status', cardsController.persistCardStatus);
+
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here
   githubPassportHandler(app);
