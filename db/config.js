@@ -1,7 +1,7 @@
 const db = {
   dbName: 'hireorbit',
-  dbHost: 'localhost',
-  dbUser: 'shivg'
+  dbHost: 'postgres',
+  dbUser: 'hireorbit'
 }
 
 module.exports = db;

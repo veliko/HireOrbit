@@ -1,11 +1,3 @@
-create database hireorbit;
-
-create user hireorbit;
-
-GRANT ALL PRIVILEDGES ON hireorbit to hireorbit;
-
-use hireorbit;
-
 create table indeed_jobs (
   internal_id SERIAL PRIMARY KEY,
   jobtitle text,
