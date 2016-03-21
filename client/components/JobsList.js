@@ -30,7 +30,6 @@ class JobsList extends Component {
   }
 
   render(){
-    console.log("these jobs will be rendered ", this.props.jobs);
     return (
       <div className="jobs">
         {this.props.jobs.map(job =>

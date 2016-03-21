@@ -9,7 +9,7 @@ module.exports = function (app) {
 
   app.post('/api/searches', searchController.saveSearch);
 
-  app.post('/api/cards', cardsController.addCards);
+  // app.post('/api/cards', cardsController.addCards);
 
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here

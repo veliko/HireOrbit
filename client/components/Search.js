@@ -6,7 +6,6 @@ import JobsList from './JobsList';
 class Search extends React.Component {
   constructor(props){
     super(props);
-    this.jobs = this.props.currentSearch ? this.props.currentSearch.results : [];
   }
 
   getSearchJobs(){
@@ -36,15 +35,15 @@ class Search extends React.Component {
   componentDidMount(){
     var self = this;
     self.getSearchJobs();
-    // if (Auth.isLoggedIn()) {
-    //   Utils.getAllSearches()
-    //     .done(results => {
-    //       self.props.fetchSavedSearches(results);
-    //     })
-    //     .fail(error => {
-    //       console.log('Error fetching saved searches: ', error);
-    //     });
-    // }
+    if (Auth.isLoggedIn()) {
+      Utils.getAllSearches()
+        .done(results => {
+          self.props.fetchSavedSearches(results);
+        })
+        .fail(error => {
+          console.log('Error fetching saved searches: ', error);
+        });
+    }
   }
 
   render(){
@@ -70,7 +69,7 @@ class Search extends React.Component {
         <div className="results">
           <JobsList addCardsToKanban={this.props.addCardsToKanban}
                     cardPositions={this.props.cardPositions} 
-                    jobs={this.jobs} />
+                    jobs={this.props.currentSearch.results} />
         </div>
       </div>
     )

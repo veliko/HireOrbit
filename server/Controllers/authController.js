@@ -29,6 +29,7 @@ passport.use(new GitHubStrategy({
     callbackURL: config.authCallbackUrl
   },
   function(accessToken, refreshToken, profile, done) {
+    console.log('trying to write user info to db');
     process.nextTick(function () {
       return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
@@ -70,6 +71,7 @@ const AuthController = function (app) {
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       // add the user_id to the cookie
+      console.log('github callback was called successfully');
       res.cookie('userid', req.user.dataValues.internal_id, { maxAge: 2592000000 });
       res.redirect('/');
   });
