@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Card from './Card';
 import { DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
+import _ from 'lodash';
 
 
 const listTargetSpec = {
@@ -18,16 +19,24 @@ let collect = (connect, monitor) => {
 };
 
 class List extends Component {
+  constructor() {
+    super(...arguments);
+    this.updateCardPosition = _.throttle(this.props.updateCardPosition, 500);
+  }
+
   render() {
     const { connectDropTarget } = this.props;
-    var cards = this.props.cards.map((card) => {
+    var cards = this.props.cards.map((card, index, cards) => {
       return (
         <Card id={card.card_id}
               key={card.card_id} 
               title={card.job_data.jobtitle}
               company={card.job_data.company}
               snippet={card.job_data.snippet}
-              updateCardPosition={this.props.updateCardPosition} />
+              rank={card.rank}
+              index={index}
+              cardBeforeId={index === 0 ? 0 : cards[index-1].card_id}
+              updateCardPosition={this.updateCardPosition} />
       );
     });
 

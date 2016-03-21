@@ -6,16 +6,14 @@ const mergeDefault = _.defaults
 const Utils = {
 
   getAllSearches: function () {
-    console.log('In getAllSearches');
+    // console.log('In getAllSearches');
     return $.ajax({
       url: '/api/searches',
       method: 'GET'
     })
-    
   },
 
   saveSearch: function (searchObj) {
-    console.log('In saveSearch Utils: ')
     var options = {
       url: '/api/searches',
       method: 'POST',
@@ -30,7 +28,6 @@ const Utils = {
         console.log("Save search failed: ", error);
         // setState back to prevState
       });
-
   },
 
   lowerCaseObjKeys: function (obj) {
@@ -53,7 +50,7 @@ const Utils = {
 
   getJobsFromIndeed: function (query, successCb, errorCb) {
 
-    query = query || {q:'software engineer', l: 'san francisco'}
+    query = query || {q:'software engineer', l: 'san francisco'};
     var queryStr = {
         publisher: 788696528762292, 
         radius: 200,
@@ -61,7 +58,7 @@ const Utils = {
         limit:25,
         highlight:0,
         v:2,
-    }
+    };
     //use query as default and add in defaults from queryStr. query is the determining factor in the resulting object
     mergeDefault(query, queryStr);
 
@@ -72,7 +69,7 @@ const Utils = {
       data: query,
       success: (res) => {
         res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
-        console.log('Got data from server in getJobsFromIndeed', res.results);
+        // console.log('Got data from server in getJobsFromIndeed', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 
@@ -81,20 +78,37 @@ const Utils = {
         console.log('Error in getJobsFromIndeed');
         errorCb(err);
       }
-  }
+    }
     // makes the call with above options.
     // Indeed requires the client IP
     Utils.getClientIP()
       .done((data) => {
         options.data.userip = data.ip;
-        console.log(options)
+        // console.log(options)
         // make an ajax get request finally
-        $.ajax(options)
+        $.ajax(options);
       })
       .fail((err) => {
         console.log('Failed to get IP')
       })
-  }  // Add some logic to enable pagination in redux state and fetch from index based on page
+  },  // Add some logic to enable pagination in redux state and fetch from index based on page
+
+  persistCardsToKanban: function(cardsAndPositions) {
+    $.ajax({
+      url: '/api/cards',
+      method: 'POST',
+      data: cardsAndPositions
+    })
+    .done((result) => console.log('Successfully persisted new cards to Kanban'))
+    .fail((error) => console.log('Error while persisting new card data to Kanban: ', error));
+  },
+
+  fetchKanbanCards: function () {
+    return $.ajax({
+      url: '/api/cards',
+      method: 'GET',
+    })
+  }
 }
 export default Utils;
 

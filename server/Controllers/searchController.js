@@ -46,9 +46,6 @@ const searchController = {
             '${b.nouniqueurl}', '${b.formattedrelativetime}') ON CONFLICT DO NOTHING;`
         }
 
-     
-
-
         result = results;
         bulkInsert = jobs.reduce((a,b) => a + insertJobs(b), "");
         // console.log('bulkInsert is............: ', bulkInsert)

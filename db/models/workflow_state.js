@@ -1,18 +1,18 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('workflow_state', {
+  return sequelize.define('kanban_cards', {
     internal_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    state: {
+    status: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    jobkey_id: {
+    card_id: {
       type: DataTypes.TEXT,
       allowNull: false,
       references: {
@@ -31,13 +31,9 @@ module.exports = function(sequelize, DataTypes) {
         model: 'users',
         key: 'internal_id'
       }
-    },
-    rank: {
-      type: DataTypes.INTEGER,
-      allowNull: false
     }
   }, {
-    tableName: 'workflow_state',
+    tableName: 'kanban_cards',
     freezeTableName: true
   });
 };
