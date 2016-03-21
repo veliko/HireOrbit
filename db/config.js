@@ -1,13 +1,13 @@
 
-
+var db;
 if(process.env.NODE_ENV === 'production'){
-  const db = {
+  db = {
     dbName: 'hireorbit',
     dbHost: 'hireorbit',
     dbUser: 'hireorbit'
   }
 } else {
-  const db = {
+  db = {
     dbName: 'hireorbit',
     dbHost: 'localhost',
     dbUser: 'shivg'
