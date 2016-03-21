@@ -142,6 +142,9 @@ export const INITIAL_STATE = [
 export default function(state = [], action) {
   switch (action.type) {
     
+    case actions.FETCH_CARDS_FROM_DB:
+      return action.payload.cards;
+
     case actions.ADD_CARDS_TO_KANBAN: 
       let duplicatesRemoved = action.payload.cards.filter((card) => {
         var cardExists = state.find((existingCard) => card.card_id === existingCard.card_id);
@@ -162,15 +165,9 @@ export default function(state = [], action) {
     case actions.UPDATE_CARD_POSITION: 
       let draggedCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
       let dropTargetCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
-      // let sandwichCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBeforeId);
 
       let draggedCard = state[draggedCardIndex];
       let dropTargetCard = state[dropTargetCardIndex];
-      // let sandwichCard = state[sandwichCardIndex];
-
-      // console.log('draged card rank: ', draggedCard.rank);
-      // console.log('inserted between cards: ', dropTargetCard.rank, ' and ', 
-      //             sandwichCard ? (sandwichCard.rank === draggedCard.rank ? 'no card' : sandwichCard.rank) : 'no card');
 
       return update(state, {
         $splice: [

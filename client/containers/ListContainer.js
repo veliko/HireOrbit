@@ -11,10 +11,19 @@ class ListContainer extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    cardPositions: state.cards.reduce((result, card, index) => {
+      result[card.card_id] = index;
+      return result;
+    }, {})
+  };
+}
+
 ListContainer.propTypes = {
   updateCardStatus: PropTypes.func.isRequired,
   updateCardPosition: PropTypes.func.isRequired
 }
 
 export { ListContainer };
-export default connect(null, { updateCardStatus, updateCardPosition })(ListContainer);
+export default connect(mapStateToProps, { updateCardStatus, updateCardPosition })(ListContainer);

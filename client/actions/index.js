@@ -50,6 +50,7 @@ export function fetchSavedSearches(savedSearches) {
 }
 
 export function addCardsToKanban(cards) {
+  console.log("inside addCardsToKanban: ", cards);
   return {
     type: actions.ADD_CARDS_TO_KANBAN,
     payload: {

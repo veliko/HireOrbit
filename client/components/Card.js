@@ -14,8 +14,14 @@ const cardDragSpec = {
   },
   endDrag(props) {
     console.log("about to persist card drag event");
-
-    // Utils.persistCardDrag();
+    let cardStatusAndPositions = {
+      card_id: props.id,
+      status: props.status,
+      cardPositions: props.cardPositions
+    }
+    Utils.persistCardStatusAndPositions(cardStatusAndPositions)
+    .done(() => console.log("Succesfully persisted card drag."))
+    .fail((error) => console.log("Failed to persist card drag: ", error))
   }
 }
 
