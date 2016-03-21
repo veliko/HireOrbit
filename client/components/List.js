@@ -3,12 +3,24 @@ import Card from './Card';
 import { DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
 import _ from 'lodash';
+import Utils from '../utils/Utils';
 
 
 const listTargetSpec = {
   hover(props, monitor) {
     const draggedId = monitor.getItem().id;
     props.updateCardStatus(draggedId, props.id);
+  },
+  drop(props, monitor) {
+    let card_id = monitor.getItem().id;
+    let status = props.id;
+    let newCardStatusInfo = {
+      card_id,
+      status
+    }
+    Utils.persistCardStatus(newCardStatusInfo)
+    .done(() => console.log("Successfully persited card status"))
+    .fail((error) => console.log("Error while persisting card status: ", error));
   }
 };
 

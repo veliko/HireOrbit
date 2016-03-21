@@ -111,6 +111,14 @@ const Utils = {
     })
   },
 
+  persistCardStatus: function(newCardStatusInfo) {
+    return $.ajax({
+      url: '/api/cards/status',
+      method: 'PUT',
+      data: newCardStatusInfo
+    })
+  },
+
   fetchKanbanCards: function () {
     return $.ajax({
       url: '/api/cards',

@@ -101,12 +101,9 @@ const cardsController = {
 
   persistCardPositions: function(req, res, next) {
     var user_id = req.cookies.userid;
-    var card_id = req.body.card_id;
-    var status = req.body.status;
     var cardPositions = JSON.stringify(req.body.cardPositions);
-    console.log("sent card positions are: ", req.body.cardPositions, "status: ", status, "card_id: ", card_id);
 
-    var query = `UPDATE users SET card_positions = '${cardPositions}' WHERE internal_id = '${user_id}'; UPDATE kanban_cards SET status = '${status}' WHERE card_id = '${card_id}'`;
+    var query = `UPDATE users SET card_positions = '${cardPositions}' WHERE internal_id = '${user_id}';`;
     db.query(query)
     .then(() => {
       console.log("Successfully updated card positions");
@@ -116,6 +113,24 @@ const cardsController = {
       console.log("Error while updating card positions: ", error)
       res.send(500);
     });
+  },
+
+  persistCardStatus: function(req, res, next) {
+    var user_id = req.cookies.userid;
+    var card_id = req.body.card_id;
+    var status = req.body.status;
+    console.log("update status: ", user_id, card_id, status);
+    var query = `UPDATE kanban_cards SET status = '${status}' WHERE (card_id = '${card_id}' AND user_id = '${user_id}')`;
+
+    db.query(query)
+    .then(() => {
+      console.log("Successfull persisted card status")
+      res.send(200);
+    })
+    .catch((error) => {
+      console.log("Error while persisting card status: ", error);
+      res.send(500);
+    })
   }
 };
 
