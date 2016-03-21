@@ -20,9 +20,9 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
 
-"internal_id", "created_at", "updated_at", "username", "name", 
-"github_avatar_url", "github_html_url", "github_access_token", 
-"github_refresh_token" 
+// "internal_id", "created_at", "updated_at", "username", "name", 
+// "github_avatar_url", "github_html_url", "github_access_token", 
+// "github_refresh_token" 
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,

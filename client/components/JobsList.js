@@ -12,7 +12,6 @@ class JobsList extends Component {
         card_id: job.jobkey,
         job_data: job,
         status: 'interested',
-        notes: ''
       }
     ];
 
@@ -23,7 +22,7 @@ class JobsList extends Component {
       }]);
     let cardsAndPositions = {
       cards: card,
-      cardPositions
+      cardPositions: JSON.stringify(cardPositions)
     }
 
     console.log("card data to be persisted: ", cardsAndPositions);
@@ -31,6 +30,7 @@ class JobsList extends Component {
   }
 
   render(){
+    console.log("these jobs will be rendered ", this.props.jobs);
     return (
       <div className="jobs">
         {this.props.jobs.map(job =>

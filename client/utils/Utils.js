@@ -50,7 +50,7 @@ const Utils = {
 
   getJobsFromIndeed: function (query, successCb, errorCb) {
 
-    query = query || {q:'software engineer', l: 'san francisco'}
+    query = query || {q:'software engineer', l: 'san francisco'};
     var queryStr = {
         publisher: 788696528762292, 
         radius: 200,
@@ -58,7 +58,7 @@ const Utils = {
         limit:25,
         highlight:0,
         v:2,
-    }
+    };
     //use query as default and add in defaults from queryStr. query is the determining factor in the resulting object
     mergeDefault(query, queryStr);
 
@@ -69,7 +69,7 @@ const Utils = {
       data: query,
       success: (res) => {
         res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
-        // console.log('Got data from server in getJobsFromIndeed', res.results);
+        console.log('Got data from server in getJobsFromIndeed', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 
@@ -86,7 +86,7 @@ const Utils = {
         options.data.userip = data.ip;
         // console.log(options)
         // make an ajax get request finally
-        $.ajax(options)
+        $.ajax(options);
       })
       .fail((err) => {
         console.log('Failed to get IP')

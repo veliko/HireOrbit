@@ -1,20 +1,23 @@
 import React from 'react';
 import Utils from '../utils/Utils';
+import Auth from '../utils/Auth';
 import JobsList from './JobsList';
 
 class Search extends React.Component {
   constructor(props){
     super(props);
+    this.jobs = this.props.currentSearch ? this.props.currentSearch.results : [];
   }
 
   getSearchJobs(){
     let query = this.refs.searchQuery.value || 'software engineer';
     let self = this;
-    Utils.getJobsFromIndeed({q:query}, 
-      (res) => {
-        self.props.updateCurrentSearch(res);
-      },
-      console.log.bind(console));
+      Utils.getJobsFromIndeed({q:query}, 
+        (res) => {
+          console.log("received indeed results: ", res);
+          self.props.updateCurrentSearch(res);
+        },
+        console.log.bind(console));
   }
 
   saveCurrentSearch(){
@@ -33,13 +36,15 @@ class Search extends React.Component {
   componentDidMount(){
     var self = this;
     self.getSearchJobs();
-    Utils.getAllSearches()
-      .done(results => {
-        self.props.fetchSavedSearches(results);
-      })
-      .fail(error => {
-        console.log('Error fetching saved searches: ', error);
-      });
+    // if (Auth.isLoggedIn()) {
+    //   Utils.getAllSearches()
+    //     .done(results => {
+    //       self.props.fetchSavedSearches(results);
+    //     })
+    //     .fail(error => {
+    //       console.log('Error fetching saved searches: ', error);
+    //     });
+    // }
   }
 
   render(){
@@ -65,7 +70,7 @@ class Search extends React.Component {
         <div className="results">
           <JobsList addCardsToKanban={this.props.addCardsToKanban}
                     cardPositions={this.props.cardPositions} 
-                    jobs={this.props.currentSearch.results} />
+                    jobs={this.jobs} />
         </div>
       </div>
     )
