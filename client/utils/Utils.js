@@ -11,11 +11,9 @@ const Utils = {
       url: '/api/searches',
       method: 'GET'
     })
-    
   },
 
   saveSearch: function (searchObj) {
-    // console.log('In saveSearch Utils: ')
     var options = {
       url: '/api/searches',
       method: 'POST',
@@ -30,7 +28,6 @@ const Utils = {
         console.log("Save search failed: ", error);
         // setState back to prevState
       });
-
   },
 
   lowerCaseObjKeys: function (obj) {
@@ -81,20 +78,30 @@ const Utils = {
         console.log('Error in getJobsFromIndeed');
         errorCb(err);
       }
-  }
+    }
     // makes the call with above options.
     // Indeed requires the client IP
     Utils.getClientIP()
       .done((data) => {
         options.data.userip = data.ip;
-        console.log(options)
+        // console.log(options)
         // make an ajax get request finally
         $.ajax(options)
       })
       .fail((err) => {
         console.log('Failed to get IP')
       })
-  }  // Add some logic to enable pagination in redux state and fetch from index based on page
+  },  // Add some logic to enable pagination in redux state and fetch from index based on page
+
+  persistCardsToKanban: function(cardsAndPositions) {
+    $.ajax({
+      url: '/api/cards',
+      method: 'POST',
+      data: cardsAndPositions
+    })
+    .done((result) => console.log('Successfully persisted new cards to Kanban'))
+    .fail((error) => console.log('Error while persisting new card data to Kanban: ', error));
+  }
 }
 export default Utils;
 

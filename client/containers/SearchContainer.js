@@ -10,7 +10,7 @@ class SearchContainer extends Component {
   }
 
   render(){
-    console.log("Search Container Props: ", this.props);
+    // console.log("Search Container Props: ", this.props);
     return (
       <Search {...this.props} />
     );
@@ -19,7 +19,12 @@ class SearchContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentSearch: state.currentSearch
+    currentSearch: state.currentSearch,
+    cardPositions: state.cards.map((card, index) => {
+      return {
+        [`${card.card_id}`]: index
+      }
+    })
   }
 }
 

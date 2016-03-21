@@ -1,4 +1,5 @@
 import React, { Component, Proptypes } from 'react';
+import Utils from '../utils/Utils';
 
 class JobsList extends Component {
   constuctor(){
@@ -6,16 +7,27 @@ class JobsList extends Component {
   }
 
   addJobToKanban(job) {
-    var card = [
+    let card = [
       {
         card_id: job.jobkey,
         job_data: job,
         status: 'interested',
-        notes: []
+        notes: ''
       }
     ];
-    console.log("job details to be added:", card);
+
     this.props.addCardsToKanban(card);
+    let cardPositions = this.props.cardPositions
+      .concat([{
+        [job.jobkey]: this.props.cardPositions.length
+      }]);
+    let cardsAndPositions = {
+      cards: card,
+      cardPositions
+    }
+
+    console.log("card data to be persisted: ", cardsAndPositions);
+    Utils.persistCardsToKanban(cardsAndPositions);
   }
 
   render(){

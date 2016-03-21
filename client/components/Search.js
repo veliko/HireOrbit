@@ -25,19 +25,16 @@ class Search extends React.Component {
       jobs: self.props.currentSearch.results
     }
     // update savedSearches redux state
-    console.log('searchObj: ', searchObj);
+    // console.log('searchObj: ', searchObj);
     // send post request to the server ro save
     Utils.saveSearch(searchObj);
   }
 
   componentDidMount(){
     var self = this;
-
     self.getSearchJobs();
-
     Utils.getAllSearches()
       .done(results => {
-        console.log("successfullu fetched saved searches: ", results);
         self.props.fetchSavedSearches(results);
       })
       .fail(error => {
@@ -46,8 +43,6 @@ class Search extends React.Component {
   }
 
   render(){
-    // overlay with advanced options
-    console.log('this.props...........', this.props);
     return (  
       <div>
         <div className="search-box">
@@ -68,8 +63,9 @@ class Search extends React.Component {
           <button onClick={this.saveCurrentSearch.bind(this)}>Save Search</button>
 
         <div className="results">
-          <JobsList addCardsToKanban={this.props.addCardsToKanban} 
-                    jobs={this.props.currentSearch.results}/>
+          <JobsList addCardsToKanban={this.props.addCardsToKanban}
+                    cardPositions={this.props.cardPositions} 
+                    jobs={this.props.currentSearch.results} />
         </div>
       </div>
     )

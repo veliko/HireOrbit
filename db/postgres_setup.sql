@@ -41,7 +41,8 @@ create table users (
   github_avatar_url text,
   github_html_url text,
   github_access_token text,
-  github_refresh_token text
+  github_refresh_token text,
+  card_positions text
 );
 
 create table saved_searches (

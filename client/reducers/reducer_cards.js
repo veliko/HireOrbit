@@ -160,13 +160,22 @@ export default function(state = INITIAL_STATE, action) {
       });
 
     case actions.UPDATE_CARD_POSITION: 
-      let hoverCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
-      let cardBelowIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
-      let hoverCard = state[hoverCardIndex];
+      let draggedCardIndex = state.findIndex((card) => card.card_id === action.payload.hoverCardId);
+      let dropTargetCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
+      // let sandwichCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBeforeId);
+
+      let draggedCard = state[draggedCardIndex];
+      let dropTargetCard = state[dropTargetCardIndex];
+      // let sandwichCard = state[sandwichCardIndex];
+
+      // console.log('draged card rank: ', draggedCard.rank);
+      // console.log('inserted between cards: ', dropTargetCard.rank, ' and ', 
+      //             sandwichCard ? (sandwichCard.rank === draggedCard.rank ? 'no card' : sandwichCard.rank) : 'no card');
+
       return update(state, {
         $splice: [
-          [hoverCardIndex, 1],
-          [cardBelowIndex, 0, hoverCard]
+          [draggedCardIndex, 1],
+          [dropTargetCardIndex, 0, draggedCard]
         ]
       });
     

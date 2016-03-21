@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
+import Utils from '../utils/Utils';
 
 const cardDragSpec = {
   beginDrag(props) {
@@ -10,6 +11,11 @@ const cardDragSpec = {
   },
   isDragging(props, monitor) {
     return props.id === monitor.getItem().id;
+  },
+  endDrag(props) {
+    console.log("about to persist card drag event");
+
+    // Utils.persistCardDrag();
   }
 }
 
@@ -24,7 +30,10 @@ const cardDropSpec = {
   hover(props, monitor) {
     let hoverCardId = monitor.getItem().id;
     let cardBelowId = props.id;
-    props.updateCardPosition(hoverCardId, cardBelowId);
+    let cardBeforeId = props.cardBeforeId;
+    if (hoverCardId !== cardBelowId) {
+      props.updateCardPosition(hoverCardId, cardBelowId, cardBeforeId);
+    }
   }
 }
 
