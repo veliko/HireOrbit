@@ -1,9 +1,9 @@
 
 var db;
-if(process.env.NODE_ENV === 'production'){
+if(process.env.NODE_ENV === 'PRODUCTION'){
   db = {
     dbName: 'hireorbit',
-    dbHost: 'hireorbit',
+    dbHost: 'postgres',
     dbUser: 'hireorbit'
   }
 } else {
