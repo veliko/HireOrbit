@@ -101,6 +101,13 @@ const Utils = {
     })
     .done((result) => console.log('Successfully persisted new cards to Kanban'))
     .fail((error) => console.log('Error while persisting new card data to Kanban: ', error));
+  },
+
+  fetchKanbanCards: function () {
+    return $.ajax({
+      url: '/api/cards',
+      method: 'GET',
+    })
   }
 }
 export default Utils;

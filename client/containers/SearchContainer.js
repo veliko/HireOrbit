@@ -20,11 +20,10 @@ class SearchContainer extends Component {
 function mapStateToProps(state) {
   return {
     currentSearch: state.currentSearch,
-    cardPositions: state.cards.map((card, index) => {
-      return {
-        [`${card.card_id}`]: index
-      }
-    })
+    cardPositions: state.cards.reduce((result, card, index) => {
+      result[card.card_id] = index;
+      return result;
+    }, {})
   }
 }
 

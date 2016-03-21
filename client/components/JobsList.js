@@ -16,17 +16,29 @@ class JobsList extends Component {
     ];
 
     this.props.addCardsToKanban(card);
-    let cardPositions = this.props.cardPositions
-      .concat([{
-        [job.jobkey]: this.props.cardPositions.length
-      }]);
-    let cardsAndPositions = {
-      cards: card,
-      cardPositions: JSON.stringify(cardPositions)
-    }
 
-    console.log("card data to be persisted: ", cardsAndPositions);
-    Utils.persistCardsToKanban(cardsAndPositions);
+    let cardPositions = this.props.cardPositions;
+    let cardIsInKanban = Boolean(cardPositions[job.jobkey] !== undefined);
+    console.log("card positions before adding to kanban: ", cardPositions);
+    console.log("card is in kanban: ", cardIsInKanban);
+
+    if (!cardIsInKanban) {
+      cardPositions[job.jobkey] = Object.keys(this.props.cardPositions).length;
+      console.log("card positions before stringifying: ", cardPositions);
+      cardPositions = JSON.stringify(cardPositions);
+
+      let cardsAndPositions = {
+        cards: card,
+        cardPositions
+      }
+      
+      console.log("card data to be persisted: ", cardsAndPositions);
+      Utils.persistCardsToKanban(cardsAndPositions);
+    } else {
+      console.log("card is already in Kanban");
+    }
+    
+
   }
 
   render(){

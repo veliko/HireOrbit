@@ -38,7 +38,7 @@ const cardsController = {
 
     // then insert all cardPosition data
     .then(() => {
-      query = `UPDATE users SET "card_positions" = '${positions}'' WHERE "internal_id" = '${user_id}';`;
+      query = `UPDATE users SET "card_positions" = '${positions}' WHERE "internal_id" = '${user_id}'`;
       return db.query(query)
     })
 
@@ -52,6 +52,9 @@ const cardsController = {
       console.log('Error writing new card data to database: ', error);
       res.send(500, error);
     });
+  },
+  sendAllCards: function(req, res, next) {
+    res.send(200);
   }
 };
 

@@ -13,7 +13,6 @@ class Search extends React.Component {
     let self = this;
       Utils.getJobsFromIndeed({q:query}, 
         (res) => {
-          console.log("received indeed results: ", res);
           self.props.updateCurrentSearch(res);
         },
         console.log.bind(console));
