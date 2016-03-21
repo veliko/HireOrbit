@@ -1,6 +1,6 @@
 import React, { Component, PropTypes} from 'react';
 import ListContainer from '../containers/ListContainer';
-import ToolbarContainer from '../Containers/ToolbarContainer';
+import ToolbarContainer from '../containers/ToolbarContainer';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Utils from '../utils/Utils';
