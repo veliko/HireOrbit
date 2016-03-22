@@ -23,6 +23,12 @@ describe('Reducer::reducersFilter', () => {
     newState = reducersFilter(undefined, action);
     expect(newState).to.be.a('string');
   });
+
+  it('Should handle action of UPDATE_FILTER_VALUE', () => {
+      const action = { type: actions.UPDATE_FILTER_VALUE, payload: {filterValue: 'software'} };
+      expect(reducersFilter('', action)).to.contain('software');
+  });
+
 });
 
 describe('Reducer::reducerSearch', () => {
@@ -30,6 +36,12 @@ describe('Reducer::reducerSearch', () => {
     newState = reducerSearch(undefined, action);
     expect(newState.results).to.be.instanceOf(Array);
   });
+
+  it('Should handle action of UPDATE_CURRENT_SEARCH', () => {
+      const action = { type: actions.UPDATE_CURRENT_SEARCH, payload: {jobs: 'software engineer'} };
+      expect(reducerSearch({results: []}, action)).to.contain('software engineer');
+  });
+
 });
 
 describe('Reducer::reducersSave', () => {
@@ -37,6 +49,12 @@ describe('Reducer::reducersSave', () => {
     newState = reducersSave(undefined, action);
     expect(newState).to.be.instanceOf(Array);
   });
+
+  it('Should handle action of FETCH_SAVED_SEARCHES', () => {
+      const action = { type: actions.FETCH_SAVED_SEARCHES, payload: {savedSearches: ['software engineer', 'full stack engineer', 'medical assistent']} };
+      expect(reducersSave([], action).length).to.be.eql(3);
+  });
+
 });
 
 
