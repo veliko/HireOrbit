@@ -3,6 +3,14 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
 import Utils from '../utils/Utils';
 
+import { DateTimePicker } from 'react-widgets';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import numberLocalizer from 'react-widgets/lib/localizers/simple-number'
+// Localizers for Datepicker
+numberLocalizer();
+momentLocalizer(Moment);
+
 const cardDragSpec = {
   beginDrag(props) {
     return {
@@ -52,6 +60,11 @@ let collectDrop = (connect, monitor) => {
 class Card extends Component {
 
   render() {
+    var widgets = (<div>
+        <DateTimePicker defaultValue={new Date()} />
+        <DateTimePicker defaultValue={null} />
+      </div>)
+
     const { connectDragSource, connectDropTarget, isDragging } = this.props;
 
     let sideColor = {
@@ -72,6 +85,7 @@ class Card extends Component {
         <div className="card_title">{this.props.title}</div>
         <div className="card_company_name">{this.props.company}</div>
         <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
+        {widgets}
       </div>
     ));
   }

@@ -55,7 +55,7 @@ create table IF NOT EXISTS saved_searches (
   name text,
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  user_id integer NOT NULL REFERENCES users (internal_id)
+  user_id text NOT NULL REFERENCES users (google_id)
 );
 
 create table IF NOT EXISTS jobs_saved_searches (
@@ -73,7 +73,7 @@ create table IF NOT EXISTS kanban_cards (
   status text NOT NULL,
   card_id text NOT NULL REFERENCES indeed_jobs (jobkey),
   notes text,
-  user_id integer NOT NULL REFERENCES users (internal_id)
+  user_id text NOT NULL REFERENCES users (google_id)
 );
 
 

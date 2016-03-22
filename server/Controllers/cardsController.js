@@ -38,7 +38,7 @@ const cardsController = {
 
     // then insert all cardPosition data
     .then(() => {
-      query = `UPDATE users SET "card_positions" = '${positions}' WHERE "internal_id" = '${user_id}'`;
+      query = `UPDATE users SET "card_positions" = '${positions}' WHERE "google_id" = '${user_id}'`;
       return db.query(query)
     })
 
@@ -75,7 +75,7 @@ const cardsController = {
         }
         card.job_data = job_data;
       });
-      query = `SELECT card_positions FROM users WHERE internal_id = ${user_id}`;
+      query = `SELECT card_positions FROM users WHERE google_id = '${user_id}'`;
       return db.query(query)
     })
 
@@ -103,7 +103,7 @@ const cardsController = {
     var user_id = req.cookies.userid;
     var cardPositions = JSON.stringify(req.body.cardPositions);
 
-    var query = `UPDATE users SET card_positions = '${cardPositions}' WHERE internal_id = '${user_id}';`;
+    var query = `UPDATE users SET card_positions = '${cardPositions}' WHERE google_id = '${user_id}';`;
     db.query(query)
     .then(() => {
       console.log("Successfully updated card positions");
