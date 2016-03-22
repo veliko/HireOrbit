@@ -4,7 +4,8 @@
   "description": "Search and manage your job applications the easy way",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test NODE_PATH=. mocha --compilers js:babel-register -r spec/support/setup.mocha.js --recursive 'spec/**/*.test.js' -w",
+    "test": "mocha --compilers js:babel-core/register --require ./spec/support/setup.mocha.js 'spec/**/*.test.js'",
+    "test:watch": "npm run test -- --watch",
     "start": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js; node server/server.js",
     "deploy": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js;NODE_ENV=PRODUCTION node server/server.js",
     "dev": "webpack-dev-server --inline --content-base ./client/"
