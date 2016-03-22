@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    username: {
+    google_id: {
       type: DataTypes.TEXT,
       allowNull: true
     },
@@ -16,19 +16,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    github_avatar_url: {
+    google_profile_url: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    github_html_url: {
+    google_image_url: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    github_access_token: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    github_refresh_token: {
+    google_access_token: {
       type: DataTypes.TEXT,
       allowNull: true
     },

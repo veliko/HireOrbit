@@ -35,15 +35,14 @@ create table IF NOT EXISTS indeed_jobs (
 
 create table IF NOT EXISTS users (
   internal_id SERIAL PRIMARY KEY,
+  google_id text,
+  UNIQUE(google_id),
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  username text,
-  UNIQUE (username),
   name text,
-  github_avatar_url text,
-  github_html_url text,
-  github_access_token text,
-  github_refresh_token text,
+  google_profile_url text,
+  google_access_token text,
+  google_image_url text,
   card_positions text
 );
 
