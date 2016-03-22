@@ -15,6 +15,7 @@ if (production) {
      
       new webpack.optimize.OccurenceOrderPlugin(),
 
+      new webpack.NoErrorsPlugin(),
    
       new webpack.optimize.MinChunkSizePlugin({
           minChunkSize: 51200, // ~50kb
@@ -26,7 +27,7 @@ if (production) {
               warnings: false, // Suppress uglification warnings
           },
       }),
-      
+
       new webpack.optimize.AggressiveMergingPlugin(),
 
 
@@ -39,6 +40,7 @@ if (production) {
           __DEVTOOLS__:    !production,
           'process.env':   {
               BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
+              NODE_ENV: JSON.stringify('production')
           },
       })
 
