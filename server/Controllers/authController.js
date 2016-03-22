@@ -29,11 +29,12 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL:'/auth/google/callback'
+    callbackURL:'http://localhost:3000/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('trying to write user info to db');
     process.nextTick(function () {
+      console.log('Logged In: Profile Info: ', profile, accessToken, refreshToken)
       return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
         console.log('Updating user model in sequelize', profile._json)
@@ -68,7 +69,10 @@ const AuthController = function (app) {
 
 // initial end point for google auth - routes setup
   app.get('/auth/google', 
-  passport.authenticate('google', {scope: ['profile']}));
+  passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/calendar',
+                                  'https://www.googleapis.com/auth/plus.login',
+                                  'https://www.googleapis.com/auth/gmail.modify'
+]}));
 
 // subsequent callback endpoint for google to send the logged user profile
   app.get('/auth/google/callback', 
