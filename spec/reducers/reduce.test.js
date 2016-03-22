@@ -10,17 +10,17 @@ import { expect } from '../support/setup.mocha.js'
 
 describe('Reducers', () => {
 let newState;
-let action = { type: 'unknown'};
+let unknown = { type: 'unknown'};
 describe('Reducer::reducersCard', () => {
   it('Should handle action of unknown type', () => {
-    newState = reducersCard(undefined, action);
+    newState = reducersCard(undefined, unknown);
     expect(newState).to.be.instanceOf(Array);
   });
 });
 
 describe('Reducer::reducersFilter', () => {
   it('Should handle action of unknown type', () => {
-    newState = reducersFilter(undefined, action);
+    newState = reducersFilter(undefined, unknown);
     expect(newState).to.be.a('string');
   });
 
@@ -33,7 +33,7 @@ describe('Reducer::reducersFilter', () => {
 
 describe('Reducer::reducerSearch', () => {
   it('Should handle action of unknown type', () => {
-    newState = reducerSearch(undefined, action);
+    newState = reducerSearch(undefined, unknown);
     expect(newState.results).to.be.instanceOf(Array);
   });
 
@@ -46,7 +46,7 @@ describe('Reducer::reducerSearch', () => {
 
 describe('Reducer::reducersSave', () => {
   it('Should handle action of unknown type', () => {
-    newState = reducersSave(undefined, action);
+    newState = reducersSave(undefined, unknown);
     expect(newState).to.be.instanceOf(Array);
   });
 
