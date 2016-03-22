@@ -10,7 +10,6 @@ class SearchContainer extends Component {
   }
 
   render(){
-    // console.log("Search Container Props: ", this.props);
     return (
       <Search {...this.props} />
     );
@@ -27,7 +26,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect( mapStateToProps, { 
-                          updateCurrentSearch, 
+export default connect( mapStateToProps, {
+                          updateCurrentSearch,
                           fetchSavedSearches,
                           addCardsToKanban } )(SearchContainer);
