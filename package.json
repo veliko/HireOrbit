@@ -25,6 +25,7 @@
     "dateformat": "^1.0.12",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "googleapis": "^3.1.0",
     "history": "^1.17.0",
     "if-env": "^1.0.0",
     "jquery": "^2.2.1",
