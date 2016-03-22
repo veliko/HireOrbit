@@ -13,7 +13,7 @@ const Auth = {
 
   getUserId: function () {
     return document.cookie.split("=")[1];
-  } 
+  }
 }
 
 export default Auth;
