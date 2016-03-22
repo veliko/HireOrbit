@@ -24,7 +24,7 @@ export default class App extends React.Component {
               <li><NavLink to="/kanban">Kanban</NavLink></li>
               <li><NavLink to="/data-vis">Data</NavLink></li>
               {loggedIn ? <li><NavLink to="/logout">Log Out</NavLink></li> :
-              <li><NavLink to="/auth/github">Log In</NavLink></li>}
+              <li><NavLink to="/auth/google">Log In</NavLink></li>}
             </ul>
           </nav>
         </aside>

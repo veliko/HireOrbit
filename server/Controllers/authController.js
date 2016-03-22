@@ -27,9 +27,9 @@ passport.deserializeUser(function(obj, done) {
 // "github_avatar_url", "github_html_url", "github_access_token", 
 // "github_refresh_token" 
 passport.use(new GoogleStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: config.authCallbackUrl
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL:'/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('trying to write user info to db');
@@ -37,15 +37,16 @@ passport.use(new GoogleStrategy({
       return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
         console.log('Updating user model in sequelize', profile._json)
-        // user.update({
-        //   username: profile._json.login,
-        //   name: profile._json.name,
-        //   github_html_url: profile._json.html_url,
-        //   github_repos_url: profile._json.repos_url,
-        //   github_avatar_url: profile._json.avatar_url,
-        //   github_access_token: accessToken,
-        //   github_refresh_token: refreshToken
-        }).then(function(user){
+        user.update({
+          username: profile._json.login,
+          name: profile._json.name,
+          github_html_url: profile._json.html_url,
+          github_repos_url: profile._json.repos_url,
+          github_avatar_url: profile._json.avatar_url,
+          github_access_token: accessToken,
+          github_refresh_token: refreshToken
+        })
+      .then(function(user){
           console.log('updated user: ', JSON.stringify(user));
           return done(null, user);
         }).catch(function(error) {
@@ -65,16 +66,16 @@ const AuthController = function (app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-// initial end point for github auth
-  app.get('/auth/github', 
-  passport.authenticate('github', {scope: ['user', 'repo']}));
+// initial end point for google auth - routes setup
+  app.get('/auth/google', 
+  passport.authenticate('google', {scope: ['profile']}));
 
-// subsequent callback endpoint for github to send the logged user profile
-  app.get('/auth/github/callback', 
-    passport.authenticate('github', { failureRedirect: '/login' }),
+// subsequent callback endpoint for google to send the logged user profile
+  app.get('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
       // add the user_id to the cookie
-      console.log('github callback was called successfully');
+      console.log('google callback was called successfully');
       res.cookie('userid', req.user.dataValues.internal_id, { maxAge: 2592000000 });
       res.redirect('/');
   });
