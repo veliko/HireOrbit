@@ -34,18 +34,16 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
     console.log('trying to write user info to db');
     process.nextTick(function () {
-      console.log('Logged In: Profile Info: ', profile, accessToken, refreshToken)
-      return User.findOrCreate({where: {internal_id: profile._json.id}})
+      return User.findOrCreate({where: {google_id: profile._json.id}})
       .spread(function(user, created) {
         console.log('Updating user model in sequelize', profile._json)
         user.update({
-          username: profile._json.login,
-          name: profile._json.name,
-          github_html_url: profile._json.html_url,
-          github_repos_url: profile._json.repos_url,
-          github_avatar_url: profile._json.avatar_url,
-          github_access_token: accessToken,
-          github_refresh_token: refreshToken
+          name: profile._json.displayName,
+          gender: profile._json.gender,
+          age_min: profile._json.ageRange.min,
+          google_profile_url: profile._json.url,
+          google_image_url: profile._json.image.url,
+          google_access_token: accessToken,
         })
       .then(function(user){
           console.log('updated user: ', JSON.stringify(user));
@@ -71,7 +69,7 @@ const AuthController = function (app) {
   app.get('/auth/google', 
   passport.authenticate('google', {scope: ['https://www.googleapis.com/auth/calendar',
                                   'https://www.googleapis.com/auth/plus.login',
-                                  'https://www.googleapis.com/auth/gmail.modify'
+                                   'https://www.googleapis.com/auth/gmail.modify'
 ]}));
 
 // subsequent callback endpoint for google to send the logged user profile
