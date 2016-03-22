@@ -6,7 +6,6 @@ import {updateCardStatus, updateCardPosition, updateFilterValue} from '../../cli
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 
-console.log('asdfadfads', KanbanBoardContainer);
 // One solution is to mock out other components from the test with __Rewire__.
 
 describe('KanbanBoardContainer', () => {

@@ -3,9 +3,6 @@ import reducersCard from '../../client/reducers/reducer_cards';
 import reducersFilter from '../../client/reducers/reducer_filter';
 import index from '../../client/reducers/index';
 
-console.log(reducersCard);
-
-
 describe('Reducer::reducersCard', () => {
   it('returns the INITIAL_STATE', () => {
     // setup
