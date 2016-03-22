@@ -10,7 +10,7 @@ const knex = require('knex')({
 });
 
 const setupSQL = `
-create table indeed_jobs (
+create table IF NOT EXISTS indeed_jobs (
   internal_id SERIAL PRIMARY KEY,
   jobtitle text,
   company text,
@@ -37,7 +37,7 @@ create table indeed_jobs (
   onmousedown text
 );
 
-create table users (
+create table IF NOT EXISTS users (
   internal_id SERIAL PRIMARY KEY,
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -51,7 +51,7 @@ create table users (
   card_positions text
 );
 
-create table saved_searches (
+create table IF NOT EXISTS saved_searches (
   internal_id SERIAL PRIMARY KEY,
   name text,
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -59,7 +59,7 @@ create table saved_searches (
   user_id integer NOT NULL REFERENCES users (internal_id)
 );
 
-create table jobs_saved_searches (
+create table IF NOT EXISTS jobs_saved_searches (
   internal_id SERIAL PRIMARY KEY,
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -67,7 +67,7 @@ create table jobs_saved_searches (
   saved_search_id integer NOT NULL REFERENCES saved_searches (internal_id)
 );
 
-create table kanban_cards (
+create table IF NOT EXISTS kanban_cards (
   internal_id SERIAL PRIMARY KEY,
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

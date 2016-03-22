@@ -1,12 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
-var production = process.env.NODE_ENV === 'production';
+var production = process.env.NODE_ENV === 'PRODUCTION';
 var CleanPlugin = require('clean-webpack-plugin');
 
 var outputPath = __dirname + '/client';
+var plugins = [];
 
 if (production) {
-    plugins = plugins.concat([
+    plugins = [
       new CleanPlugin('builds'),
       
       new webpack.optimize.DedupePlugin(),
@@ -25,6 +26,9 @@ if (production) {
               warnings: false, // Suppress uglification warnings
           },
       }),
+      
+      new webpack.optimize.AggressiveMergingPlugin(),
+
 
       // This plugins defines various variables that we can set to false
       // in production to avoid code related to them from being compiled
@@ -38,14 +42,15 @@ if (production) {
           },
       })
 
-    ]);
+    ];
 }
 
 module.exports = {
   entry: './client/init.js',
   output: { path: outputPath, filename: 'bundle.js' },
   // plugin: plugins,
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
+  plugins: plugins,
   module: {
     loaders: [
       {

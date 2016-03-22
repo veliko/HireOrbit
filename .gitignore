@@ -27,6 +27,7 @@ client/bundle.js
 
 # Ignore the BUILD file
 client/bundle.js
+client/bundle.js.map
 
 # config
 
