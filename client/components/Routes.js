@@ -17,8 +17,8 @@ let store = createStore(reducers/*, applyMiddleware(logger())*/);
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')
       if (!Auth.isLoggedIn()) {
-        console.log("sending to github");
-        window.location.assign('/auth/github');
+        console.log("sending to google");
+        window.location.assign('/auth/google');
       }
     }
 
@@ -35,7 +35,7 @@ export default () =>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>
         <Route path="/data-vis" onEnter={requireAuth} component={DataVis}/>
         <Route path="/logout" onEnter={logOut} />
-        <Route path="/auth/github" onEnter={requireAuth} />
+        <Route path="/auth/google" onEnter={requireAuth} />
       </Route>
     </Router>
   </Provider>

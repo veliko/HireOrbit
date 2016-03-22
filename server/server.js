@@ -5,7 +5,12 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 const router = require('./routes');
-const productionIP = process.env.PORT || 80
+var productionIP = process.env.PORT || 80;
+
+// for testing deployment:
+if(process.env.NODE_ENV === 'testdeploy'){
+  productionIP = 3000;
+}
 const devIP = 3000
 const app = express();
 
@@ -38,7 +43,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-if(process.env.NODE_ENV === 'production'){
+if(process.env.NODE_ENV === 'PRODUCTION'){
   app.listen(productionIP);
   console.log('Listening at port ', productionIP )
 } else {

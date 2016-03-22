@@ -4,6 +4,8 @@ const searchController = require('./Controllers/searchController');
 const cardsController = require('./Controllers/cardsController');
 
 module.exports = function (app) {
+  // app.use(searchController.deepLink);
+  
   app.get('/api/searches/:id', searchController.getSavedSearch);
 
   app.get('/api/searches', searchController.getAllSearches);

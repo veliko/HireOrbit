@@ -1,12 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
-var production = process.env.NODE_ENV === 'production';
+var production = process.env.NODE_ENV === 'PRODUCTION';
 var CleanPlugin = require('clean-webpack-plugin');
 
 var outputPath = __dirname + '/client';
+var plugins = [];
 
 if (production) {
-    plugins = plugins.concat([
+    plugins = [
       new CleanPlugin('builds'),
       
       new webpack.optimize.DedupePlugin(),
@@ -14,6 +15,7 @@ if (production) {
      
       new webpack.optimize.OccurenceOrderPlugin(),
 
+      new webpack.NoErrorsPlugin(),
    
       new webpack.optimize.MinChunkSizePlugin({
           minChunkSize: 51200, // ~50kb
@@ -26,6 +28,9 @@ if (production) {
           },
       }),
 
+      new webpack.optimize.AggressiveMergingPlugin(),
+
+
       // This plugins defines various variables that we can set to false
       // in production to avoid code related to them from being compiled
       // in our final bundle
@@ -35,17 +40,19 @@ if (production) {
           __DEVTOOLS__:    !production,
           'process.env':   {
               BABEL_ENV: JSON.stringify(process.env.NODE_ENV),
+              NODE_ENV: JSON.stringify('production')
           },
       })
 
-    ]);
+    ];
 }
 
 module.exports = {
   entry: './client/init.js',
   output: { path: outputPath, filename: 'bundle.js' },
   // plugin: plugins,
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
+  plugins: plugins,
   module: {
     loaders: [
       {

@@ -27,10 +27,12 @@ client/bundle.js
 
 # Ignore the BUILD file
 client/bundle.js
+client/bundle.js.map
 
 # config
 
 db/config.js
+server/config/config.js
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
