@@ -2,7 +2,7 @@ import React from 'react';
 import Note from './Note';
 import { Link } from 'react-router';
 import NavLink from './NavLink';
-import SearchContainer from '../containers/SearchContainer';
+import Home from '../components/Home';
 import Auth from '../utils/Auth';
 
 export default class App extends React.Component {
@@ -29,7 +29,7 @@ export default class App extends React.Component {
         </header>
 
         <div className="content">
-          {this.props.children || <SearchContainer/>}
+          {this.props.children || <Home/>}
         </div>
       </div>
     )
