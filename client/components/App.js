@@ -7,27 +7,26 @@ import Auth from '../utils/Auth';
 
 export default class App extends React.Component {
   render() {
-    
 
     let loggedIn = Auth.isLoggedIn();
 
-    // const LogNav = loggedIn ? <Link to='/logout'></Link> 
     return (
       <div className="container">
 
-
-        <aside>
+        <header>
+          <h1 id="logo">
+            <Link to="/"><img src="img/logo.svg" /></Link>
+          </h1>
           <nav>
-            <h1><Link to="/">HireOrbit</Link></h1>
             <ul role="nav">
-              <li><NavLink to="/" onlyActiveOnIndex>Home</NavLink></li>
-              <li><NavLink to="/kanban">Kanban</NavLink></li>
-              <li><NavLink to="/data-vis">Data</NavLink></li>
-              {loggedIn ? <li><NavLink to="/logout">Log Out</NavLink></li> :
-              <li><NavLink to="/auth/github">Log In</NavLink></li>}
+              <li><NavLink to="/" onlyActiveOnIndex><i className="fa fa-home"></i>Home</NavLink></li>
+              <li><NavLink to="/kanban"><i className="fa fa-table"></i>Kanban</NavLink></li>
+              <li><NavLink to="/data-vis"><i className="fa fa-bar-chart"></i>Data</NavLink></li>
             </ul>
           </nav>
-        </aside>
+          {loggedIn ? <NavLink to="/logout" className="fa fa-user"></NavLink> :
+          <NavLink to="/auth/github" className="fa fa-user"></NavLink>}
+        </header>
 
         <div className="content">
           {this.props.children || <SearchContainer/>}
@@ -37,4 +36,4 @@ export default class App extends React.Component {
   }
 }
 
-// Login /Logout condition - LogOut calls Auth.logout 
+// Login /Logout condition - LogOut calls Auth.logout
