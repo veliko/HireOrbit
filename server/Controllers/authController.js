@@ -1,9 +1,12 @@
 const config = require('../config/config')
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const db = require('../../db/dbSequelize').sequelize;
 const GITHUB_CLIENT_ID = config.githubClientID;
 const GITHUB_CLIENT_SECRET = config.githubClientSecret;
+const GOOGLE_CLIENT_ID = config.googleClientID;
+const GOOGLE_CLIENT_SECRET = config.googleClientSecret;
 const User = require('../../db/dbSequelize').users
 
 // This sets up sessions for the authenticated user 
@@ -23,7 +26,7 @@ passport.deserializeUser(function(obj, done) {
 // "internal_id", "created_at", "updated_at", "username", "name", 
 // "github_avatar_url", "github_html_url", "github_access_token", 
 // "github_refresh_token" 
-passport.use(new GitHubStrategy({
+passport.use(new GoogleStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: config.authCallbackUrl
@@ -34,14 +37,14 @@ passport.use(new GitHubStrategy({
       return User.findOrCreate({where: {internal_id: profile._json.id}})
       .spread(function(user, created) {
         console.log('Updating user model in sequelize', profile._json)
-        user.update({
-          username: profile._json.login,
-          name: profile._json.name,
-          github_html_url: profile._json.html_url,
-          github_repos_url: profile._json.repos_url,
-          github_avatar_url: profile._json.avatar_url,
-          github_access_token: accessToken,
-          github_refresh_token: refreshToken
+        // user.update({
+        //   username: profile._json.login,
+        //   name: profile._json.name,
+        //   github_html_url: profile._json.html_url,
+        //   github_repos_url: profile._json.repos_url,
+        //   github_avatar_url: profile._json.avatar_url,
+        //   github_access_token: accessToken,
+        //   github_refresh_token: refreshToken
         }).then(function(user){
           console.log('updated user: ', JSON.stringify(user));
           return done(null, user);
