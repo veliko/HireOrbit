@@ -4,6 +4,8 @@ const db = require('../../db/dbSequelize').sequelize;
 const Jobs_Searches = require('../../db/dbSequelize').jobs_saved_searches;
 const IndeedJobs = require('../../db/dbSequelize').indeed_jobs;
 const knex = require('../../db/dbKnex');
+const path = require('path');
+const rootDir = path.resolve(__dirname, '../../client');
 
 const searchController = {
   getSavedSearch: function (req, res, next) {
@@ -87,6 +89,14 @@ const searchController = {
       })
 
   }
+
+  // deepLink: function (req, res, next) {
+  //   console.log('Path is: ', req.originalUrl);
+  //   if(req.originalUrl === '/kanban'){
+  //     res.sendFile('index.html', {root: rootDir });
+  //   }
+  //   next();
+  // }
 }
 
 module.exports = searchController;
