@@ -47,7 +47,8 @@ class List extends Component {
               company={card.job_data.company}
               snippet={card.job_data.snippet}
               cardPositions={this.props.cardPositions}
-              updateCardPosition={this.updateCardPosition} />
+              updateCardPosition={this.updateCardPosition}
+              addEventToCard={this.props.addEventToCard} />
       );
     });
 

@@ -21,7 +21,7 @@ module.exports = function (app) {
 
   app.put('/api/cards/status', cardsController.persistCardStatus);
 
-  app.get('/api/gcal/agenda', gcalController.getUpcomingEvents);
+  app.get('/api/gcal/agenda', gcalController.getEvents);
 
   app.post('/api/gcal/add', gcalController.addEvent);
 

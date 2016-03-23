@@ -175,6 +175,11 @@ export default function(state = [], action) {
           [dropTargetCardIndex, 0, draggedCard]
         ]
       });
+
+    case actions.ADD_EVENT_TO_CARD:
+      let event = action.payload.event;
+      cardIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
+      return state;
     
     default: return state;
   }

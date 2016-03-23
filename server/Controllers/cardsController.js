@@ -4,6 +4,7 @@ const db = require('../../db/dbSequelize').sequelize;
 const Jobs_Searches = require('../../db/dbSequelize').jobs_saved_searches;
 const IndeedJobs = require('../../db/dbSequelize').indeed_jobs;
 const knex = require('../../db/dbKnex');
+const gcalController = require('./gcalController');
 
 function insertJobsQueryMaker(b) {
   return `insert into "indeed_jobs" ("jobtitle", "company",
@@ -62,41 +63,106 @@ const cardsController = {
     
     db.query(query)
     
-    // card and job data for each card in list, format it
-    .then((results) => {
-      cards = results[0];
-      cards.forEach((card) => {
-        var job_data = {};
-        for (var key in card) {
-          if (key !== "card_id" && key !== "status" && key !== "notes") {
-            job_data[key] = card[key];
-            delete card[key];
+      // card and job data for each card in list, format it
+      .then((results) => {
+        
+        // add job_data from indeed_jobs table for each card entry
+        cards = results[0];
+        cards.forEach((card) => {
+          var job_data = {};
+          for (var key in card) {
+            if (key !== "card_id" && key !== "status" && key !== "notes") {
+              job_data[key] = card[key];
+              delete card[key];
+            }
           }
-        }
-        card.job_data = job_data;
-      });
-      query = `SELECT card_positions FROM users WHERE google_id = '${user_id}'`;
-      return db.query(query)
-    })
+          card.job_data = job_data;
+        });
 
-    // get card positions data for curent user, order cards ased on positions data
-    .then((results) => {
-      var positions = JSON.parse(results[0][0].card_positions);
-      var orderedCards = new Array(Object.keys(positions).length);
-      cards.forEach((card) => {
-        var correctPosition = positions[card.card_id + ''];
-        if (correctPosition !== undefined) {
-          orderedCards[correctPosition] = card;
-        }
-      });
-      console.log("ordered cards: ", orderedCards);
-      res.json(orderedCards);
-    })
+        // get all evnt_id of each card_id from DB|| getUpcomingEvents from Gcal|| map to each card.events array
+        var event_query = `select ce.card_id, ce.event_id from cards_events ce where ce.user_id = '${user_id}'`;
+        var dbEvents;
+        db.query(event_query)
 
-    .catch((error) => {
-      console.log("error getting all cards with their corressponding jobs: ", error);
-      res.send(500);
-    })
+          .then((results) => {
+            console.log('Got card events: ', results);
+            dbEvents = results[0]
+
+            // api call: get array of all events from user's google calendar
+            gcalController.getEvents(req, null, null, function (err, googleEvents) {
+
+              if (err) {
+                console.log("Error while getting google events: ", err);
+                res.sendStatus(500);
+                return;
+              }
+
+              // create an gooelEventsObject for constant time lookup   
+              var googleEventsObj ={};
+              googleEvents.forEach((gEvent) => {
+                googleEventsObj[gEvent.id] = gEvent;
+              });
+              
+              // add google event info to each stored event in db
+              dbEvents.forEach((dbEvent) => {
+                console.log("dbEvent.event_id: ", dbEvent.event_id, dbEvent.event_id + "" in googleEventsObj);
+                console.log("from google events object: ", googleEventsObj[dbEvent.event_id + ""]);
+                if(dbEvent.event_id in googleEventsObj){
+                  var matchingGoogleEvent = googleEventsObj[dbEvent.event_id];
+                  dbEvent.summary = matchingGoogleEvent.summary || '';
+                  dbEvent.start = matchingGoogleEvent.start;
+                  dbEvent.end = matchingGoogleEvent.end;
+                  dbEvent.htmlLink = matchingGoogleEvent.htmlLink || '';
+                }
+              })
+
+              // create a cards object for constant time lookup     
+              var cardsObj = {};
+              cards.forEach((card) => {
+                cardsObj[card.card_id] = card;
+              });
+
+              // add an events array to each card and populate it with respective events
+              dbEvents.forEach((dbEvent) => {
+                if (dbEvent.card_id in cardsObj) {
+                  var cardWithEvent = cardsObj[dbEvent.card_id];
+
+                  if (!cardWithEvent.events) {
+                    cardWithEvent.events = [];
+                  } 
+                  cardWithEvent.events.push(dbEvent);
+                }
+              });
+
+              // from here on we just order the cards in their correct positions          
+              query = `SELECT card_positions FROM users WHERE google_id = '${user_id}'`;
+              db.query(query)
+                .then((results) => {
+                  var positions = JSON.parse(results[0][0].card_positions);
+                  var orderedCards = new Array(Object.keys(positions).length);
+                  cards.forEach((card) => {
+                    var correctPosition = positions[card.card_id + ''];
+                    if (correctPosition !== undefined) {
+                      orderedCards[correctPosition] = card;
+                    }
+                  });
+                  res.json(orderedCards);
+                })
+                .catch(error => {
+                  console.log("error in event_query: ", error);
+                  res.sendStatus(500);
+                });
+            });
+          })
+          .catch(error => {
+            console.log("error in event_query: ", error);
+            res.sendStatus(500);
+          });
+      })
+      .catch((error) => {
+        console.log("error getting all cards with their corressponding jobs: ", error);
+        res.send(500);
+      });
   },
 
   persistCardPositions: function(req, res, next) {

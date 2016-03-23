@@ -85,8 +85,9 @@ class Card extends Component {
     console.log(addEventObj);
 
     Utils.addGCalEvent(addEventObj)
-      .done((results) => {
-        console.log('Successfully added event: ', results)
+      .done((event) => {
+        console.log('Successfully added event: ', event)
+        self.props.addEventToCard(event, self.props.id);
         // call redux to update card state
       })
       .fail((err) => console.log.bind(console))

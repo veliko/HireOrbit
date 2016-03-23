@@ -13,7 +13,7 @@ const knex = require('../../db/dbKnex');
 // Retrieve tokens via token exchange explained above or set them:
 gcalController = {};
 
-gcalController.getUpcomingEvents =  function (req, res, next) {
+gcalController.getEvents =  function (req, res, next, cb) {
   User.findOne({where:{google_id:req.cookies.userid}})
     .then((results) => {
       // console.log('results from query', results)
@@ -29,13 +29,17 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
       calendar.events.list({
         auth: oauth2Client,
         calendarId: 'primary',
-        timeMin: (new Date()).toISOString(),
+        timeMin: moment(new Date()).subtract(2, 'd').toISOString(),
         maxResults: 1000,
         singleEvents: true,
         orderBy: 'startTime'
       }, function(err, response) {
         if (err) {
-          res.sendStatus(500);
+          if(res){
+            res.sendStatus(500);
+          } else {
+            cb(err, null);
+          }
           console.log('The API returned an error: ' + err);
           return;
         }
@@ -51,7 +55,8 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
             // console.log('%s - %s', start, event.summary);
             eventArray.push({start:start, summary:event.summary});
           }
-            res.json(eventArray);
+            if(res) res.json(events) 
+              else cb(null, events);
         }
       });
     })
