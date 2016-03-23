@@ -62,7 +62,8 @@ class Home extends Component {
     );
 
     return (
-      <div>
+      <div className="search-container">
+      <img src="img/logo.svg" className="searchLogo"/>
       <form action="" className="search">
         <div className="main-search">
           <div>
