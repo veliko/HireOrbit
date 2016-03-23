@@ -34,6 +34,7 @@ class Home extends Component {
       l: this.state.location,
       radius: this.state.range,
       jt: this.state.jobType,
+      st: this.state.employerType
     }
 
     console.log(q);
@@ -70,7 +71,7 @@ class Home extends Component {
           <div>
             <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
           </div>
-          <button onClick={this.submitForm}><i className="fa fa-arrow-circle-right"></i></button>
+          <button onClick={this.submitForm.bind(this)}><i className="fa fa-arrow-circle-right"></i></button>
           <a href="#" className="advanced">Advanced Search</a>
         </div>
         <div className="advanced">
