@@ -4,6 +4,13 @@
 const mergeDefault = _.defaults
 
 const Utils = {
+  addGCalEvent: function (event) {
+    return $.ajax({
+      url: '/api/gcal/add',
+      method: 'POST',
+      data: event
+    })
+  },
 
   getAllSearches: function () {
     // console.log('In getAllSearches');

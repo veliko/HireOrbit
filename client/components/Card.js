@@ -58,11 +58,45 @@ let collectDrop = (connect, monitor) => {
 };
 
 class Card extends Component {
+  getStartDateTime(date, dateStr) {
+    this.startDate = Moment(date).toISOString();
+  }
+
+  getEndDateTime() {
+    return Moment(this.startDate).add(10, 'minutes').toISOString();
+  }
+
+  saveEvent(){
+    let self = this;
+    let summary = self.refs.eventInput.value;
+    let event = {
+      start: {
+        dateTime: self.startDate 
+      },
+      end: {
+        dateTime: self.getEndDateTime()
+      },
+      summary
+    }
+    let addEventObj = {
+      event: event,
+      card_id: self.props.id
+    }
+    console.log(addEventObj);
+
+    Utils.addGCalEvent(addEventObj)
+      .done((results) => {
+        console.log('Successfully added event: ', results)
+        // call redux to update card state
+      })
+      .fail((err) => console.log.bind(console))
+  }
 
   render() {
     var widgets = (<div>
-        <DateTimePicker defaultValue={new Date()} placeholder='Enter start date/time' />
-        <DateTimePicker defaultValue={null} placeholder='Enter end date/time'/>
+        <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
+        <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
+        <input type='text' ref="eventInput" placeholder="enter event description.." />
       </div>)
 
     const { connectDragSource, connectDropTarget, isDragging } = this.props;

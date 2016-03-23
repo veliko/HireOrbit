@@ -30,7 +30,7 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
         auth: oauth2Client,
         calendarId: 'primary',
         timeMin: (new Date()).toISOString(),
-        maxResults: 100,
+        maxResults: 1000,
         singleEvents: true,
         orderBy: 'startTime'
       }, function(err, response) {
@@ -43,7 +43,7 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
         if (events.length == 0) {
           console.log('No upcoming events found.');
         } else {
-          console.log('Upcoming 10 events:');
+          console.log('Upcoming 100 events:');
           var eventArray = []
           for (var i = 0; i < events.length; i++) {
             var event = events[i];
@@ -54,14 +54,12 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
             res.json(eventArray);
         }
       });
-      
-      
     })
 }
 
 gcalController.addEvent = function (req, res, next) {
-  // var event = req.body.event;
-  // card_id = req.body.card_id
+  var event = req.body.event;
+  var card_id = req.body.card_id
   var user_id = req.cookies.userid
   User.findOne({where:{google_id: user_id}})
     .then((results) => {
@@ -70,15 +68,7 @@ gcalController.addEvent = function (req, res, next) {
       oauth2Client.setCredentials({
         access_token: accessToken
       });
-      var event = {
-          "end": {
-           "dateTime": '2015-05-29T09:00:00-07:30',
-          },
-          "start": {
-           "dateTime": "2015-05-28T17:00:00-07:00"
-          },
-         "summary": "One event now",
-      }
+      
       //send it to google calnedar
       calendar.events.insert({auth: oauth2Client, calendarId: 'primary', resource: event}, function (err, response) {
         if(err) {
@@ -88,7 +78,7 @@ gcalController.addEvent = function (req, res, next) {
           console.log('Added event', response)
           res.status(201);
           res.send(response);
-          knex.raw(`insert into cards_events (user_id, event_id, card_id) VALUES('${user_id}', '${response.id}', 'a94300809ed08d7a')`)
+          knex.raw(`insert into cards_events (user_id, event_id, card_id) VALUES('${user_id}', '${response.id}', '${card_id}')`)
             .then((res) => {
               console.log('Saved event id to db')
             })
