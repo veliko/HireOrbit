@@ -50,7 +50,8 @@ class List extends Component {
               cardPositions={this.props.cardPositions}
               updateCardPosition={this.updateCardPosition}
               addEventToCard={this.props.addEventToCard}
-              deleteEventFromCard={this.props.deleteEventFromCard} />
+              deleteEventFromCard={this.props.deleteEventFromCard}
+              deleteCardFromKanban={this.props.deleteCardFromKanban} />
       );
     });
 

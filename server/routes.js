@@ -13,11 +13,12 @@ module.exports = function (app) {
 
   app.post('/api/searches', searchController.saveSearch);
 
-
   app.post('/api/cards', cardsController.addCards);
 
   app.get('/api/cards', cardsController.sendAllCards);
 
+  app.delete('/api/cards', cardsController.deleteCard);
+  
   app.put('/api/cards/positions', cardsController.persistCardPositions);
 
   app.put('/api/cards/status', cardsController.persistCardStatus);

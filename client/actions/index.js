@@ -79,7 +79,6 @@ export function fetchSavedSearches(savedSearches) {
 }
 
 export function addCardsToKanban(cards) {
-  console.log("inside addCardsToKanban: ", cards);
   return {
     type: actions.ADD_CARDS_TO_KANBAN,
     payload: {
@@ -133,4 +132,13 @@ export function updateCurrentQuery(currentQuery) {
       currentQuery
     }
   }
+}
+
+export function deleteCardFromKanban(card_id) {
+  return {
+    type: actions.DELETE_CARD_FROM_KANBAN,
+    payload: {
+      card_id
+    }
+  }  
 }

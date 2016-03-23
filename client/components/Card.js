@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
 import Utils from '../utils/Utils';
+import RemoveCard from './RemoveCard';
 
 import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
@@ -163,6 +164,7 @@ class Card extends Component {
     return connectDropTarget(connectDragSource(
       <div className="card">
         { isDragging ? isDraggingOverlay : <div style={sideColor} /> }
+        <RemoveCard card_id={this.props.id} deleteCardFromKanban={this.props.deleteCardFromKanban} />
         <div className="card_title">{this.props.title}</div>
         <div className="card_company_name">{this.props.company}</div>
         <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>

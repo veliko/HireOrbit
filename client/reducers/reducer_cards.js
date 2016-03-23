@@ -1,5 +1,6 @@
 import { actions } from '../constants';
 import update from 'react-addons-update';
+import Utils from '../utils/Utils';
 
 
 export default function(state = [], action) {
@@ -67,6 +68,27 @@ export default function(state = [], action) {
           }
         }
       })
+
+    case actions.DELETE_CARD_FROM_KANBAN: 
+      let cardToBeDeletedIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
+      let updatedState = update(state, {
+        $splice: [
+          [cardToBeDeletedIndex, 1]
+        ]
+      });
+
+      let card_positions = updatedState.reduce((result, card, index) => {
+        result[card.card_id] = index;
+        return result;
+      }, {})
+
+      console.log('updated state looks like this: ', updatedState);
+      console.log('card_positions look like this: ', card_positions);
+
+      Utils.deleteCardFromKanban(action.payload.card_id, card_positions)
+      .done(() => console.log('Successfully deleted card from Kanban'))
+      .fail((error) => console.log('Error while deleting card from Kanban'));
+      return updatedState;
     
     default: return state;
   }

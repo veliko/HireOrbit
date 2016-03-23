@@ -202,6 +202,31 @@ const cardsController = {
       console.log("Error while persisting card status: ", error);
       res.send(500);
     })
+  },
+
+  deleteCard: function(req, res, next) {
+    var user_id = req.cookies.userid;
+    var card_id = req.body.card_id;
+    var card_positions = JSON.stringify(req.body.card_positions);
+    var query = `DELETE FROM kanban_cards WHERE (card_id = '${card_id}' AND user_id = '${user_id}')`;
+
+    db.query(query)
+
+    .then((results) => {
+      query = `UPDATE users SET card_positions = '${card_positions}' WHERE internal_id = '${user_id}';`;
+      return db.query(query)
+    })
+
+    .then(() => {
+      console.log("successfully deleted card.")
+      res.send(200);
+    })
+
+    .catch((error) => {
+      console.log("Error while deleting card: ", error);
+      res.send(500);
+    })
+
   }
 };
 

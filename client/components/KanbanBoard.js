@@ -6,6 +6,8 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import {browserHistory} from 'react-router'
+import AddCardButton from './AddCardButton';
+
 
 class KanbanBoard extends Component {
   constructor() {
@@ -36,6 +38,7 @@ class KanbanBoard extends Component {
     return (
       <div className="App">
         <ToolbarContainer />
+        <AddCardButton /> 
         <ListContainer id="interested" 
                        title="Interested"
                        cards={this.filterCardsByStatus('interested')} />

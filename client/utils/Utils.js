@@ -153,7 +153,18 @@ const Utils = {
       url: '/api/parse',
       method: 'POST',
       data: sendUrl
-    })
+    });
+  },
+
+  deleteCardFromKanban: function(card_id, card_positions) {
+    return $.ajax({
+      url: '/api/cards',
+      method: 'DELETE',
+      data: {
+        card_id,
+        card_positions
+      }
+    });
   }
 }
 export default Utils;

@@ -19,7 +19,9 @@ class KanbanBoardContainer extends Component {
   render() {
     let filterValue = this.props.filter;
     return (
-      <KanbanBoard cards={this.filterCardsByGlobalFilterValue(filterValue)} addCardsToKanban={this.props.addCardsToKanban} />
+      <KanbanBoard cards={this.filterCardsByGlobalFilterValue(filterValue)} 
+                   addCardsToKanban={this.props.addCardsToKanban} 
+                   deleteCardFromKanban={this.props.deleteCardFromKanban} />
     );
   }
 }

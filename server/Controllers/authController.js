@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
         user.update({
           name: profile._json.displayName,
           gender: profile._json.gender,
-          age_min: profile._json.ageRange.min,
+          // age_min: profile._json.ageRange.min,
           google_profile_url: profile._json.url,
           google_image_url: profile._json.image.url,
           google_access_token: accessToken,
