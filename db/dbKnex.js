@@ -76,6 +76,14 @@ create table IF NOT EXISTS kanban_cards (
   user_id text NOT NULL REFERENCES users (google_id)
 );
 
+create table IF NOT EXISTS cards_events (
+  internal_id SERIAL PRIMARY KEY,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  card_id text NOT NULL ,
+  user_id text,
+  event_id text
+);
 
 CREATE OR REPLACE FUNCTION update_modified_column() 
 RETURNS TRIGGER AS $$
@@ -89,6 +97,7 @@ CREATE TRIGGER update_indeed_jobs_modtime BEFORE UPDATE ON indeed_jobs FOR EACH 
 CREATE TRIGGER update_saved_searches_modtime BEFORE UPDATE ON saved_searches FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
 CREATE TRIGGER update_jobs_saved_searches_modtime BEFORE UPDATE ON jobs_saved_searches FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
 CREATE TRIGGER update_kanban_cards_modtime BEFORE UPDATE ON kanban_cards FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
+CREATE TRIGGER update_cards_events_modtime BEFORE UPDATE ON cards_events FOR EACH ROW EXECUTE PROCEDURE  update_modified_column();
 `
 
 knex.raw(setupSQL)

@@ -7,6 +7,8 @@ const User = require('../../db/dbSequelize').users
 const calendar = google.calendar('v3');
 const OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+const moment = require('moment');
+const knex = require('../../db/dbKnex');
 
 // Retrieve tokens via token exchange explained above or set them:
 gcalController = {};
@@ -28,7 +30,7 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
         auth: oauth2Client,
         calendarId: 'primary',
         timeMin: (new Date()).toISOString(),
-        maxResults: 10,
+        maxResults: 100,
         singleEvents: true,
         orderBy: 'startTime'
       }, function(err, response) {
@@ -58,11 +60,44 @@ gcalController.getUpcomingEvents =  function (req, res, next) {
 }
 
 gcalController.addEvent = function (req, res, next) {
-  var event = req.body.event;
+  // var event = req.body.event;
+  // card_id = req.body.card_id
+  var user_id = req.cookies.userid
+  User.findOne({where:{google_id: user_id}})
+    .then((results) => {
+      // console.log('results from query', results)
+      var accessToken = results.dataValues.google_access_token;
+      oauth2Client.setCredentials({
+        access_token: accessToken
+      });
+      var event = {
+          "end": {
+           "dateTime": '2015-05-29T09:00:00-07:30',
+          },
+          "start": {
+           "dateTime": "2015-05-28T17:00:00-07:00"
+          },
+         "summary": "One event now",
+      }
+      //send it to google calnedar
+      calendar.events.insert({auth: oauth2Client, calendarId: 'primary', resource: event}, function (err, response) {
+        if(err) {
+          console.log('Failed to add event', err)
+          res.sendStatus(500);
+        } else {
+          console.log('Added event', response)
+          res.status(201);
+          res.send(response);
+          knex.raw(`insert into cards_events (user_id, event_id, card_id) VALUES('${user_id}', '${response.id}', 'a94300809ed08d7a')`)
+            .then((res) => {
+              console.log('Saved event id to db')
+            })
+        }
+      });
 
-  //send it to google calnedar
-  calendar.events.insert();
-  res.json({})
+      
+    });
+
 }
 
 

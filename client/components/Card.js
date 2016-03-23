@@ -61,8 +61,8 @@ class Card extends Component {
 
   render() {
     var widgets = (<div>
-        <DateTimePicker defaultValue={new Date()} />
-        <DateTimePicker defaultValue={null} />
+        <DateTimePicker defaultValue={new Date()} placeholder='Enter start date/time' />
+        <DateTimePicker defaultValue={null} placeholder='Enter end date/time'/>
       </div>)
 
     const { connectDragSource, connectDropTarget, isDragging } = this.props;

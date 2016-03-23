@@ -23,6 +23,8 @@ module.exports = function (app) {
 
   app.get('/api/gcal/agenda', gcalController.getUpcomingEvents);
 
+  app.get('/api/gcal/add', gcalController.addEvent);
+
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here
   githubPassportHandler(app);
