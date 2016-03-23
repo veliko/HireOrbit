@@ -3,7 +3,7 @@
 *Scrum for job applications*
 
 Other Style Guides
- - [ES5](es5/)
+ - [ES5](_STYLE-GUIDE.md/)
 
 
 ## Table of Contents
