@@ -58,7 +58,7 @@ nav ul li {
   border-style: solid;
   line-height: 2.5rem;
   font-size: 1.1rem;
-  letter-spacing: 1px;
+  font-weight: 200;
 }
 
 nav ul li:last-child {
@@ -76,7 +76,7 @@ nav a:hover {
 }
 
 nav ul li a {
-  padding: 10px;
+  padding: 10px 20px;
   display: block;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   transition: background 0.5s ease-in;
@@ -106,7 +106,7 @@ nav a i {
 }
 
 .fa-user:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgb(92, 94, 220);
 }
 /* navigation styles */ 
 
@@ -131,7 +131,7 @@ form.search {
   /*border: solid 1px red;*/
 }
 
-form.search div {
+form.search > div {
   display: flex;
   justify-content: center;
 }
@@ -161,7 +161,12 @@ form.search .advanced {
 /* radio-box */
 .radio-box {
   display: flex;
+  margin: 10px 10px 10px 0;
+}
+
+.radio-box h3 {
   margin: 0 10px 0 0;
+  line-height: 2.5rem;
 }
 
 .radio-box:last-child {
@@ -170,7 +175,15 @@ form.search .advanced {
 
 .radio-box > div {
   position: relative;
-  border: solid 1px red;
+  border: solid 1px rgba(255, 255, 255, 0.1);
+  line-height: 2.5rem;
+  height: 43px;
+  padding: 0 10px;
+}
+
+
+.radio-box > div.active {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .radio-box > div span,
@@ -179,6 +192,9 @@ form.search .advanced {
   text-align: center;
 }
 
+.radio-box > div:hover {
+  cursor: pointer;
+}
 .radio-box > div input {
   position: absolute;
   left: 0;
@@ -216,6 +232,7 @@ form.search .advanced {
 .range span:last-child {
   text-align: right;
 }
+/* homepage */
 
 /* Possible deprecation */
 .content {

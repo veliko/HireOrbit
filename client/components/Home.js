@@ -19,8 +19,8 @@ class Home extends Component {
     this.setState({
       jobSet: [{label: 'Any', value: ''}, {label: 'Fulltime', value: 'fulltime'}, {label: 'Part Time', value: 'parttime'}, {label: 'Contract', value: 'contract'}, {label: 'Internship', value: 'internship'}, {label: 'Temporary', value: 'temporary'}],
       employerSet: [{label: 'Any', value: ''}, {label: 'Recruiter', value: 'recruiter'}, {label: 'Employer', value: 'employer'}],
-      employerType: 'Any',
-      jobType: 'Any',
+      employerType: '',
+      jobType: '',
       location: 'San Francisco, CA',
       position: 'Software Engineer',
       range: 25
@@ -51,10 +51,12 @@ class Home extends Component {
   render(){
     var Tabs = (props) => (
       <div className="radio-box job">
+        <h3>{props.title}</h3>
         {props.types.map((item, i) =>
-          <div>
+          // make this active based on the 'checked' match
+          <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
-            <input type="radio" name={props.name} value={item.value} key={i}
+            <input type="radio" name={props.name} value={item.value}
               checked={item.value === this.state[props.name]} onChange={ this.stateChange.bind(this) } />
           </div>
         )}
@@ -73,6 +75,8 @@ class Home extends Component {
             <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
           </div>
           <button onClick={this.submitForm.bind(this)}><i className="fa fa-arrow-circle-right"></i></button>
+        </div>
+        <div>
           <a href="#" className="advanced">Advanced Search</a>
         </div>
         <div className="advanced">
@@ -86,11 +90,8 @@ class Home extends Component {
                 <span>100<br/>miles</span>
               </div>
             </div>
-
-            <Tabs types={this.state.jobSet} name={"jobType"} />
-
-            <Tabs types={this.state.employerSet} name={"employerType"} />
-
+            <Tabs types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
+            <Tabs types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
           </div>
         </div>
         </form>
