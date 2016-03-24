@@ -7,7 +7,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 body {
   background: rgb(59,61,74);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, "Helvetica Neue", sans-serif;
   font-size: 16px;
 }
 
@@ -139,6 +139,7 @@ form.search > div {
 form.search .advanced {
   color: #fff;
   text-decoration: none;
+  font-size: 0.875rem;
 }
 
 .main-search input {
@@ -180,7 +181,6 @@ form.search .advanced {
   height: 43px;
   padding: 0 10px;
 }
-
 
 .radio-box > div.active {
   background: rgba(255, 255, 255, 0.1);
@@ -234,56 +234,38 @@ form.search .advanced {
 }
 /* homepage */
 
-/* Possible deprecation */
-.content {
+/* search results */
+.search-results {
+  display: flex;
+}
+
+.search-results aside {
+  flex: 3;
+}
+
+.search-results .jobs {
   flex: 9;
-  padding: 20px;
 }
 
-.search-box {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.search-box input[name="search"] {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.search-box button {
-  background: #5c5edc;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  letter-spacing: 1px;
-}
-
-.search-box input[name="search"],
-.search-box button {
-  padding: 10px;
-  font-size: 1.25rem;
-  border: 0;
-}
-
-/*.job {
+.search-results .job {
   background: #fff;
-  padding: 15px;
-  margin-bottom: 10px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin: 10px;
 }
 
-.job h2 {
-  margin: 0 0 7px;
-  font-size: 1rem;
-  line-height: 1rem;
-  color: #5c5edc;
-  border-bottom: solid 1px rgba(0,0,0, 0.1);
-  padding-bottom: 8px;
+.search-results .job h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: 2rem;
+  color: rgb(92,94,220);
 }
 
-.job .description {
+.search-results .description {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}*/
+}
 
+/* Kanban styles */ 
 h1 {
   font-weight: 200;
   color: #3b414c;
