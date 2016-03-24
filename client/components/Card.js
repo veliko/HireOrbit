@@ -94,7 +94,28 @@ class Card extends Component {
   }
 
   render() {
+    console.log("events: ", this.props.events);
+    var eventsList;
+    if (this.props.events && this.props.events.length > 0) {
+      eventsList = this.props.events.map((event, i) => {
+        var displayEvent = {};
+        displayEvent.id = i;
+        displayEvent.summary = event.summary ? event.summary : "no event summary";
+        displayEvent.start = event.start ? event.start.dateTime : "no start time";
+
+        return (
+          <div key={displayEvent.id}>
+            <span>{displayEvent.summary}: </span>
+            <span>{displayEvent.start}</span>
+          </div>
+        );
+      });
+    } else {
+      eventsList = "No upcoming events"
+    }
+
     var widgets = (<div>
+        {eventsList}
         <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
         <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
         <input type='text' ref="eventInput" placeholder="enter event description.." />

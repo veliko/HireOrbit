@@ -7,11 +7,14 @@ class JobsList extends Component {
     this.addJobToKanban = this.addJobToKanban.bind(this);
   }
   addJobToKanban(job) {
-    let card = [{
-      card_id: job.jobkey,
-      job_data: job,
-      status: 'interested',
-    }];
+    let card = [
+      {
+        card_id: job.jobkey,
+        job_data: job,
+        events: [],
+        status: 'interested',
+      }
+    ];
 
     this.props.addCardsToKanban(card);
 

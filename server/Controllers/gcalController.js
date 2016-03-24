@@ -30,6 +30,7 @@ gcalController.getEvents =  function (req, res, next, cb) {
         auth: oauth2Client,
         calendarId: 'primary',
         timeMin: moment(new Date()).subtract(2, 'd').toISOString(),
+        timeMax: moment(new Date()).add(6, 'M').toISOString(),
         maxResults: 1000,
         singleEvents: true,
         orderBy: 'startTime'
@@ -54,7 +55,9 @@ gcalController.getEvents =  function (req, res, next, cb) {
             var start = event.start.dateTime || event.start.date;
             // console.log('%s - %s', start, event.summary);
             eventArray.push({start:start, summary:event.summary});
+            console.log("event summary: ", event.summary);
           }
+
             if(res) res.json(events) 
               else cb(null, events);
         }

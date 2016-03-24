@@ -46,6 +46,7 @@ class List extends Component {
               title={card.job_data.jobtitle}
               company={card.job_data.company}
               snippet={card.job_data.snippet}
+              events={card.events}
               cardPositions={this.props.cardPositions}
               updateCardPosition={this.updateCardPosition}
               addEventToCard={this.props.addEventToCard} />

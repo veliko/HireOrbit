@@ -311,6 +311,7 @@ ul {
   z-index: 1;
   background: #fff;
   width: 100%;
+  max-height: 500px;
   padding: 10px 10px 10px 15px;
   margin: 0 0 10px 0;
   overflow: auto;
