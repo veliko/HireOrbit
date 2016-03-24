@@ -8,21 +8,24 @@ import dataVisual from '../reducers/index'
 
 class DataVisContainer extends Component {
 
-  renderList () {
-    return this.props.fetchDataVis("HEY THERE");
+  renderList (data) {
+    const cities = data.city;
+    const datas = data.data;
+    const libraries = data.libraries;
+    return <DataVis key={cities} data={datas} library={libraries} city={cities} />
   }
 
   render () {
     return (
       <div>
-        <DataVis />
+        {this.props.dataVisual.map(this.renderList)}
       </div>
     );
   };
 };
 
 function mapToDispatchProps(dispatch) {
-  console.log('mapProps in DataVisContainer container', fetchDataVis)
+  console.log('mapToDispatchProps', fetchDataVis)
   return bindActionCreators({ fetchDataVis: fetchDataVis }, dispatch);
 };
 
