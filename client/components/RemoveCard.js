@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Utils from '../utils/Utils';
 
-class RemoveCard extends Component {
+class RemoveButton extends Component {
   constructor() {
     super(...arguments);
   }
@@ -17,4 +17,4 @@ class RemoveCard extends Component {
   }
 }
 
-export default RemoveCard;
+export default RemoveButton;
