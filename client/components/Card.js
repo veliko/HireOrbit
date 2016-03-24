@@ -3,6 +3,15 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
 import Utils from '../utils/Utils';
 
+import { DateTimePicker } from 'react-widgets';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import numberLocalizer from 'react-widgets/lib/localizers/simple-number'
+import RemoveButton from './RemoveButton';
+// Localizers for Datepicker
+numberLocalizer();
+momentLocalizer(Moment);
+
 const cardDragSpec = {
   beginDrag(props) {
     return {
@@ -50,8 +59,93 @@ let collectDrop = (connect, monitor) => {
 };
 
 class Card extends Component {
+  getStartDateTime(date, dateStr) {
+    this.startDate = Moment(date).toISOString();
+  }
+
+  getEndDateTime() {
+    return Moment(this.startDate).add(10, 'minutes').toISOString();
+  }
+
+  saveEvent(){
+    let self = this;
+    let summary = self.refs.eventInput.value;
+    let event = {
+      start: {
+        dateTime: self.startDate 
+      },
+      end: {
+        dateTime: self.getEndDateTime()
+      },
+      summary
+    }
+    let addEventObj = {
+      event: event,
+      card_id: self.props.id
+    }
+    console.log(addEventObj);
+
+    Utils.addGCalEvent(addEventObj)
+      .done((event) => {
+        console.log('Successfully added event: ', event)
+        let newEvent = {
+          card_id: self.props.id,
+          summary: event.summary,
+          event_id: event.id,
+          start: event.start,
+          end: event.end,
+          htmlLink: event.htmlLink
+        }
+
+        self.props.addEventToCard(newEvent);
+
+      })
+      .fail((err) => console.log.bind(console))
+  }
+
+  deleteEvent(event_id){
+    let card_id = this.props.id;
+    let eventIndex = this.props.events.findIndex((e) => e.event_id === event_id);
+    Utils.deleteGCalEvent({
+      event_id,
+      card_id
+    })
+    .done(() => {
+      console.log("Successfully deleted event from card.");
+      this.props.deleteEventFromCard(this.props.events[eventIndex]);
+    })
+    .fail((error) => console.log("Error while deleting event from card: ", error));
+  }
 
   render() {
+    console.log("events: ", this.props.events);
+    var eventsList;
+    if (this.props.events && this.props.events.length > 0) {
+      eventsList = this.props.events.map((event, i) => {
+        var displayEvent = {};
+        displayEvent.id = i;
+        displayEvent.summary = event.summary ? event.summary : "no event summary";
+        displayEvent.start = event.start ? event.start.dateTime : "no start time";
+
+        return (
+          <div key={displayEvent.id}>
+            <span>{displayEvent.summary}: </span>
+            <span>{displayEvent.start}</span>
+            <RemoveButton removeTarget={event.event_id} removeAction={this.deleteEvent.bind(this)} />
+          </div>
+        );
+      });
+    } else {
+      eventsList = "No upcoming events"
+    }
+
+    var widgets = (<div>
+        {eventsList}
+        <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
+        <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
+        <input type='text' ref="eventInput" placeholder="enter event description.." />
+      </div>)
+
     const { connectDragSource, connectDropTarget, isDragging } = this.props;
 
     let sideColor = {
@@ -72,6 +166,7 @@ class Card extends Component {
         <div className="card_title">{this.props.title}</div>
         <div className="card_company_name">{this.props.company}</div>
         <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
+        {widgets}
       </div>
     ));
   }

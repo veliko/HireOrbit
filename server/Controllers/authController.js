@@ -77,8 +77,8 @@ const AuthController = function (app) {
     passport.authenticate('google', { failureRedirect: '/login' }),
     function(req, res) {
       // add the user_id to the cookie
-      console.log('google callback was called successfully');
-      res.cookie('userid', req.user.dataValues.internal_id, { maxAge: 2592000000 });
+      console.log('google callback was called successfully', req.user);
+      res.cookie('userid', req.user.dataValues.google_id, { maxAge: 2592000000 });
       res.redirect('/');
   });
 

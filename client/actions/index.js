@@ -58,3 +58,21 @@ export function addCardsToKanban(cards) {
     }
   }
 }
+
+export function addEventToCard(event) {
+  return {
+    type: actions.ADD_EVENT_TO_CARD,
+    payload: {
+      event
+    }
+  }
+}
+
+export function deleteEventFromCard(event) {
+  return {
+    type: actions.DELETE_EVENT_FROM_CARD,
+    payload: {
+      event
+    }
+  }
+}

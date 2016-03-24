@@ -311,6 +311,7 @@ ul {
   z-index: 1;
   background: #fff;
   width: 100%;
+  max-height: 500px;
   padding: 10px 10px 10px 15px;
   margin: 0 0 10px 0;
   overflow: auto;
@@ -385,4 +386,22 @@ ul {
   font-size: 0.75em;
   border-radius: 3px;
   border: 1px solid #cecece;
+}
+
+.bigassbutton {
+  width: 100px;
+  height: 50px;
+}
+
+.fa.fa-times.remove-event {
+  color: #999;
+  width: 10px;
+  height: 10px;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: 0.25s;
+}
+
+.fa.fa-times.remove-event:hover {
+  color: #ff3333;
 }

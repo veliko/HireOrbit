@@ -1,17 +1,20 @@
 import React, { Component, Proptypes } from 'react';
 import Utils from '../utils/Utils';
 
+
 class JobsList extends Component {
   constuctor(){
     this.addJobToKanban = this.addJobToKanban.bind(this);
   }
-
   addJobToKanban(job) {
-    let card = [{
-      card_id: job.jobkey,
-      job_data: job,
-      status: 'interested',
-    }];
+    let card = [
+      {
+        card_id: job.jobkey,
+        job_data: job,
+        events: [],
+        status: 'interested',
+      }
+    ];
 
     this.props.addCardsToKanban(card);
 
@@ -38,6 +41,7 @@ class JobsList extends Component {
   }
 
   render(){
+   
     return (
       <div className="jobs">
         {this.props.jobs.map(job =>

@@ -1,6 +1,6 @@
 const githubPassportHandler = require('./Controllers/authController');
 const searchController = require('./Controllers/searchController');
-
+const gcalController = require('./Controllers/gcalController');
 const cardsController = require('./Controllers/cardsController');
 
 module.exports = function (app) {
@@ -20,6 +20,12 @@ module.exports = function (app) {
   app.put('/api/cards/positions', cardsController.persistCardPositions);
 
   app.put('/api/cards/status', cardsController.persistCardStatus);
+
+  app.get('/api/gcal/agenda', gcalController.getEvents);
+
+  app.post('/api/gcal/add', gcalController.addEvent);
+
+  app.delete('/api/gcal/delete', gcalController.deleteEvent)
 
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here

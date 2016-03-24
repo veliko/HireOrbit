@@ -33,7 +33,7 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor() {
     super(...arguments);
-    this.updateCardPosition = _.throttle(this.props.updateCardPosition, 500);
+    this.updateCardPosition = _.throttle(this.props.updateCardPosition, 100);
   }
   render() {
     // console.log("card positions are: ", this.props.cardPositions);
@@ -46,8 +46,11 @@ class List extends Component {
               title={card.job_data.jobtitle}
               company={card.job_data.company}
               snippet={card.job_data.snippet}
+              events={card.events}
               cardPositions={this.props.cardPositions}
-              updateCardPosition={this.updateCardPosition} />
+              updateCardPosition={this.updateCardPosition}
+              addEventToCard={this.props.addEventToCard}
+              deleteEventFromCard={this.props.deleteEventFromCard} />
       );
     });
 

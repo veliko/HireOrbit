@@ -30,9 +30,9 @@ const searchController = {
     console.log(`Route: POST /api/searches`);
     var jobs = req.body.jobs, name = req.body.name;
 
-    db.query(`INSERT INTO saved_searches ("name","user_id") VALUES('${name}', ${user_id})`)
+    db.query(`INSERT INTO saved_searches ("name","user_id") VALUES('${name}', '${user_id}')`)
       .then(created => {
-        return db.query(`SELECT internal_id from saved_searches where name='${name}' AND user_id=${user_id} ORDER BY internal_id LIMIT 1`)
+        return db.query(`SELECT internal_id from saved_searches where name='${name}' AND user_id='${user_id}' ORDER BY internal_id LIMIT 1`)
         // create insert data for join table
         
         // var job_searches = jobs.map( job => ({jobkey_id: job.jobkey, saved_search_id: id}) );
@@ -80,7 +80,7 @@ const searchController = {
     
     Searches.findAll({where: {user_id: user_id}})
       .then((results) => {
-        console.log("sending all saved searches back to client: ", results);
+        console.log("sending all saved searches back to client: ");
         res.json(results);
       })
       .catch((err) => {
