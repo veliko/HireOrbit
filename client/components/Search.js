@@ -11,11 +11,9 @@ class Search extends React.Component {
   getSearchJobs(){
     let query = this.refs.searchQuery.value || 'software engineer';
     let self = this;
-      Utils.getJobsFromIndeed({q:query}, 
-        (res) => {
-          self.props.updateCurrentSearch(res);
-        },
-        console.log.bind(console));
+    Utils.getJobsFromIndeed({ q: query }, (res) => {
+      self.props.updateCurrentSearch(res);
+    }, console.log.bind(console));
   }
 
   saveCurrentSearch(){
@@ -31,45 +29,24 @@ class Search extends React.Component {
     Utils.saveSearch(searchObj);
   }
 
-  componentDidMount(){
-    var self = this;
-    self.getSearchJobs();
-    if (Auth.isLoggedIn()) {
-      Utils.getAllSearches()
-        .done(results => {
-          self.props.fetchSavedSearches(results);
-        })
-        .fail(error => {
-          console.log('Error fetching saved searches: ', error);
-        });
-    }
-  }
-
   render(){
+    var Facet = (props) => (
+      <aside>
+        <div>
+          <h3>Position</h3>
+          <input type="text" value="" placeholder="Position" />
+        </div>
+        <div>
+          <h3>Location</h3>
+          <input type="text" value="" placeholder="Location" />
+        </div>
+      </aside>
+    );
+
     return (  
-      <div>
-        <div className="search-box">
-          <input name='search' 
-                 ref='searchQuery' 
-                 type='text'
-                 className='search-bar' 
-                 placeholder='Search for jobs' />
-
-          <button onClick={this.getSearchJobs.bind(this)}>Search</button>
-          <button>Advanced Search</button>
-          <br/>
-          <input ref='searchName' 
-                 type='text' 
-                 placeholder='Enter name to save search'
-                 className='search-bar' />
-        </div>
-          <button onClick={this.saveCurrentSearch.bind(this)}>Save Search</button>
-
-        <div className="results">
-          <JobsList addCardsToKanban={this.props.addCardsToKanban}
-                    cardPositions={this.props.cardPositions} 
-                    jobs={this.props.currentSearch.results} />
-        </div>
+      <div className="search-results">
+        <Facet />
+        <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
       </div>
     )
   }
