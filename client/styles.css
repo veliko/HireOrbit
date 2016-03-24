@@ -392,3 +392,16 @@ ul {
   width: 100px;
   height: 50px;
 }
+
+.fa.fa-times.remove-event {
+  color: #999;
+  width: 10px;
+  height: 10px;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: 0.25s;
+}
+
+.fa.fa-times.remove-event:hover {
+  color: #ff3333;
+}

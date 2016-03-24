@@ -55,7 +55,7 @@ gcalController.getEvents =  function (req, res, next, cb) {
             var start = event.start.dateTime || event.start.date;
             // console.log('%s - %s', start, event.summary);
             eventArray.push({start:start, summary:event.summary});
-            console.log("event summary: ", event.summary);
+            // console.log("event summary: ", event.summary);
           }
 
             if(res) res.json(events) 
@@ -96,9 +96,10 @@ gcalController.addEvent = function (req, res, next) {
 }
 
 gcalController.deleteEvent = function (req, res, next) {
-  var user_id = req.cookies.user_id;
-  var card_id = req.params.card_id;
-  var event_id = req.params.event_id;
+  console.log('In gcalController deleteEvent')
+  var user_id = req.cookies.userid;
+  var card_id = req.body.card_id;
+  var event_id = req.body.event_id;
 
   User.findOne({where:{google_id:req.cookies.userid}})
     .then(results => {
@@ -106,22 +107,24 @@ gcalController.deleteEvent = function (req, res, next) {
       oauth2Client.setCredentials({
         access_token: accessToken
       });
-
-      calendar.event.delete({
+      console.log('Event_id: ', event_id)
+      calendar.events.delete({
         auth: oauth2Client,
         calendarId: 'primary',
         eventId: event_id
       }, function (err, response) {
           if(err){
+            console.log('Error while getting response from gcal deleteEvent:', err)
             res.status(500).send(err);
             return
           }
 
-          var deleteQuery = `delete from cards_events where user_id='${user_id}' AND card_id='${card_id}' AND event_id='${event_id}'`
+          var deleteQuery = `delete from cards_events where (user_id='${user_id}' AND card_id='${card_id}' AND event_id='${event_id}')`
           knex.raw(deleteQuery)
             .then(result => {
-              console.log('deletee event from db: ', result)
-              res.send(201);
+              console.log(deleteQuery)
+              console.log('delete event from db: ', result)
+              res.sendStatus(201);
             })
             .catch(err => {
               console.log('Error deleting event from db: ', err);
@@ -129,6 +132,7 @@ gcalController.deleteEvent = function (req, res, next) {
             })
       })
     })
+    .catch(err => console.log('Error deleting event: ', err))
 }
 
 

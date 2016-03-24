@@ -7,6 +7,7 @@ import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import numberLocalizer from 'react-widgets/lib/localizers/simple-number'
+import RemoveButton from './RemoveButton';
 // Localizers for Datepicker
 numberLocalizer();
 momentLocalizer(Moment);
@@ -102,6 +103,19 @@ class Card extends Component {
       .fail((err) => console.log.bind(console))
   }
 
+  deleteEvent(event_id){
+    var card_id = this.props.id;
+    Utils.deleteGCalEvent({
+      event_id,
+      card_id
+    })
+    .done(() => {
+      console.log("Successfully deleted event from card.");
+      // dispatch redux action
+    })
+    .fail((error) => console.log("Error while deleting event from card: ", error));
+  }
+
   render() {
     console.log("events: ", this.props.events);
     var eventsList;
@@ -116,6 +130,7 @@ class Card extends Component {
           <div key={displayEvent.id}>
             <span>{displayEvent.summary}: </span>
             <span>{displayEvent.start}</span>
+            <RemoveButton removeTarget={event.event_id} removeAction={this.deleteEvent.bind(this)} />
           </div>
         );
       });

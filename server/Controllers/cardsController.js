@@ -21,7 +21,7 @@ const cardsController = {
     var cards = req.body.cards;
     var positions = req.body.cardPositions;
     var query = '';
-    console.log("received card info to add: ", req.body);
+    // console.log("received card info to add: ", req.body);
     
     // first insert job data into jobs table 
     cards.forEach((card) => {
@@ -85,7 +85,7 @@ const cardsController = {
         db.query(event_query)
 
           .then((results) => {
-            console.log('Got card events: ', results);
+            console.log('Got card events: ');
             dbEvents = results[0]
 
             // api call: get array of all events from user's google calendar
@@ -105,8 +105,8 @@ const cardsController = {
               
               // add google event info to each stored event in db
               dbEvents.forEach((dbEvent) => {
-                console.log("dbEvent.event_id: ", dbEvent.event_id, dbEvent.event_id + "" in googleEventsObj);
-                console.log("from google events object: ", googleEventsObj[dbEvent.event_id + ""]);
+                // console.log("dbEvent.event_id: ", dbEvent.event_id, dbEvent.event_id + "" in googleEventsObj);
+                // console.log("from google events object: ", googleEventsObj[dbEvent.event_id + ""]);
                 if(dbEvent.event_id in googleEventsObj){
                   var matchingGoogleEvent = googleEventsObj[dbEvent.event_id];
                   dbEvent.summary = matchingGoogleEvent.summary || '';
@@ -119,6 +119,7 @@ const cardsController = {
               // create a cards object for constant time lookup     
               var cardsObj = {};
               cards.forEach((card) => {
+                card.events = [];
                 cardsObj[card.card_id] = card;
               });
 

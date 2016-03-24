@@ -80,7 +80,7 @@ const searchController = {
     
     Searches.findAll({where: {user_id: user_id}})
       .then((results) => {
-        console.log("sending all saved searches back to client: ", results);
+        console.log("sending all saved searches back to client: ");
         res.json(results);
       })
       .catch((err) => {
