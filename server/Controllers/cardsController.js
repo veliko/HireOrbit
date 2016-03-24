@@ -176,14 +176,14 @@ const cardsController = {
 
     var query = `UPDATE users SET card_positions = '${cardPositions}' WHERE google_id = '${user_id}';`;
     db.query(query)
-    .then(() => {
-      console.log("Successfully updated card positions");
-      res.send(200);
-    })
-    .catch((error) => {
-      console.log("Error while updating card positions: ", error)
-      res.send(500);
-    });
+      .then(() => {
+        console.log("Successfully updated card positions");
+        res.send(200);
+      })
+      .catch((error) => {
+        console.log("Error while updating card positions: ", error)
+        res.send(500);
+      });
   },
 
   persistCardStatus: function(req, res, next) {

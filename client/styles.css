@@ -616,18 +616,6 @@ ul {
   height: 50px;
 }
 
-.fa.fa-times.remove-event {
-  color: #999;
-  width: 10px;
-  height: 10px;
-  font-size: 14px;
-  margin-left: 10px;
-  transition: 0.25s;
-}
-
-.fa.fa-times.remove-event:hover {
-  color: #ff3333;
-}
 
 .saved-search {
   padding-left: 1em;
@@ -841,3 +829,18 @@ iframe {
   transform: scale(0.95,0.95);
 }
 
+.fa.fa-times.remove-event {
+  color: #999;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  font-size: 14px;
+  margin-left: 7px;
+  transition: 0.25s;
+  top: 0;
+  right: 0;
+}
+
+.fa.fa-times.remove-event:hover {
+  color: #ff3333;
+}

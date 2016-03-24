@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Utils from '../utils/Utils';
 
 class RemoveButton extends Component {
-  constructor() {
-    super(...arguments);
-  }
 
   render() {
     return (

@@ -31,7 +31,6 @@ export default function(state = [], action) {
       let dropTargetCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
 
       let draggedCard = state[draggedCardIndex];
-      let dropTargetCard = state[dropTargetCardIndex];
 
       return update(state, {
         $splice: [

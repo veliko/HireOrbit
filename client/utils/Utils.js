@@ -124,11 +124,11 @@ const Utils = {
     .fail((error) => console.log('Error while persisting new card data to Kanban: ', error));
   },
 
-  persistCardStatusAndPositions: function(cardStatusAndPositions) {
+  persistCardPositions: function(cardPositions) {
     return $.ajax({
       url: '/api/cards/positions',
       method: 'PUT',
-      data: cardStatusAndPositions
+      data: cardPositions
     })
   },
 

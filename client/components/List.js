@@ -2,14 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import Card from './Card';
 import { DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
-import _ from 'lodash';
+import lodash from 'lodash';
 import Utils from '../utils/Utils';
 
 
 const listTargetSpec = {
   hover(props, monitor) {
     const draggedId = monitor.getItem().id;
-    props.updateCardStatus(draggedId, props.id);
+    let updateCardStatus = lodash.throttle(props.updateCardStatus, 400);
+    if (monitor.getItem().status !== props.id) {
+      updateCardStatus(draggedId, props.id);
+    }
   },
   drop(props, monitor) {
     let card_id = monitor.getItem().id;

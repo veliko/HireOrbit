@@ -16,22 +16,22 @@ momentLocalizer(Moment);
 const cardDragSpec = {
   beginDrag(props) {
     return {
-      id: props.id
+      id: props.id,
+      status: props.status
     }
   },
   isDragging(props, monitor) {
     return props.id === monitor.getItem().id;
   },
   endDrag(props) {
-    console.log("about to persist card drag event");
-    let cardStatusAndPositions = {
+    // console.log("about to persist card drag event");
+    let cardPositions = {
       card_id: props.id,
-      status: props.status,
       cardPositions: props.cardPositions
     }
-    Utils.persistCardStatusAndPositions(cardStatusAndPositions)
-    .done(() => console.log("Succesfully persisted card drag."))
-    .fail((error) => console.log("Failed to persist card drag: ", error))
+    Utils.persistCardPositions(cardPositions)
+      .done(() => console.log("Succesfully persisted card drag."))
+      .fail((error) => console.log("Failed to persist card drag: ", error));
   }
 }
 
@@ -46,20 +46,25 @@ const cardDropSpec = {
   hover(props, monitor) {
     let hoverCardId = monitor.getItem().id;
     let cardBelowId = props.id;
-    let cardBeforeId = props.cardBeforeId;
-    if (hoverCardId !== cardBelowId) {
-      props.updateCardPosition(hoverCardId, cardBelowId, cardBeforeId);
+    if (hoverCardId !== cardBelowId){
+      props.updateCardPosition(hoverCardId, cardBelowId);
     }
   }
 }
 
 let collectDrop = (connect, monitor) => {
   return {
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
   }
 };
 
 class Card extends Component {
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log("next props and state: ", nextProps, nextState);
+    return true;
+  }
+
   getStartDateTime(date, dateStr) {
     this.startDate = Moment(date).toISOString();
   }
@@ -119,15 +124,9 @@ class Card extends Component {
   }
 
   render() {
-    console.log("events: ", this.props.events);
-    var eventsList;
-    if (this.props.events && this.props.events.length > 0) {
+    let eventsList = "No events scheduled";
+    if (!this.props.isDragging && this.props.events && this.props.events.length > 0) {
       eventsList = this.props.events.map((event, i) => {
-        var displayEvent = {};
-        displayEvent.id = i;
-        displayEvent.summary = event.summary ? event.summary : "no event summary";
-        displayEvent.start = event.start ? event.start.dateTime : "no start time";
-
         return (
           <div key={displayEvent.id}>
             <span>{displayEvent.summary}: </span>
@@ -136,15 +135,13 @@ class Card extends Component {
           </div>
         );
       });
-    } else {
-      eventsList = "No upcoming events"
-    }
+    } 
 
-    var widgets = (<div>
+    let widgets = (<div>
         {eventsList}
         <DateTimePicker min={new Date()} onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
         <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
-        <input type='text' ref="eventInput" placeholder="enter event description.." />
+        <input type='text' ref="eventInput" placeholder="enter event description.." />}
       </div>)
 
     const { connectDragSource, connectDropTarget, isDragging } = this.props;
@@ -156,7 +153,7 @@ class Card extends Component {
       bottom: 0,
       left: 0,
       width: 7,
-      backgroundColor: ("#"+((1<<24)*Math.random()|0).toString(16))
+      backgroundColor: "red"
     }
 
     let isDraggingOverlay = <div className="is__dragging__overlay" />;
@@ -168,7 +165,7 @@ class Card extends Component {
         <div className="card_title">{this.props.title}</div>
         <div className="card_company_name">{this.props.company}</div>
         <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
-        {widgets}
+        { widgets }
       </div>
     ));
   }
