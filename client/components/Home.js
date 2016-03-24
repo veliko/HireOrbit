@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Utils from '../utils/Utils';
+import { router } from 'react-router';
 
 class Home extends Component {
   constructor(){
@@ -11,7 +13,8 @@ class Home extends Component {
       jobType: '',
       location: '',
       position: '',
-      range: 0
+      range: 0,
+      q: {}
     };
   }
 
@@ -29,6 +32,7 @@ class Home extends Component {
 
   submitForm(e) {
     e.preventDefault();
+
     var q = {
       q: this.state.position,
       l: this.state.location,
@@ -37,7 +41,13 @@ class Home extends Component {
       st: this.state.employerType
     }
 
-    console.log(q);
+    let self = this;
+      Utils.getJobsFromIndeed(q, 
+        (res) => {
+          self.props.updateCurrentSearch(res);
+          self.props.history.push('/q');
+        },
+        console.log.bind(console));
   }
 
   stateChange(event) {
@@ -45,7 +55,6 @@ class Home extends Component {
     this.setState({
       [key]: event.target.value
     });
-    // console.log(key, event.target.value);
   }
 
   render(){
@@ -65,36 +74,36 @@ class Home extends Component {
 
     return (
       <div className="search-container">
-      <img src="img/logo.svg" className="searchLogo"/>
-      <form action="" className="search">
-        <div className="main-search">
-          <div>
-            <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.stateChange.bind(this) } />
-          </div>
-          <div>
-            <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
-          </div>
-          <button onClick={this.submitForm.bind(this)}><i className="fa fa-arrow-circle-right"></i></button>
-        </div>
-        <div>
-          <a href="#" className="advanced">Advanced Search</a>
-        </div>
-        <div className="advanced">
-          <div>
-            <div className="radius">
-              <h3>Radius</h3>
-              <input type="range" name="range" min="0" max="100" step="10" onChange={ this.stateChange.bind(this) } />
-              <div className="range">
-                <span>0<br/>miles</span>
-                <span>50</span>
-                <span>100<br/>miles</span>
-              </div>
+        <img src="img/logo.svg" className="searchLogo"/>
+        <form action="" className="search">
+          <div className="main-search">
+            <div>
+              <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.stateChange.bind(this) } />
             </div>
-            <Tabs types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
-            <Tabs types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+            <div>
+              <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
+            </div>
+            <button onClick={this.submitForm.bind(this)}><i className="fa fa-arrow-circle-right"></i></button>
           </div>
-        </div>
-        </form>
+          <div>
+            <a href="#" className="advanced">Advanced Search</a>
+          </div>
+          <div className="advanced">
+            <div>
+              <div className="radius">
+                <h3>Radius</h3>
+                <input type="range" name="range" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
+                <div className="range">
+                  <span>0<br/>miles</span>
+                  <span>50</span>
+                  <span>100<br/>miles</span>
+                </div>
+              </div>
+              <Tabs types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
+              <Tabs types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+            </div>
+          </div>
+          </form>
       </div>
     );
   }
