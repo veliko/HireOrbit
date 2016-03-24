@@ -67,3 +67,12 @@ export function addEventToCard(event) {
     }
   }
 }
+
+export function deleteEventFromCard(event) {
+  return {
+    type: actions.DELETE_EVENT_FROM_CARD,
+    payload: {
+      event
+    }
+  }
+}

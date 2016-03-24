@@ -104,14 +104,15 @@ class Card extends Component {
   }
 
   deleteEvent(event_id){
-    var card_id = this.props.id;
+    let card_id = this.props.id;
+    let eventIndex = this.props.events.findIndex((e) => e.event_id === event_id);
     Utils.deleteGCalEvent({
       event_id,
       card_id
     })
     .done(() => {
       console.log("Successfully deleted event from card.");
-      // dispatch redux action
+      this.props.deleteEventFromCard(this.props.events[eventIndex]);
     })
     .fail((error) => console.log("Error while deleting event from card: ", error));
   }

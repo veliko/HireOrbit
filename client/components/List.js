@@ -49,7 +49,8 @@ class List extends Component {
               events={card.events}
               cardPositions={this.props.cardPositions}
               updateCardPosition={this.updateCardPosition}
-              addEventToCard={this.props.addEventToCard} />
+              addEventToCard={this.props.addEventToCard}
+              deleteEventFromCard={this.props.deleteEventFromCard} />
       );
     });
 
