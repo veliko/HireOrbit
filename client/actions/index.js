@@ -59,12 +59,11 @@ export function addCardsToKanban(cards) {
   }
 }
 
-export function addEventToCard(event, card_id) {
+export function addEventToCard(event) {
   return {
     type: actions.ADD_EVENT_TO_CARD,
     payload: {
-      event, 
-      card_id
+      event
     }
   }
 }

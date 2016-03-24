@@ -178,8 +178,15 @@ export default function(state = [], action) {
 
     case actions.ADD_EVENT_TO_CARD:
       let event = action.payload.event;
-      cardIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
-      return state;
+      cardIndex = state.findIndex((card) => card.card_id === action.payload.event.card_id);
+
+      return update(state, {
+        [cardIndex]: {
+          events: {
+            $push: [event]
+          }
+        }
+      });
     
     default: return state;
   }

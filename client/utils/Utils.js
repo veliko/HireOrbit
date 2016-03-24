@@ -12,6 +12,14 @@ const Utils = {
     })
   },
 
+  deleteGCalEvent: function (eventObj) {
+    return  $.ajax({
+      url: 'api/gcal/delete',
+      method: 'DELETE',
+      data: eventObj
+    })
+  },
+
   getAllSearches: function () {
     // console.log('In getAllSearches');
     return $.ajax({
