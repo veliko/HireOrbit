@@ -1,29 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DataVis from '../components/DataVis';
 import { fetchDataVis } from '../actions';
 import dataVisual from '../reducers/index'
 
-console.log('I am here in the dataviscontainer', actions.fetchDataVis)
 
-class DataViz extends Component {
+class DataVisContainer extends Component {
+
+  renderList () {
+    return this.props.fetchDataVis("HEY THERE");
+  }
+
   render () {
     return (
       <div>
-        <h1>Hey there you made it to the DATA VIZ STORE WELCOME</h1>
         <DataVis />
       </div>
-    )
+    );
   };
 };
 
 function mapToDispatchProps(dispatch) {
+  console.log('mapProps in DataVisContainer container', fetchDataVis)
   return bindActionCreators({ fetchDataVis: fetchDataVis }, dispatch);
 };
 
 function mapStateToProps({dataVisual}) {
+  console.log('mapStateToProps in DataVisContainer container', {dataVisual});
   return {dataVisual};
-}
+};
 
-export default connect (mapStateToProps, mapToDispatchProps)(DataViz)
+// DataVisContainer.propTypes = {
+//   fetchDataVis: PropTypes.func.isRequired
+// }
+
+export default connect (mapStateToProps, mapToDispatchProps)(DataVisContainer)
