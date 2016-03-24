@@ -9,28 +9,19 @@ var plugins = [];
 if (production) {
     plugins = [
       new CleanPlugin('builds'),
-      
-      new webpack.optimize.DedupePlugin(),
-
-     
+      new webpack.optimize.DedupePlugin(),     
       new webpack.optimize.OccurenceOrderPlugin(),
-
       new webpack.NoErrorsPlugin(),
-   
       new webpack.optimize.MinChunkSizePlugin({
           minChunkSize: 51200, // ~50kb
       }),
-
       new webpack.optimize.UglifyJsPlugin({
           mangle:   true,
           compress: {
               warnings: false, // Suppress uglification warnings
           },
       }),
-
       new webpack.optimize.AggressiveMergingPlugin(),
-
-
       // This plugins defines various variables that we can set to false
       // in production to avoid code related to them from being compiled
       // in our final bundle
@@ -43,7 +34,6 @@ if (production) {
               NODE_ENV: JSON.stringify('production')
           },
       })
-
     ];
 }
 
