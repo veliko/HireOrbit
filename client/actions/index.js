@@ -76,3 +76,13 @@ export function deleteEventFromCard(event) {
     }
   }
 }
+
+export function fetchDataVis(searches) {
+  console.log("inside addCardsToKanban: ", searches);
+  return {
+    type: actions.FETCH_DATA_VIS,
+    payload: {
+      searches
+    }
+  }
+}
