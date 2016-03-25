@@ -6,6 +6,7 @@ import Home from '../components/Home';
 import SearchContainer from '../containers/SearchContainer';
 import KanbanBoardContainer from '../containers/KanbanBoardContainer';
 import DataVisContainer from '../containers/DataVisContainer';
+import DataVisSearchContainer from '../containers/DataVisSearchContainer';
 import promise from 'redux-promise';
 import reducers from '../reducers';
 import Auth from '../utils/Auth';
@@ -35,7 +36,7 @@ export default () =>
         <IndexRoute component={HomeContainer}/>
         <Route path="/search" component={SearchContainer}/>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>
-        <Route path="/data-vis" onEnter={requireAuth} component={DataVisContainer}/>
+        <Route path="/data-vis" onEnter={requireAuth} component={DataVisSearchContainer}/>
         <Route path="/logout" onEnter={logOut} />
         <Route path="/auth/google" onEnter={requireAuth} />
       </Route>

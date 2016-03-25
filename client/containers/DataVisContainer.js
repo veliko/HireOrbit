@@ -1,84 +1,64 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import DataVis from '../components/DataVis';
-import { fetchDataVis } from '../actions';
 import dataVisual from '../reducers/index';
 import d3 from 'd3';
 
-const spec = {
-  width: 800,
-  height: 500,
-  border: "1px solid #ffff00",
-  display: "block",
-  margin: "0 auto"
+const styles = {
+  width   : 500,
+  height  : 300,
+  padding : 20,
+};
+
+var dataset = [
+    [ 5,     20 ],
+    [ 480,   90 ],
+    [ 250,   50 ],
+    [ 100,   33 ],
+    [ 330,   95 ],
+    [ 410,   12 ],
+    [ 475,   44 ],
+    [ 25,    67 ],
+    [ 85,    21 ],
+    [ 220,   88 ],
+    [600,    150]
+];
+
+const renderCircles = (props) => {bb
+    const circleProps = {
+      cx: 100,
+      cy: 100,
+      r: 50,
+      fill: "#ffff00"
+    };
+    console.log('inside render circle', props)
+    return <circle {...circleProps} />;
+  };
+
+class DataVisContainer extends Component {
+  // <g>{renderCircles(props)}</g>
+
+  renderList (search) {
+    const location = search.location;
+    const totalResults = search.totalResults;
+    const query = search.query;
+    return (
+      <li key={query}>
+          `{location}, {totalResults}, {query}`
+      </li>
+    )
+  }
+
+  render () {
+    return (
+      <ul>
+            {this.props.dataVisual.map(this.renderList)}
+      </ul>
+    )
+  }
 }
 
-  let xMax   = (data)  => d3.max(data, (d) => d);
-  let yMax   = (data)  => d3.max(data, (d) => d);
+function mapStateToProps({dataVisual}) {
+  return {dataVisual};
+}
 
-  let xScale = (props) => {
-    return d3.scale.linear()
-            .domain( [ 0, xMax(props[0]) ])
-            .range([0, yMax(props[1])])
-  }\
-  let yScale = (props) => {
-    return d3.scale.linear()
-            .domain([0, xMax(props[0])])
-            .range([0, yMax(props[1])])
-  }
-  let rScale = (props) => {
-    return d3.scale.linear()
-            .domain([0, xMax(props[1])])
-            .range([10 , 100])
-  }
-  let marshalScale = (props) => {
-    const scales = {
-      xScale: xScale(props),
-      yScale: yScale(props),
-      rScale: rScale(props)
-    };
-    return Object.assign({}, props, scales);
-  }
-
-  class DataVisContainer extends Component {
-
-      dataVisComponentRender (data) {
-        const cities = data.city;
-        const datas = data.data;
-        const libraries = data.libraries;
-        const d3Props = marshalScale(datas)
-        console.log('inside DataVisContainer', d3Props[0])
-        return <DataVis
-          key={cities}
-          data={datas}
-          library={libraries}
-          city={cities}
-          scale={d3Props}
-          />
-      }
-
-    render () {
-      return (
-        <svg style={spec}>
-          <g>{this.props.dataVisual.map(this.dataVisComponentRender)}</g>
-        </svg>
-      );
-    };
-  };
-
-  function mapToDispatchProps(dispatch) {
-    console.log('mapToDispatchProps', fetchDataVis)
-    return bindActionCreators({ fetchDataVis: fetchDataVis }, dispatch);
-  };
-
-  function mapStateToProps({dataVisual}) {
-    console.log('mapStateToProps in DataVisContainer container', {dataVisual});
-    return {dataVisual};
-  };
-
-  // DataVisContainer.propTypes = {
-  //   fetchDataVis: PropTypes.func.isRequired
-  // }
-
-  export default connect (mapStateToProps, mapToDispatchProps)(DataVisContainer)
+export default connect(mapStateToProps)(DataVisContainer)
