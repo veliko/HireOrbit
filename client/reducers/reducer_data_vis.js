@@ -2,58 +2,29 @@ import { actions } from '../constants';
 
 var dataset = [
 				{
-        	city: "San Francisco",
-        	state: "CA",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [391, 540, 450]
+        	location: "San Francisco, ca",
+          totalResults: 7323,
+					query : "software engineer"
        	},
         {
-	        city: "Los Angeles",
-        	state: "CA",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [106, 266, 127]
+        	location: "Los Angeles, ca",
+        	totalResults: 1630,
+					query: "web developer"
         },
         {
-        	city: "San Jose",
-        	state: "CA",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [256, 677, 399]
+        	location: "San Jose, ca",
+        	totalResults: 119,
+					query: "massage therapist"
         },
         {
-        	city: "Sunnyvale",
-        	state: "CA",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [323, 677, 399]
+        	location: "Sunnyvale, ca",
+        	totalResults: 9660,
+					query: "software engineer"
         },
         {
-        	city: "New York",
-        	state: "NY",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [308, 731, 436]
-        },
-        {
-        	city: "Austin",
-        	state: "TX",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [83, 151, 116]
-        },
-				{
-        	city: "Dallas",
-        	state: "TX",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [70, 264, 133]
-        },
-				{
-        	city: "Portland",
-        	state: "OR",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [48, 94, 51]
-        },
-				{
-        	city: "Chicago",
-        	state: "IL",
-          libraries: ["React", "Angular", "Backbone"],
-          data: [151, 404, 215]
+        	location: "New York, ny",
+        	totalResults: 1027,
+					query: "front End Web Developer"
         }
 		];
 
