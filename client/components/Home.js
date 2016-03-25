@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Utils from '../utils/Utils';
-import { router } from 'react-router';
+import { Link } from 'react-router';
 
 class Home extends Component {
   constructor(){
@@ -16,6 +16,7 @@ class Home extends Component {
       range: 0,
       q: {}
     };
+
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class Home extends Component {
   }
 
   submitForm(e) {
-    e.preventDefault();
+    // e.preventDefault();
 
     var q = {
       q: this.state.position,
@@ -41,13 +42,7 @@ class Home extends Component {
       st: this.state.employerType
     }
 
-    let self = this;
-      Utils.getJobsFromIndeed(q, 
-        (res) => {
-          self.props.updateCurrentSearch(res);
-          self.props.history.push('/q');
-        },
-        console.log.bind(console));
+    return q;
   }
 
   stateChange(event) {
@@ -72,7 +67,7 @@ class Home extends Component {
         )}
       </div>
     );
-
+    // Link to /search, {query = q}
     return (
       <div className="search-container">
         <img src="img/logo.svg" className="searchLogo"/>
@@ -84,7 +79,8 @@ class Home extends Component {
             <div>
               <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
             </div>
-            <button onClick={this.submitForm.bind(this)}><i className="fa fa-arrow-circle-right"></i></button>
+            <Link to={{ pathname: '/search', query: this.submitForm.bind(this)() }} activeClassName="active"><button> <i className="fa fa-arrow-circle-right"></i></button></Link>
+            
           </div>
           <div>
             <a href="#" className="advanced">Advanced Search</a>

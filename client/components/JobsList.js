@@ -83,6 +83,7 @@ class JobsList extends Component {
               { job.expired ?  "Expired" : "" }
               <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
             </div>
+
           </div>)}
           <Pagination />
       </div>

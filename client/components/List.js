@@ -33,7 +33,7 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor() {
     super(...arguments);
-    this.updateCardPosition = _.throttle(this.props.updateCardPosition, 100);
+    this.updateCardPosition = this.props.updateCardPosition;
   }
   render() {
     // console.log("card positions are: ", this.props.cardPositions);

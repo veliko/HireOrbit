@@ -32,7 +32,7 @@ export default () =>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={HomeContainer}/>
-        <Route path="/q" component={SearchContainer}/>
+        <Route path="/search" component={SearchContainer}/>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>
         <Route path="/data-vis" onEnter={requireAuth} component={DataVis}/>
         <Route path="/logout" onEnter={logOut} />

@@ -2,6 +2,7 @@ const githubPassportHandler = require('./Controllers/authController');
 const searchController = require('./Controllers/searchController');
 const gcalController = require('./Controllers/gcalController');
 const cardsController = require('./Controllers/cardsController');
+const path = require('path');
 
 module.exports = function (app) {
   // app.use(searchController.deepLink);
@@ -30,5 +31,9 @@ module.exports = function (app) {
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here
   githubPassportHandler(app);
+
+  app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, '../client', 'index.html'))
+  })
 
 }
