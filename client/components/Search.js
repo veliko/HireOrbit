@@ -6,6 +6,36 @@ import JobsList from './JobsList';
 class Search extends React.Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      jobSet: [],
+      employerSet: [],
+      employerType: '',
+      jobType: '',
+      location: '',
+      position: '',
+      range: 0,
+      q: {}
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      jobSet: [{label: 'Any', value: ''}, {label: 'Fulltime', value: 'fulltime'}, {label: 'Part Time', value: 'parttime'}, {label: 'Contract', value: 'contract'}, {label: 'Internship', value: 'internship'}, {label: 'Temporary', value: 'temporary'}],
+      employerSet: [{label: 'Any', value: ''}, {label: 'Recruiter', value: 'recruiter'}, {label: 'Employer', value: 'employer'}],
+      employerType: '',
+      jobType: '',
+      location: 'San Francisco, CA',
+      position: 'Software Engineer',
+      range: 25
+    });
+  }
+
+  stateChange(event) {
+    let key = event.target.name;
+    this.setState({
+      [key]: event.target.value
+    });
   }
 
   getSearchJobs(){
@@ -32,13 +62,58 @@ class Search extends React.Component {
   render(){
     var Facet = (props) => (
       <aside>
-        <div>
-          <h3>Position</h3>
-          <input type="text" value="" placeholder="Position" />
-        </div>
-        <div>
-          <h3>Location</h3>
-          <input type="text" value="" placeholder="Location" />
+        <div className="sticky">
+          <h2>Refine Results</h2>
+          <div>
+            <h3>Position</h3>
+            <input type="text" value="" placeholder="Position" />
+          </div>
+          <div>
+            <h3>Location</h3>
+            <input type="text" value="" placeholder="Location" />
+          </div>
+          <div>
+            <h3>Radius</h3>
+            <input type="range" min="0" max="100" step="25" />
+            <div className="range">
+              <span>0<br/>miles</span>
+              <span>50</span>          
+              <span>100<br/>miles</span>
+            </div>
+          </div>
+          <div className="job-type type">
+            <h3>Job Type</h3>
+            <div>
+              <a href="#" >Any</a><span> (23)</span>
+            </div>
+            <div>
+              <a href="#">Full Time</a><span> (23)</span>
+            </div>
+            <div>
+               <a href="#">Contract</a><span> (23)</span>
+            </div>
+            <div>
+              <a href="#">Part Time</a><span> (23)</span>
+            </div>
+            <div>
+              <a href="#">Internship</a><span> (23)</span>        
+            </div>
+            <div>
+              <a href="#">Temporary</a><span> (23)</span>        
+            </div>
+          </div>
+          <div className="employer-type type">
+            <h3>Employer Type</h3>
+            <div>
+              <a href="#">Any</a><span> (23)</span>
+            </div>
+            <div>
+              <a href="#">Recruiter</a><span> (23)</span>
+            </div>
+            <div>
+               <a href="#">Employer</a><span> (23)</span>
+            </div>
+          </div>
         </div>
       </aside>
     );
