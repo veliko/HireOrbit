@@ -130,7 +130,7 @@ class Card extends Component {
         return (
           <div key={displayEvent.id}>
             <span>{displayEvent.summary}: </span>
-            <span>{displayEvent.start}</span>
+            <span>{Moment(displayEvent.start).calendar()}</span>
             <RemoveButton removeTarget={event.event_id} removeAction={this.deleteEvent.bind(this)} />
           </div>
         );
@@ -141,7 +141,7 @@ class Card extends Component {
 
     var widgets = (<div>
         {eventsList}
-        <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
+        <DateTimePicker min={new Date()} onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
         <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
         <input type='text' ref="eventInput" placeholder="enter event description.." />
       </div>)

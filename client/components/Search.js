@@ -59,6 +59,17 @@ class Search extends React.Component {
     Utils.saveSearch(searchObj);
   }
 
+  componentDidMount() {
+    let { query } = this.props.location;
+    let self = this;
+      Utils.getJobsFromIndeed(query, 
+        (res) => {
+          self.props.updateCurrentSearch(res);
+          // self.props.history.push('/q');
+        },
+        console.log.bind(console));
+  }
+
   render(){
     var Facet = (props) => (
       <aside>
