@@ -107,9 +107,21 @@ export function deleteEventFromCard(event) {
 }
 
 export function fetchDataVis(searches) {
-  console.log("inside fetchDataVis: ", searches);
+	function location () {
+		return dataset[Math.floor(Math.random() * dataset.length)].location
+	}
+	function totalResults () {
+			return Math.floor((Math.random() * 1000) * 7)
+	}
+
+	var obj = {
+		location: location(),
+		totalResults: totalResults(),
+		query: searches
+	}
+
   return {
     type: actions.FETCH_DATA_VIS,
-    payload: dataset
+    payload: [obj]
   }
 }
