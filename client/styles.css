@@ -42,6 +42,11 @@ header h1 img {
   position: absolute;
 }
 
+.content {
+  display: flex;
+  justify-content: center;
+}
+
 /* navigation styles */ 
 nav {
   flex: 9;
@@ -116,11 +121,11 @@ nav a i {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 500px;
+  height: 600px;
 }
 
 .searchLogo {
-  max-width: 25%;
+  max-width: 45%;
   margin-bottom: 20px;
 }
 
@@ -237,32 +242,201 @@ form.search .advanced {
 /* search results */
 .search-results {
   display: flex;
+  max-width: 930px;
 }
 
 .search-results aside {
   flex: 3;
+  margin: 51px 15px  15px 0;
+  position: relative;
 }
 
+.search-results .sticky {
+  position: fixed;
+  max-width: 250px;
+  width: 220px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 15px;
+}
+
+.search-results aside h2,
+.search-results aside h3 {
+  font-size: 0.9375rem;
+  padding-bottom: 10px;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+}
+
+.search-results aside h3 {
+  margin: 5px 0;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.25);
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.search-results aside input[type="text"],
+.search-results aside input[type="range"] {
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.search-results aside .radio-box {
+  flex-direction: column;
+}
+
+.search-results aside .radio-box > div {
+  display: flex;
+}
+.search-results aside .type {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}  
+
+.search-results aside .type a {
+  text-decoration: none;
+  line-height: 1.25rem;
+  color: rgb(92, 94, 220);
+}
+
+.search-results aside .type a:hover {
+  text-decoration: underline;
+}
+
+.search-results aside span {
+  color: rgba(0, 0, 0, 0.5);
+}
 .search-results .jobs {
   flex: 9;
 }
 
+.search-results .jobs .sort {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
 .search-results .job {
   background: #fff;
+  padding: 15px;
+  margin: 15px 0;
+  display: flex;
+}
+
+.search-results .job > div:first-child {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  padding-right: 15px;
+}
+
+.search-results .job > div:first-child a {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color: rgb(92, 94, 220);
   padding: 10px;
-  margin: 10px;
+}
+
+.search-results .job > div:nth-child(2) {
+  flex: 5;
+}
+
+.search-results .job > div:nth-child(2) > div {
+   display: flex;
+  justify-content: space-between;
 }
 
 .search-results .job h2 {
   font-size: 1.25rem;
   margin: 0;
-  line-height: 2rem;
+  margin-bottom: 6px;
   color: rgb(92,94,220);
 }
 
+.job h3 {
+  margin: 0;
+  font-weight: 100;
+  font-size: 0.9375rem;
+  color: rgb(150, 150, 150);
+}
+
+.search-results .job .tile {
+  position: relative;
+  color: #fff;
+  border: solid 1px rgba(0 ,0, 0, 0.25);
+  margin-bottom: 15px;
+  max-width: 180px;
+}
+
+.search-results .job .tile img {
+  width: 100%;
+}
+
+.job .tile h3 {
+  color: #fff;
+  background: url(./img/low-poly.jpg);
+  background-size: cover;
+  margin: 10px;
+  height: 140px;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+  border: solid 1px rgba(0, 0, 0, 0.1);
+}
+
+.job .tile .overlay {
+  width: 100%;
+  height: 100%;
+  font-size: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.3));
+}
+
+.job .tile span {
+  text-align: center;
+}
+
+.job small {
+  color: rgba(0, 0, 0, 0.35);
+  font-weight: 400;
+}
+
+.job h3 {
+  background: transparent;
+}
+
 .search-results .description {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  color: #666;
+}
+
+.search-results button {
+  background: rgb(148, 148, 148);
+  color: #fff;
+  border: 0;
+  font-size: 14px;
+  padding: 10px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  transition: background 0.5s;
+}
+
+.search-results button:hover {
+  background: rgb(92, 94, 220);
+}
+
+.search-results .pagination {
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  background: transparent;
+  border: solid 1px rgba(255, 255, 255, 0.1);
+  width: 10%;
 }
 
 /* Kanban styles */ 

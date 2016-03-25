@@ -58,6 +58,7 @@ class Home extends Component {
   }
 
   render(){
+    // TODO refactor this to a component
     var Tabs = (props) => (
       <div className="radio-box job">
         <h3>{props.title}</h3>

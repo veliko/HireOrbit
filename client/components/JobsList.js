@@ -1,11 +1,11 @@
 import React, { Component, Proptypes } from 'react';
 import Utils from '../utils/Utils';
 
-
 class JobsList extends Component {
   constuctor(){
     this.addJobToKanban = this.addJobToKanban.bind(this);
   }
+
   addJobToKanban(job) {
     let card = [
       {
@@ -41,20 +41,50 @@ class JobsList extends Component {
   }
 
   render(){
-   
+    var Pagination = (props) => (
+      <div className="pagination">
+        <button>&lt;</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>&gt;</button>
+      </div>
+    );
+    
     return (
       <div className="jobs">
+        <div className="sort">
+          <select>
+            <option>Relevance</option>
+            <option>Date</option>
+            <option>Distance</option>
+          </select>
+        </div>
         {this.props.jobs.map(job =>
           <div className="job" key={job.jobkey}>
-            <h2>{job.jobtitle}</h2>
-            <h3>{job.formattedlocation}</h3>
-            <small>{job.formattedrelativetime}</small>
-            { job.expired ?  "Expired" : "" }
-            <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
-            <button onClick={() => this.addJobToKanban(job)}>Add to Kanban</button>
-            <hr />
-            {job.date}
+            <div>
+              <div className="tile">
+                <h3>
+                  <div className="overlay">
+                    <span>{job.company}</span>
+                  </div>
+                </h3>
+              </div>
+              <button onClick={() => this.addJobToKanban(job)}><i className="fa fa-table"></i> Add to Kanban</button>
+              <a href={job.url}>Apply on Indeed</a>
+            </div>
+            <div>
+              <h2>{job.jobtitle}</h2>
+              <div>
+                <h3>{job.formattedlocation}</h3>
+                <small>{job.formattedrelativetime}</small>
+              </div>
+              <hr />
+              { job.expired ?  "Expired" : "" }
+              <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
+            </div>
           </div>)}
+          <Pagination />
       </div>
     )
   }
