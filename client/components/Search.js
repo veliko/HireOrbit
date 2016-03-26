@@ -3,12 +3,11 @@ import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import JobsList from './JobsList';
 import { Link } from 'react-router';
-import { browserHistory } from 'react-router'
-​
+import { browserHistory } from 'react-router';
+
 class Search extends React.Component {
   constructor(props){
     super(props);
-​
     this.state = {
       jobSet: [],
       employerSet: [],
@@ -20,19 +19,26 @@ class Search extends React.Component {
       sort: 'relevance',
       start: 0,
       q: {},
+      allSavedSearches: [],
       searchName:""
     };
   }
-​
   componentDidMount() {
     let { query } = this.props.location;
     let { q, l, limit, radius, jt, st, start } = query;
-​
     let self = this;
+
     Utils.getJobsFromIndeed(query, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-​
+
+    Utils.getAllSearches()
+      .then((searches => {
+        this.setState({
+          allSavedSearches: searches
+        })
+      }));
+
     this.setState({
       jobSet: [{label: 'Any', value: ''}, {label: 'Fulltime', value: 'fulltime'}, {label: 'Part Time', value: 'parttime'}, {label: 'Contract', value: 'contract'}, {label: 'Internship', value: 'internship'}, {label: 'Temporary', value: 'temporary'}],
       employerSet: [{label: 'Any', value: ''}, {label: 'Recruiter', value: 'recruiter'}, {label: 'Employer', value: 'employer'}],
@@ -43,15 +49,15 @@ class Search extends React.Component {
       radius: radius,
       start: start,
       sort: 'relevance',
-      searchName:""
+      searchName:"",
     });
   }
-​
+
   saveCurrentSearch(){
     var prevState = this.props.currentSearch;
     var self = this;
     var searchObj = {
-      name: self.refs.searchName.value,
+      name: self.state.searchName,
       jobs: self.props.currentSearch.results
     }
     // update savedSearches redux state
@@ -59,7 +65,7 @@ class Search extends React.Component {
     // send post request to the server ro save
     Utils.saveSearch(searchObj);
   }
-​
+
   updateSearch() {
     var q = {
       q: this.state.position,
@@ -70,31 +76,31 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
-​
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-​
+
+
     browserHistory.push({
       pathname: '/search',
       query: q
     });
   }
-​
+
   stateChange(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
     });
   }
-​
+
   selectChange(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
     });
-​
+
     var q = {
       q: this.state.position,
       l: this.state.location,
@@ -104,12 +110,12 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
-​
+
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-​
+
     browserHistory.push({
       pathname: '/search',
       query: q
@@ -125,7 +131,7 @@ class Search extends React.Component {
       })
       .fail(console.log)
   }
-​
+
   render(){
     // Pagination can use TO and FROM attr
     var Pagination = (props) => (
@@ -211,7 +217,6 @@ class Search extends React.Component {
           <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
           <Pagination />
         </div>
-
         { Auth.isLoggedIn() ? 
           <aside>
            <div className="saved-search">
@@ -225,10 +230,9 @@ class Search extends React.Component {
              <input type='text' value={this.state.searchName} name="searchName" onChange={this.stateChange.bind(this)} placeholder='enter a name for this search'/>
            </div>
           </aside> : null  }
-
       </div>
     )
   }
 }
-​
+
 export default Search;
