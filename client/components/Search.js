@@ -4,11 +4,11 @@ import Auth from '../utils/Auth';
 import JobsList from './JobsList';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router'
-
+​
 class Search extends React.Component {
   constructor(props){
     super(props);
-
+​
     this.state = {
       jobSet: [],
       employerSet: [],
@@ -19,19 +19,20 @@ class Search extends React.Component {
       radius: 0,
       sort: 'relevance',
       start: 0,
-      q: {}
+      q: {},
+      searchName:""
     };
   }
-
+​
   componentDidMount() {
     let { query } = this.props.location;
     let { q, l, limit, radius, jt, st, start } = query;
-
+​
     let self = this;
     Utils.getJobsFromIndeed(query, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-
+​
     this.setState({
       jobSet: [{label: 'Any', value: ''}, {label: 'Fulltime', value: 'fulltime'}, {label: 'Part Time', value: 'parttime'}, {label: 'Contract', value: 'contract'}, {label: 'Internship', value: 'internship'}, {label: 'Temporary', value: 'temporary'}],
       employerSet: [{label: 'Any', value: ''}, {label: 'Recruiter', value: 'recruiter'}, {label: 'Employer', value: 'employer'}],
@@ -41,10 +42,11 @@ class Search extends React.Component {
       position: q,
       radius: radius,
       start: start,
-      sort: 'relevance'
+      sort: 'relevance',
+      searchName:""
     });
   }
-
+​
   saveCurrentSearch(){
     var prevState = this.props.currentSearch;
     var self = this;
@@ -57,7 +59,7 @@ class Search extends React.Component {
     // send post request to the server ro save
     Utils.saveSearch(searchObj);
   }
-
+​
   updateSearch() {
     var q = {
       q: this.state.position,
@@ -68,31 +70,31 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
-
+​
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-
+​
     browserHistory.push({
       pathname: '/search',
       query: q
     });
   }
-
+​
   stateChange(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
     });
   }
-
+​
   selectChange(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
     });
-
+​
     var q = {
       q: this.state.position,
       l: this.state.location,
@@ -102,18 +104,28 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
-
+​
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-
+​
     browserHistory.push({
       pathname: '/search',
       query: q
     });
   }
 
+  fetchSavedSearch(id){
+    self = this;
+    Utils.getSavedSearch(id)
+      .done(search => {
+        console.log(search);
+        self.props.updateCurrentSearch({results: search})
+      })
+      .fail(console.log)
+  }
+​
   render(){
     // Pagination can use TO and FROM attr
     var Pagination = (props) => (
@@ -199,9 +211,24 @@ class Search extends React.Component {
           <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
           <Pagination />
         </div>
+
+        { Auth.isLoggedIn() ? 
+          <aside>
+           <div className="saved-search">
+           <h2>Saved Searches</h2>
+             {this.state.allSavedSearches.map(saved => (
+               <div className="ss"><div onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}><h4>{saved.name}</h4></div></div>
+               ))}
+           </div>
+           <div>
+             <button onClick={ this.saveCurrentSearch.bind(this) }>Save this Search</button>
+             <input type='text' value={this.state.searchName} name="searchName" onChange={this.stateChange.bind(this)} placeholder='enter a name for this search'/>
+           </div>
+          </aside> : null  }
+
       </div>
     )
   }
 }
-
+​
 export default Search;
