@@ -48,6 +48,7 @@ class List extends Component {
               status={card.status}
               title={card.job_data.jobtitle}
               company={card.job_data.company}
+              rating={card.rating}
               snippet={card.job_data.snippet}
               events={card.events}
               notes={card.notes}

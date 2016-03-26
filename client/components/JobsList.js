@@ -12,6 +12,7 @@ class JobsList extends Component {
         card_id: job.jobkey,
         job_data: job,
         events: [],
+        rating: 0,
         status: 'interested',
       }
     ];

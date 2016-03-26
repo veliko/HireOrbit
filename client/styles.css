@@ -876,3 +876,7 @@ iframe {
   overflow: hidden;
   transition: max-height .25s ease-out;
 } 
+.fa.fa-star-o, .fa.fa-star {
+  margin-top: 5px;
+  color: #000;
+}

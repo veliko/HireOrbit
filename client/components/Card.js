@@ -7,6 +7,7 @@ import RemoveCard from './RemoveCard';
 import CardStatusBar from './CardStatusBar';
 import RemoveButton from './RemoveButton';
 import NotesList from './NotesList';
+import Rating from 'react-rating';
 
 import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
@@ -181,9 +182,16 @@ class Card extends Component {
         <RemoveCard card_id={this.props.id} deleteCardFromKanban={this.props.deleteCardFromKanban} />
         <div className={this.state.showDetails? "card__title card__title--is-open" : "card__title"} 
              onClick={this.toggleDetails.bind(this)}>
-          {this.props.company ? `${this.props.company}` : null }
+          {this.props.company ? `${this.props.company}` : null }        
           <span className="position__name">{this.props.title}</span>
+          <Rating start={0} 
+                  stop={5} 
+                  step={1} 
+                  initialRate={this.props.rating}
+                  empty="fa fa-star-o"
+                  full="fa fa-star" />
         </div>
+
         <ReactCSSTransitionGroup transitionName="toggle"
                                  transitionEnterTimeout={250}
                                  transitionLeaveTimeout={250} >

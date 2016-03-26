@@ -71,6 +71,7 @@ create table IF NOT EXISTS kanban_cards (
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   status text NOT NULL,
+  rating integer NOT NULL,
   card_id text NOT NULL REFERENCES indeed_jobs (jobkey),
   notes text,
   user_id text NOT NULL REFERENCES users (google_id)
