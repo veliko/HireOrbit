@@ -59,7 +59,7 @@ const cardsController = {
     // get all cards on kanban for specific user
     var user_id = req.cookies.userid;
     var cards;
-    var query = `SELECT kanban_cards.card_id, kanban_cards.status, kanban_cards.notes, indeed_jobs.* FROM "kanban_cards", "indeed_jobs" WHERE (kanban_cards.user_id='${user_id}' AND indeed_jobs.jobkey = kanban_cards.card_id)`;
+    var query = `SELECT kanban_cards.card_id, kanban_cards.status, kanban_cards.notes, kanban_cards.rating, indeed_jobs.* FROM "kanban_cards", "indeed_jobs" WHERE (kanban_cards.user_id='${user_id}' AND indeed_jobs.jobkey = kanban_cards.card_id)`;
     
     db.query(query)
     
@@ -71,7 +71,7 @@ const cardsController = {
         cards.forEach((card) => {
           var job_data = {};
           for (var key in card) {
-            if (key !== "card_id" && key !== "status" && key !== "notes") {
+            if (key !== "card_id" && key !== "status" && key !== "notes" && key !== "rating") {
               job_data[key] = card[key];
               delete card[key];
             } else if ( key === "notes") {
@@ -248,7 +248,28 @@ const cardsController = {
         console.log("Successfully saved notes to card");
         res.send(200);
       })
-      .catch((error) => console.log("Error while saving notes: ", error));
+      .catch((error) => {
+        console.log("Error while saving notes: ", error)
+        res.send(500);
+      });
+  },
+
+  updateCardRating(req, res, next) {
+    var user_id = req.cookies.userid;
+    var card_id = req.body.card_id;
+    var newRating = req.body.newRating;
+
+    var query = `UPDATE kanban_cards SET rating = ${newRating} WHERE (user_id = '${user_id}' AND card_id = '${card_id}')`;
+
+    db.query(query)
+      .then(() => {
+        console.log('Successfully updated card rating');
+        res.send(200);
+      })
+      .catch((error) => {
+        console.log("Error while saving card rating: ", error)
+        res.send(500);
+      });
   }
 };
 

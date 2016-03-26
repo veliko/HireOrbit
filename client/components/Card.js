@@ -8,6 +8,7 @@ import CardStatusBar from './CardStatusBar';
 import RemoveButton from './RemoveButton';
 import NotesList from './NotesList';
 import Rating from 'react-rating';
+import lodash from 'lodash';
 
 import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
@@ -17,6 +18,14 @@ import numberLocalizer from 'react-widgets/lib/localizers/simple-number'
 // Localizers for Datepicker
 numberLocalizer();
 momentLocalizer(Moment);
+
+var throttledHoverHandler = lodash.throttle((props, monitor) => {
+  let hoverCardId = monitor.getItem().id;
+  let cardBelowId = props.id;
+  if (hoverCardId !== cardBelowId){
+    props.updateCardPosition(hoverCardId, cardBelowId);
+  }
+}, 100); 
 
 const cardDragSpec = {
   beginDrag(props) {
@@ -49,11 +58,7 @@ let collectDrag = (connect, monitor) => {
 
 const cardDropSpec = {
   hover(props, monitor) {
-    let hoverCardId = monitor.getItem().id;
-    let cardBelowId = props.id;
-    if (hoverCardId !== cardBelowId){
-      props.updateCardPosition(hoverCardId, cardBelowId);
-    }
+    throttledHoverHandler(props, monitor);
   }
 }
 
@@ -76,6 +81,11 @@ class Card extends Component {
     this.setState({showDetails: !this.state.showDetails});
   }
 
+  changeRating(newRating) {
+    console.log("New Rating: ", newRating);
+    this.props.changeCardRating(this.props.id, newRating);
+  }
+
   getStartDateTime(date, dateStr) {
     this.startDate = Moment(date).toISOString();
   }
@@ -84,40 +94,50 @@ class Card extends Component {
     return Moment(this.startDate).add(10, 'minutes').toISOString();
   }
 
-  saveEvent(){
-    let self = this;
-    let summary = self.refs.eventInput.value;
-    let event = {
-      start: {
-        dateTime: self.startDate 
-      },
-      end: {
-        dateTime: self.getEndDateTime()
-      },
-      summary
+  saveEvent(e){
+    if (e.key === "Enter") {
+      let self = this;
+      let summary = self.refs.eventInput.value;
+      if (summary === "") {
+        console.log("summary: ", summary);
+        // e.taget.value = "Please enter event description";
+        // setTimeout(() => {
+        //   e.target.value = "";
+        // }, 2000);
+        return;
+      }
+      let event = {
+        start: {
+          dateTime: self.startDate 
+        },
+        end: {
+          dateTime: self.getEndDateTime()
+        },
+        summary
+      }
+      let addEventObj = {
+        event: event,
+        card_id: self.props.id
+      }
+      console.log(addEventObj);
+
+      Utils.addGCalEvent(addEventObj)
+        .done((event) => {
+          console.log('Successfully added event: ', event)
+          let newEvent = {
+            card_id: self.props.id,
+            summary: event.summary,
+            event_id: event.id,
+            start: event.start,
+            end: event.end,
+            htmlLink: event.htmlLink
+          }
+
+          self.props.addEventToCard(newEvent);
+          self.refs.eventInput.value = "";
+        })
+        .fail((err) => console.log.bind(console))
     }
-    let addEventObj = {
-      event: event,
-      card_id: self.props.id
-    }
-    console.log(addEventObj);
-
-    Utils.addGCalEvent(addEventObj)
-      .done((event) => {
-        console.log('Successfully added event: ', event)
-        let newEvent = {
-          card_id: self.props.id,
-          summary: event.summary,
-          event_id: event.id,
-          start: event.start,
-          end: event.end,
-          htmlLink: event.htmlLink
-        }
-
-        self.props.addEventToCard(newEvent);
-
-      })
-      .fail((err) => console.log.bind(console))
   }
 
   deleteEvent(event_id){
@@ -135,14 +155,14 @@ class Card extends Component {
   }
 
   render() {
-    let eventsList = "No events scheduled";
+    let eventsList = <span className="card__list__entry">"No events scheduled"</span>;
     if ( this.state.showDetails && !this.props.isDragging && this.props.events && this.props.events.length > 0) {
       eventsList = this.props.events.map((event, i) => {
         return (
-          <div key={displayEvent.id}>
-            <span>{displayEvent.summary}: </span>
-            <span>{Moment(displayEvent.start).calendar()}</span>
+          <div className="card__list__entry" key={i}>
             <RemoveButton removeTarget={event.event_id} removeAction={this.deleteEvent.bind(this)} />
+            <span>{event.start ? (Moment(event.start.dateTime).format("MM/Do, h:mma") + ": ") : "no start time"}</span>
+            <span>{event.summary ? event.summary : "no event summary"}</span>
           </div>
         );
       });
@@ -150,14 +170,21 @@ class Card extends Component {
 
     let widgets = this.state.showDetails ? 
       (
-        <div>
+        <div className="events__list">
           <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
-          <hr />
+          <br />
+          <div className="fa fa-calendar-check-o">{"  Events"}</div>
           {eventsList}
-          <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
-          <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
-          <input type='text' ref="eventInput" placeholder="enter event description.." />
-          <hr />
+          <div className="date__time__picker">
+            <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
+          </div>
+          <input type='text' 
+                 className="card__input"
+                 ref="eventInput" 
+                 placeholder="enter event description.." 
+                 onKeyPress={this.saveEvent.bind(this)}/>
+          <br />
+          <div className="fa fa-sticky-note-o">{"  Notes"}</div>
           <NotesList updateCardNotes={this.props.updateCardNotes} notes={this.props.notes} card_id={this.props.id}/> 
         </div>
       ) : null;
@@ -170,8 +197,8 @@ class Card extends Component {
       top: 0,
       bottom: 0,
       left: 0,
-      width: 7,
-      backgroundColor: "red"
+      width: 5,
+      backgroundColor: "#00CED1"
     }
 
     let isDraggingOverlay = <div className="is__dragging__overlay" />;
@@ -183,14 +210,15 @@ class Card extends Component {
         <div className={this.state.showDetails? "card__title card__title--is-open" : "card__title"} 
              onClick={this.toggleDetails.bind(this)}>
           {this.props.company ? `${this.props.company}` : null }        
-          <span className="position__name">{this.props.title}</span>
-          <Rating start={0} 
-                  stop={5} 
-                  step={1} 
-                  initialRate={this.props.rating}
-                  empty="fa fa-star-o"
-                  full="fa fa-star" />
         </div>
+        <span className="position__name">{this.props.title}</span>
+        <Rating start={0} 
+                stop={5} 
+                step={1} 
+                initialRate={this.props.rating}
+                empty="fa fa-star-o"
+                full="fa fa-star" 
+                onChange={this.changeRating.bind(this)}/>
 
         <ReactCSSTransitionGroup transitionName="toggle"
                                  transitionEnterTimeout={250}

@@ -25,6 +25,8 @@ module.exports = function (app) {
 
   app.post('/api/cards/notes', cardsController.updateCardNotes);
 
+  app.put('/api/cards/rating', cardsController.updateCardRating);
+
   app.get('/api/gcal/agenda', gcalController.getEvents);
 
   app.post('/api/gcal/add', gcalController.addEvent);

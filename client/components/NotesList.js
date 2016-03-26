@@ -33,21 +33,24 @@ class NotesList extends Component {
   }
 
   render() {
-    let notes = "You notes will appear here";
+    let notes = <span className="card__list__entry">"You notes will appear here"</span>;
     if (this.props.notes && this.props.notes.length > 0) {
       notes = this.props.notes.map((note, noteIndex) => {
         return (
-          <div className="note-container" key={`${note}${noteIndex}`}>
-            <span className="note">{note}</span><RemoveButton removeTarget={noteIndex} removeAction={this.handleNoteRemove.bind(this)} />
+          <div className="card__list__entry" key={`${note}${noteIndex}`}>
+            <RemoveButton removeTarget={noteIndex} 
+                          removeAction={this.handleNoteRemove.bind(this)} />
+            <span>{(note)}</span>
           </div>
         );
       });
     }
 
     return ( 
-      <div>
+      <div className="notes__list">
         {notes}
         <input type="text" 
+               className="card__input"
                placeholder="Write note and press Enter" 
                onChange={this.handleNoteInputChange.bind(this)}
                onKeyPress={this.handleEnterPress.bind(this)}

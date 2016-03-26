@@ -127,6 +127,23 @@ export default function(state = [], action) {
         }
       });
     
+      case actions.CHANGE_CARD_RATING:
+        card_id = action.payload.card_id;
+        cardIndex = state.findIndex((card) => card.card_id === card_id);
+        let newRating = action.payload.newRating;
+
+        Utils.updateCardRating(card_id, newRating)
+          .done(() => console.log('Successfully persisted card rating'))
+          .fail((error) => console.log('Error while persisting card rating: ', error));
+
+        return update(state, {
+          [cardIndex]: {
+            rating: {
+              $set: newRating
+            }
+          }
+        });
+
     default: return state;
   }
 }

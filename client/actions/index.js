@@ -150,3 +150,13 @@ export function updateCardNotes(card_id, notes) {
     }
   }
 }
+
+export function changeCardRating(card_id, newRating) {
+  return {
+    type: actions.CHANGE_CARD_RATING,
+    payload: {
+      card_id,
+      newRating
+    }
+  }
+}

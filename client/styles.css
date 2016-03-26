@@ -81,7 +81,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #5c5edc;
+  color: #ececec;
 }
 
 nav ul li a {
@@ -516,17 +516,11 @@ ul {
   width: 25%;
   padding: 0 20px;
   overflow: auto;
-  background-color: #ececec;
+  background: #a2a2a2;
 }
 
-.list:not(:last-child):after{
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 99%;
-  background: linear-gradient(to bottom, #eee 0%, #ccc 50%, #eee 100%) fixed;
+.list:not(:last-child) {
+  border-right: 5px solid #909090;
 }
 
 .card {
@@ -537,22 +531,29 @@ ul {
   width: 100%;
   padding: 10px 10px 10px 15px;
   margin: 0 0 10px 0;
-  overflow: auto;
-  border: 1px solid #e5e5df;
+  overflow: visible;
+  border: 1px solid #c4c4c4;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+  z-index: 5;
 }
 
 .card__title {
-  font-size: 1em;
+  font-size: 1.20em;
   font-weight: bold;
-  border-bottom: solid 5px transparent;
+  margin-bottom: 2px;
 }
 
 .position__name {
   display: block;
   font-weight: 300;
   font-style: italic;
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #00585C;
 }
 
 .card__title:before {
@@ -573,7 +574,8 @@ ul {
 }
 
 .card_details {
-  font-size: 0.75em;
+  font-size: 1em;
+  margin-top: 10px;
 }
 
 .checklist__task:first-child {
@@ -601,8 +603,8 @@ ul {
 .toolbar {
   height: 40px;
   text-align: right;
-  background-color: #fefefe;
-  border-bottom: 1px solid #cecece;
+  background-color: #fff;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .filter__input {
@@ -611,6 +613,7 @@ ul {
   margin-top: 5px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 5px;
   padding-left: 10px;
   font-size: 0.75em;
   border-radius: 3px;
@@ -796,7 +799,7 @@ iframe {
   position: absolute;
   width:10px;
   height: 10px;
-  right: 5px;
+  right: 10px;
   top: 5px;
   color: #dcdcdc;
   font-size: 14px;
@@ -814,7 +817,7 @@ iframe {
   z-index: 2;
   right: 20px;
   bottom: 20px;
-  background: #00B24A;
+  background: #D47001;
   color: #ececec;
   border-radius: 100%;
   font-size: 28px;
@@ -829,19 +832,17 @@ iframe {
 
 .fa.fa-plus:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  background: #00B24A;
+  background: #D47001;
   color: white;
   opacity: 1;
   transform: scale(0.95,0.95);
 }
 
 .fa.fa-times.remove-event {
-  color: #999;
+  color: #aaa;
   position: relative;
-  width: 10px;
-  height: 10px;
-  font-size: 14px;
-  margin-left: 7px;
+  font-size: 1em;
+  margin-right: 10px;
   transition: 0.25s;
   top: 0;
   right: 0;
@@ -855,7 +856,7 @@ iframe {
 }
 
 .card-count {
-  color: #00B24A;
+  color: #D47001;
 }
 
 .toggle-enter {
@@ -876,7 +877,51 @@ iframe {
   overflow: hidden;
   transition: max-height .25s ease-out;
 } 
-.fa.fa-star-o, .fa.fa-star {
-  margin-top: 5px;
+.fa.fa-star-o{
+  color: #aaa;
+  margin-bottom: 5px;
+  margin-right: 2px;
+}
+.fa.fa-star {
   color: #000;
+  margin-bottom: 5px;
+  margin-right: 2px;
+}
+.fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
+  font-size: 1.20em;
+  color: #aaa;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.fa.fa-sticky-note-o {
+  margin-top: 10px;
+}
+
+.card__input {
+  border: 1px dashed #aaa;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.notes__list > .card__input {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.card__list__entry {
+  font-size: 1em;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.fa.fa-clock-o, .fa.fa-check {
+  color: #aaa;
+} 
+
+.date__time__picker {
+  overflow: visible;
 }

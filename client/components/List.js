@@ -5,14 +5,16 @@ import { dragTypes } from '../constants';
 import lodash from 'lodash';
 import Utils from '../utils/Utils';
 
+const throttledListHoverHandler = lodash.throttle((props, monitor) => {
+  const draggedId = monitor.getItem().id;
+  // if (monitor.getItem().status !== props.id) {
+    props.updateCardStatus(draggedId, props.id);
+  // }
+}, 100);
 
 const listTargetSpec = {
   hover(props, monitor) {
-    const draggedId = monitor.getItem().id;
-    let updateCardStatus = lodash.throttle(props.updateCardStatus, 400);
-    if (monitor.getItem().status !== props.id) {
-      updateCardStatus(draggedId, props.id);
-    }
+    throttledListHoverHandler(props, monitor);
   },
   drop(props, monitor) {
     let card_id = monitor.getItem().id;
@@ -36,7 +38,6 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor() {
     super(...arguments);
-    this.updateCardPosition = this.props.updateCardPosition;
   }
   render() {
     // console.log("card positions are: ", this.props.cardPositions);
@@ -53,11 +54,12 @@ class List extends Component {
               events={card.events}
               notes={card.notes}
               cardPositions={this.props.cardPositions}
-              updateCardPosition={this.updateCardPosition}
+              updateCardPosition={this.props.updateCardPosition}
               addEventToCard={this.props.addEventToCard}
               deleteEventFromCard={this.props.deleteEventFromCard}
               deleteCardFromKanban={this.props.deleteCardFromKanban}
-              updateCardNotes={this.props.updateCardNotes} />
+              updateCardNotes={this.props.updateCardNotes}
+              changeCardRating={this.props.changeCardRating} />
       );
     });
 

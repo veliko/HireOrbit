@@ -177,6 +177,17 @@ const Utils = {
         notes
       }
     });
+  },
+
+  updateCardRating: function(card_id, newRating) {
+    return $.ajax({
+      url: 'api/cards/rating',
+      method: 'PUT',
+      data: {
+        card_id,
+        newRating
+      }
+    })
   }
 }
 

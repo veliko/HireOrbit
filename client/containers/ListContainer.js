@@ -6,7 +6,8 @@ import { updateCardStatus,
          addEventToCard, 
          deleteEventFromCard , 
          deleteCardFromKanban,
-         updateCardNotes } from '../actions';
+         updateCardNotes,
+         changeCardRating } from '../actions';
 
 class ListContainer extends Component {
   render() {
@@ -35,5 +36,6 @@ export default connect(mapStateToProps, { updateCardStatus,
                                           addEventToCard, 
                                           deleteEventFromCard,
                                           deleteCardFromKanban,
-                                          updateCardNotes })(ListContainer);
+                                          updateCardNotes,
+                                          changeCardRating })(ListContainer);
 
