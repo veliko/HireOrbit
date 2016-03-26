@@ -28,6 +28,13 @@ const Utils = {
     })
   },
 
+  getSavedSearch: function (id) {
+    return $.ajax({
+      url: '/api/searches/'+id,
+      method: 'GET'
+    })
+  },
+
   saveSearch: function (searchObj) {
     var options = {
       url: '/api/searches',
