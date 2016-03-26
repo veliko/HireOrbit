@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import App from './App';
 import HomeContainer from '../containers/HomeContainer';
 import Home from '../components/Home';

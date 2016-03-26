@@ -20,6 +20,7 @@ export default class App extends React.Component {
           <nav>
             <ul role="nav">
               <li><NavLink to="/" onlyActiveOnIndex><i className="fa fa-home"></i>Home</NavLink></li>
+              <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
               <li><NavLink to="/kanban"><i className="fa fa-table"></i>Kanban</NavLink></li>
               <li><NavLink to="/data-vis"><i className="fa fa-bar-chart"></i>Data</NavLink></li>
             </ul>
