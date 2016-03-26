@@ -21,8 +21,6 @@ class Search extends React.Component {
       start: 0,
       q: {}
     };
-
-    this.updateSearch = this.updateSearch.bind(this);
   }
 
   componentDidMount() {
