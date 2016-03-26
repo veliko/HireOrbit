@@ -16,11 +16,13 @@ class Search extends React.Component {
       jobType: '',
       location: '',
       position: '',
-      range: 0,
+      radius: 0,
       sort: 'relevance',
       start: 0,
       q: {}
     };
+
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +41,7 @@ class Search extends React.Component {
       jobType: jt,
       location: l,
       position: q,
-      range: radius,
+      radius: radius,
       start: start,
       sort: 'relevance'
     });
@@ -75,7 +77,7 @@ class Search extends React.Component {
     }, console.log.bind(console));
 
     browserHistory.push({
-      pathname: '/some/path',
+      pathname: '/search',
       query: q
     });
   }
@@ -93,7 +95,25 @@ class Search extends React.Component {
       [key]: event.target.value
     });
 
-    this.updateSearch();
+    var q = {
+      q: this.state.position,
+      l: this.state.location,
+      radius: this.state.range,
+      jt: this.state.jobType,
+      st: this.state.employerType,
+      sort: this.state.sort,
+      start: this.state.start
+    }
+
+    let self = this;
+    Utils.getJobsFromIndeed(q, (res) => {
+      self.props.updateCurrentSearch(res);
+    }, console.log.bind(console));
+
+    browserHistory.push({
+      pathname: '/search',
+      query: q
+    });
   }
 
   render(){
@@ -101,7 +121,7 @@ class Search extends React.Component {
     var Pagination = (props) => (
       <div className="pagination">
         {[...Array(10)].map((x, i) =>
-          <button key={i + 1}>{i + 1}</button>
+          <button key={i + 1} name="start" value={i * 25} onClick={this.selectChange.bind(this)}>{i + 1}</button>
         )}
       </div>
     );
@@ -134,7 +154,7 @@ class Search extends React.Component {
             </div>
             <div>
               <h3>Radius</h3>
-              <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onChange={ this.stateChange.bind(this) } />
+              <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.selectChange.bind(this) } />
               <div className="range">
                 <span>0<br/>miles</span>
                 <span>50</span>          
