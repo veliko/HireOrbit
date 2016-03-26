@@ -16,6 +16,10 @@ body {
   flex-direction: column;
 }
 
+.flex {
+  display: flex;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -96,10 +100,10 @@ nav a i {
 }
 
 .fa.fa-user {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   text-decoration: none;
   color: #fff;
-  padding: 11px 14px 0;
+  padding: 13px 14px 0;
   transition: color 0.25s;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 45px;
@@ -242,7 +246,7 @@ form.search .advanced {
 /* search results */
 .search-results {
   display: flex;
-  max-width: 930px;
+  max-width: 1200px;
 }
 
 .search-results aside {
@@ -253,8 +257,8 @@ form.search .advanced {
 
 .search-results .sticky {
   position: fixed;
-  max-width: 250px;
-  width: 220px;
+  max-width: 295px;
+  width: 100%;
   background: rgba(255, 255, 255, 0.75);
   padding: 15px;
 }
@@ -347,11 +351,12 @@ form.search .advanced {
   justify-content: space-between;
 }
 
-.search-results .job h2 {
+.search-results .job h2 a {
   font-size: 1.25rem;
   margin: 0;
   margin-bottom: 6px;
   color: rgb(92,94,220);
+  text-decoration: none;
 }
 
 .job h3 {

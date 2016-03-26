@@ -40,26 +40,13 @@ class JobsList extends Component {
     }
   }
 
+  logger(event) {
+    console.log(event.target.text);
+  }
+
   render(){
-    var Pagination = (props) => (
-      <div className="pagination">
-        <button>&lt;</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>&gt;</button>
-      </div>
-    );
-    
     return (
-      <div className="jobs">
-        <div className="sort">
-          <select>
-            <option>Relevance</option>
-            <option>Date</option>
-            <option>Distance</option>
-          </select>
-        </div>
+      <div>
         {this.props.jobs.map(job =>
           <div className="job" key={job.jobkey}>
             <div>
@@ -71,10 +58,10 @@ class JobsList extends Component {
                 </h3>
               </div>
               <button onClick={() => this.addJobToKanban(job)}><i className="fa fa-table"></i> Add to Kanban</button>
-              <a href={job.url}>Apply on Indeed</a>
+              <a href={job.url} target="_blank">Apply on Indeed</a>
             </div>
             <div>
-              <h2>{job.jobtitle}</h2>
+              <h2><a href={job.url} target="_blank">{job.jobtitle}</a></h2>
               <div>
                 <h3>{job.formattedlocation}</h3>
                 <small>{job.formattedrelativetime}</small>
@@ -83,9 +70,8 @@ class JobsList extends Component {
               { job.expired ?  "Expired" : "" }
               <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
             </div>
-
-          </div>)}
-          <Pagination />
+          </div>
+        )}
       </div>
     )
   }

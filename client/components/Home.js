@@ -14,9 +14,9 @@ class Home extends Component {
       location: '',
       position: '',
       range: 0,
+      start: 0,
       q: {}
     };
-
   }
 
   componentDidMount() {
@@ -27,21 +27,20 @@ class Home extends Component {
       jobType: '',
       location: 'San Francisco, CA',
       position: 'Software Engineer',
-      range: 25
+      range: 25,
+      start: 0
     });
   }
 
-  submitForm(e) {
-    // e.preventDefault();
-
+  submitForm() {
     var q = {
       q: this.state.position,
       l: this.state.location,
       radius: this.state.range,
       jt: this.state.jobType,
-      st: this.state.employerType
+      st: this.state.employerType,
+      start: 0
     }
-
     return q;
   }
 
@@ -61,13 +60,12 @@ class Home extends Component {
           // make this active based on the 'checked' match
           <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
-            <input type="radio" name={props.name} value={item.value}
-              checked={item.value === this.state[props.name]} onChange={ this.stateChange.bind(this) } />
+            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.stateChange.bind(this) } />
           </div>
         )}
       </div>
     );
-    // Link to /search, {query = q}
+
     return (
       <div className="search-container">
         <img src="img/logo.svg" className="searchLogo"/>
@@ -79,8 +77,7 @@ class Home extends Component {
             <div>
               <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
             </div>
-            <Link to={{ pathname: '/search', query: this.submitForm.bind(this)() }} activeClassName="active"><button> <i className="fa fa-arrow-circle-right"></i></button></Link>
-            
+            <Link to={{ pathname: '/search', query: this.submitForm.bind(this)() }} ><button> <i className="fa fa-arrow-circle-right"></i></button></Link>
           </div>
           <div>
             <a href="#" className="advanced">Advanced Search</a>
