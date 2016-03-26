@@ -9,6 +9,7 @@ import RemoveButton from './RemoveButton';
 import NotesList from './NotesList';
 import Rating from 'react-rating';
 import lodash from 'lodash';
+// import { Link } from 'react-router';
 
 import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
@@ -20,12 +21,14 @@ numberLocalizer();
 momentLocalizer(Moment);
 
 var throttledHoverHandler = lodash.throttle((props, monitor) => {
-  let hoverCardId = monitor.getItem().id;
-  let cardBelowId = props.id;
-  if (hoverCardId !== cardBelowId){
-    props.updateCardPosition(hoverCardId, cardBelowId);
+  if (monitor && props && monitor.getItem() && monitor.getItem().id && props.id) {
+    let hoverCardId = monitor.getItem().id;
+    let cardBelowId = props.id;
+    if (hoverCardId !== cardBelowId){
+      props.updateCardPosition(hoverCardId, cardBelowId);
+    }
   }
-}, 100); 
+}, 200); 
 
 const cardDragSpec = {
   beginDrag(props) {
@@ -219,7 +222,9 @@ class Card extends Component {
                 empty="fa fa-star-o"
                 full="fa fa-star" 
                 onChange={this.changeRating.bind(this)}/>
-
+        <button className="view__job__posting">
+          <a className="job__posting__link" href={`${this.props.jobLink}`} target="_blank">View Job Posting</a>
+        </button>
         <ReactCSSTransitionGroup transitionName="toggle"
                                  transitionEnterTimeout={250}
                                  transitionLeaveTimeout={250} >

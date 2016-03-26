@@ -516,29 +516,33 @@ ul {
   width: 25%;
   padding: 0 20px;
   overflow: auto;
-  background: #a2a2a2;
+  background: #dcdcdc;
 }
 
 .list:not(:last-child) {
-  border-right: 5px solid #909090;
+  border-right: 3px solid #bcbcbc;
 }
 
 .card {
   position: relative;
   text-align: left;
   z-index: 1;
-  background: #fff;
+  background: #fbfbfb;
   width: 100%;
   padding: 10px 10px 10px 15px;
   margin: 0 0 10px 0;
   overflow: visible;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #dcdcdc;
   border-radius: 3px;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+  transition: 0.25s;
 }
 
 .card:hover {
   z-index: 5;
+  background: #fff;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.30);
+  transform: scale(1.008, 1.008);
 }
 
 .card__title {
@@ -575,7 +579,7 @@ ul {
 
 .card_details {
   font-size: 1em;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .checklist__task:first-child {
@@ -879,12 +883,12 @@ iframe {
 } 
 .fa.fa-star-o{
   color: #aaa;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-right: 2px;
 }
 .fa.fa-star {
   color: #000;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-right: 2px;
 }
 .fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
@@ -924,4 +928,31 @@ iframe {
 
 .date__time__picker {
   overflow: visible;
+}
+
+.view__job__posting {
+  font-size: 0.75em;
+  background-color: #ececec;
+  color: #999;
+  border: none;
+  border-radius: 3px;
+  position: relative;
+  float: right;
+  top: 0px;
+  left: 0px;
+  transition: 0.05s;
+}
+
+.view__job__posting:hover {
+  background-color: #00CED1;
+  color: white;
+}
+
+.job__posting__link {
+  color: #999;
+  text-decoration: none;
+}
+
+.job__posting__link:hover {
+  color: white;
 }

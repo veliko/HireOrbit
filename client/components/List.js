@@ -6,11 +6,11 @@ import lodash from 'lodash';
 import Utils from '../utils/Utils';
 
 const throttledListHoverHandler = lodash.throttle((props, monitor) => {
-  const draggedId = monitor.getItem().id;
-  // if (monitor.getItem().status !== props.id) {
+  if (monitor.getItem() && props && props.id) {
+    const draggedId = monitor.getItem().id;
     props.updateCardStatus(draggedId, props.id);
-  // }
-}, 100);
+  }
+}, 200);
 
 const listTargetSpec = {
   hover(props, monitor) {
@@ -51,6 +51,7 @@ class List extends Component {
               company={card.job_data.company}
               rating={card.rating}
               snippet={card.job_data.snippet}
+              jobLink={card.job_data.url}
               events={card.events}
               notes={card.notes}
               cardPositions={this.props.cardPositions}
