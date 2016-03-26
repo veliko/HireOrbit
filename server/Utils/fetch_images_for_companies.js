@@ -3,7 +3,10 @@ const request = require('request-promise');
 const cheerio = require('cheerio');
 const companyLogoObj = {};
 
-var htmlparser = require("htmlparser2");
+const companyLogoSpaced = {}
+
+
+
 
 
 
@@ -14,12 +17,23 @@ db.raw(`select * from indeed_jobs`)
     // console.log(companyListSpaced, companyListSingle)
 
 
+// Get google search for all companies // 
+// var promisesSpaced = companyListSpaced.map(company => {
+//   return new Promise(function(resolve, reject) {
+//     var option = {
+//       uri: ''
+//     }
+
+//   })
+// })
+  // first link fetch page  
+    // use same logic for logoNodes
 
   
 
 
 
-var promisesList = companyListSingle.concat('amazon').map(company => {
+var promisesList = companyListSingle.map(company => {
   return new Promise(function(resolve, reject) {
     var reqOption = {
       uri: `http://www.${company}.com`,
@@ -41,18 +55,15 @@ var promisesList = companyListSingle.concat('amazon').map(company => {
 
 Promise.all(promisesList)
   .then(function (vals) {
-      // var dom = htmlparser.parseDOM(vals[0][1]);
-          // console.log(dom)
-          // parser.write(vals[0][1]);
     vals.forEach((arrayURLBody) => {
       var companyURL = arrayURLBody[0];
       var resBody = arrayURLBody[1];
 
-      var $ = cheerio.load(vals[0][1]);
+      var $ = cheerio.load(resBody);
       // console.log($('img')[0])
       var logoNodes = Array.prototype.slice.call( $('img') )
         .filter(imgNode => {
-       if (imgNode.type === 'tag' && imgNode.name === 'img' && imgNode.attribs.src && imgNode.attribs.src.toLowerCase().indexOf('logo') > -1){
+       if (imgNode.type === 'tag' && imgNode.name === 'img' && imgNode.attribs.src && (imgNode.attribs.src.toLowerCase().indexOf('logo') > -1 || imgNode.attribs.src.toLowerCase().indexOf('brand') > -1) ){
         return true
        } else {
         return false;
