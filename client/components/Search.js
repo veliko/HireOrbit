@@ -17,6 +17,7 @@ class Search extends React.Component {
       location: '',
       position: '',
       range: 0,
+      sort: 'relevance',
       start: 0,
       q: {}
     };
@@ -39,7 +40,8 @@ class Search extends React.Component {
       location: l,
       position: q,
       range: radius,
-      start: start
+      start: start,
+      sort: 'relevance'
     });
   }
 
@@ -63,6 +65,7 @@ class Search extends React.Component {
       radius: this.state.range,
       jt: this.state.jobType,
       st: this.state.employerType,
+      sort: this.state.sort,
       start: this.state.start
     }
 
@@ -84,21 +87,29 @@ class Search extends React.Component {
     });
   }
 
+  selectChange(event) {
+    let key = event.target.name;
+    this.setState({
+      [key]: event.target.value
+    });
+
+    this.updateSearch();
+  }
+
   render(){
     // Pagination can use TO and FROM attr
     var Pagination = (props) => (
       <div className="pagination">
         {[...Array(10)].map((x, i) =>
-          <button key={i + 1} onClick={this.logger}>{i + 1}</button>
+          <button key={i + 1}>{i + 1}</button>
         )}
       </div>
     );
     var Sort = (props) => (
       <div className="sort">
-        <select>
-          <option>Relevance</option>
-          <option>Date</option>
-          <option>Distance</option>
+        <select onChange={this.selectChange.bind(this)} name="sort">
+          <option value="relevance">Relevance</option>
+          <option value="date">Date</option>
         </select>
       </div>
     );
@@ -123,7 +134,7 @@ class Search extends React.Component {
             </div>
             <div>
               <h3>Radius</h3>
-              <input type="range" min="0" max="100" step="25" value={this.state.range} onChange={ this.stateChange.bind(this) } />
+              <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onChange={ this.stateChange.bind(this) } />
               <div className="range">
                 <span>0<br/>miles</span>
                 <span>50</span>          
