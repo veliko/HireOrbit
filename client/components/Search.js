@@ -85,6 +85,7 @@ class Search extends React.Component {
   }
 
   render(){
+    // Pagination can use TO and FROM attr
     var Pagination = (props) => (
       <div className="pagination">
         {[...Array(10)].map((x, i) =>
