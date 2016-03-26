@@ -23,11 +23,14 @@ module.exports = function (app) {
 
   app.put('/api/cards/status', cardsController.persistCardStatus);
 
+  app.post('/api/cards/notes', cardsController.updateCardNotes);
+
   app.get('/api/gcal/agenda', gcalController.getEvents);
 
   app.post('/api/gcal/add', gcalController.addEvent);
 
-  app.delete('/api/gcal/delete', gcalController.deleteEvent)
+  app.delete('/api/gcal/delete', gcalController.deleteEvent);
+
 
   app.post('/api/parse', searchController.parseUrlForKanban)
 

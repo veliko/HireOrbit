@@ -162,10 +162,23 @@ const Utils = {
       method: 'DELETE',
       data: {
         card_id,
-        card_positions
+        card_positions,
+        eventIdsForRemoval
+      }
+    })
+  },
+
+  updateCardNotes: function(card_id, notes) {
+    return $.ajax({
+      url: 'api/cards/notes',
+      method: 'POST',
+      data: {
+        card_id,
+        notes
       }
     });
   }
 }
+
 export default Utils;
 

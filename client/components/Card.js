@@ -1,14 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import { dragTypes } from '../constants';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Utils from '../utils/Utils';
 import RemoveCard from './RemoveCard';
+import CardStatusBar from './CardStatusBar';
+import RemoveButton from './RemoveButton';
+import NotesList from './NotesList';
 
 import { DateTimePicker } from 'react-widgets';
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import numberLocalizer from 'react-widgets/lib/localizers/simple-number'
-import RemoveButton from './RemoveButton';
+
 // Localizers for Datepicker
 numberLocalizer();
 momentLocalizer(Moment);
@@ -60,9 +64,15 @@ let collectDrop = (connect, monitor) => {
 
 class Card extends Component {
   
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log("next props and state: ", nextProps, nextState);
-    return true;
+  constructor() {
+    super();
+    this.state = {
+      showDetails: false
+    }
+  }
+
+  toggleDetails() {
+    this.setState({showDetails: !this.state.showDetails});
   }
 
   getStartDateTime(date, dateStr) {
@@ -125,7 +135,7 @@ class Card extends Component {
 
   render() {
     let eventsList = "No events scheduled";
-    if (!this.props.isDragging && this.props.events && this.props.events.length > 0) {
+    if ( this.state.showDetails && !this.props.isDragging && this.props.events && this.props.events.length > 0) {
       eventsList = this.props.events.map((event, i) => {
         return (
           <div key={displayEvent.id}>
@@ -137,12 +147,19 @@ class Card extends Component {
       });
     } 
 
-    let widgets = (<div>
-        {eventsList}
-        <DateTimePicker min={new Date()} onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
-        <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
-        <input type='text' ref="eventInput" placeholder="enter event description.." />}
-      </div>)
+    let widgets = this.state.showDetails ? 
+      (
+        <div>
+          <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
+          <hr />
+          {eventsList}
+          <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
+          <button className="bigassbutton" type="button" onClick={this.saveEvent.bind(this)}>{'Save Event'}</button>
+          <input type='text' ref="eventInput" placeholder="enter event description.." />
+          <hr />
+          <NotesList updateCardNotes={this.props.updateCardNotes} notes={this.props.notes} card_id={this.props.id}/> 
+        </div>
+      ) : null;
 
     const { connectDragSource, connectDropTarget, isDragging } = this.props;
 
@@ -162,10 +179,16 @@ class Card extends Component {
       <div className="card">
         { isDragging ? isDraggingOverlay : <div style={sideColor} /> }
         <RemoveCard card_id={this.props.id} deleteCardFromKanban={this.props.deleteCardFromKanban} />
-        <div className="card_title">{this.props.title}</div>
-        <div className="card_company_name">{this.props.company}</div>
-        <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
-        { widgets }
+        <div className={this.state.showDetails? "card__title card__title--is-open" : "card__title"} 
+             onClick={this.toggleDetails.bind(this)}>
+          {this.props.company ? `${this.props.company}` : null }
+          <span className="position__name">{this.props.title}</span>
+        </div>
+        <ReactCSSTransitionGroup transitionName="toggle"
+                                 transitionEnterTimeout={250}
+                                 transitionLeaveTimeout={250} >
+          { widgets }
+        </ReactCSSTransitionGroup>
       </div>
     ));
   }

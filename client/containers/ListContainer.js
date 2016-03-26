@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import List from '../components/List';
 import { connect } from 'react-redux';
-import { updateCardStatus, updateCardPosition, addEventToCard, deleteEventFromCard , deleteCardFromKanban} from '../actions';
+import { updateCardStatus, 
+         updateCardPosition, 
+         addEventToCard, 
+         deleteEventFromCard , 
+         deleteCardFromKanban,
+         updateCardNotes } from '../actions';
 
 class ListContainer extends Component {
   render() {
@@ -29,5 +34,6 @@ export default connect(mapStateToProps, { updateCardStatus,
                                           updateCardPosition, 
                                           addEventToCard, 
                                           deleteEventFromCard,
-                                          deleteCardFromKanban })(ListContainer);
+                                          deleteCardFromKanban,
+                                          updateCardNotes })(ListContainer);
 

@@ -50,17 +50,19 @@ class List extends Component {
               company={card.job_data.company}
               snippet={card.job_data.snippet}
               events={card.events}
+              notes={card.notes}
               cardPositions={this.props.cardPositions}
               updateCardPosition={this.updateCardPosition}
               addEventToCard={this.props.addEventToCard}
               deleteEventFromCard={this.props.deleteEventFromCard}
-              deleteCardFromKanban={this.props.deleteCardFromKanban} />
+              deleteCardFromKanban={this.props.deleteCardFromKanban}
+              updateCardNotes={this.props.updateCardNotes} />
       );
     });
 
     return connectDropTarget(
       <div className="list">
-        <h1>{this.props.title}</h1>
+        <h1>{this.props.title} <span className="card-count">{this.props.cards ? this.props.cards.length : 0}</span></h1>
         {cards}
       </div>
     );

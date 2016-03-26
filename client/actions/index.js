@@ -140,3 +140,13 @@ export function deleteCardFromKanban(card_id) {
     }
   }  
 }
+
+export function updateCardNotes(card_id, notes) {
+  return {
+    type: actions.UPDATE_CARD_NOTES,
+    payload: {
+      card_id,
+      notes
+    }
+  }
+}

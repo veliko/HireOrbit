@@ -74,6 +74,9 @@ const cardsController = {
             if (key !== "card_id" && key !== "status" && key !== "notes") {
               job_data[key] = card[key];
               delete card[key];
+            } else if ( key === "notes") {
+              var parsedNotes = JSON.parse(card[key]);
+              card[key] = parsedNotes;
             }
           }
           card.job_data = job_data;
@@ -207,19 +210,23 @@ const cardsController = {
   deleteCard: function(req, res, next) {
     var user_id = req.cookies.userid;
     var card_id = req.body.card_id;
+    var eventIdsForRemoval = req.body.eventIdsForRemoval;
     var card_positions = JSON.stringify(req.body.card_positions);
-    var query = `DELETE FROM kanban_cards WHERE (card_id = '${card_id}' AND user_id = '${user_id}')`;
+
+    var query = `DELETE FROM kanban_cards WHERE (card_id = '${card_id}' AND user_id = '${user_id}'); 
+                 DELETE FROM cards_events WHERE (card_id = '${card_id}' AND user_id = '${user_id}')`;
 
     db.query(query)
 
     .then((results) => {
-      query = `UPDATE users SET card_positions = '${card_positions}' WHERE internal_id = '${user_id}';`;
+      query = `UPDATE users SET card_positions = '${card_positions}' WHERE google_id = '${user_id}';`;
       return db.query(query)
     })
 
     .then(() => {
       console.log("successfully deleted card.")
       res.send(200);
+      gcalController.deleteCardEvents(eventIdsForRemoval, user_id);
     })
 
     .catch((error) => {
@@ -227,6 +234,21 @@ const cardsController = {
       res.send(500);
     })
 
+  },
+
+  updateCardNotes(req, res, next) {
+    var user_id = req.cookies.userid;
+    var card_id = req.body.card_id;
+    var notes = req.body.notes !== undefined ? JSON.stringify(req.body.notes) : null;
+
+    var query = `UPDATE kanban_cards SET notes = '${notes}' WHERE (user_id = '${user_id}' AND card_id = '${card_id}')`;
+
+    db.query(query)
+      .then(() => {
+        console.log("Successfully saved notes to card");
+        res.send(200);
+      })
+      .catch((error) => console.log("Error while saving notes: ", error));
   }
 };
 
