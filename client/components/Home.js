@@ -13,7 +13,8 @@ class Home extends Component {
       jobType: '',
       location: '',
       position: '',
-      range: 0,
+      radius: 0,
+      sort: 'relevance',
       start: 0,
       q: {}
     };
@@ -27,7 +28,8 @@ class Home extends Component {
       jobType: '',
       location: 'San Francisco, CA',
       position: 'Software Engineer',
-      range: 25,
+      radius: 25,
+      sort: 'relevance',
       start: 0
     });
   }
@@ -39,6 +41,7 @@ class Home extends Component {
       radius: this.state.range,
       jt: this.state.jobType,
       st: this.state.employerType,
+      sort: this.state.sort,
       start: 0
     }
     return q;
