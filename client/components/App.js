@@ -25,7 +25,7 @@ export default class App extends React.Component {
               <li><NavLink to="/data-vis"><i className="fa fa-bar-chart"></i>Data</NavLink></li>
             </ul>
           </nav>
-          {loggedIn ? <NavLink to="/logout" className="fa fa-user"></NavLink> : <NavLink to="/auth/google" className="fa fa-user"></NavLink>}
+          {loggedIn ? <NavLink to="/logout" className="fa fa-user">Log Out</NavLink> : <NavLink to="/auth/google" className="fa fa-user">Log in with Google</NavLink>}
         </header>
 
         <div className="content">
