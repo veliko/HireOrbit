@@ -18,14 +18,33 @@ db.raw(`select * from indeed_jobs`)
 
 
 // Get google search for all companies // 
-// var promisesSpaced = companyListSpaced.map(company => {
-//   return new Promise(function(resolve, reject) {
-//     var option = {
-//       uri: ''
-//     }
+var promisesSpaced = companyListSpaced.map(company => {
+  return new Promise(function(resolve, reject) {
+    var searchFormat = company.split(" ").join("+");
+    var option = {
+      uri: `http://www.google.com/?#q=%22${searchFormat}%22`,
+        resolveWithFullResponse: true,
+        headers: {
+          'User-Agent': 'Request-Promise'
+      }
+    }
 
-//   })
-// })
+    request(option)
+      .then(res => {
+        // console.log(res)
+        resolve([res.request.uri.href, res.body]);
+      })
+      .catch(console.log)
+  });
+});
+
+Promise.all(promisesSpaced)
+  .then(allResolves => {
+    allResolves.map(arrayURLBody => {
+      console.log(arrayURLBody[0])
+    })
+  })
+  .catch(console.log)
   // first link fetch page  
     // use same logic for logoNodes
 
@@ -53,29 +72,29 @@ var promisesList = companyListSingle.map(company => {
 })
 
 
-Promise.all(promisesList)
-  .then(function (vals) {
-    vals.forEach((arrayURLBody) => {
-      var companyURL = arrayURLBody[0];
-      var resBody = arrayURLBody[1];
+// Promise.all(promisesList)
+//   .then(function (vals) {
+//     vals.forEach((arrayURLBody) => {
+//       var companyURL = arrayURLBody[0];
+//       var resBody = arrayURLBody[1];
 
-      var $ = cheerio.load(resBody);
-      // console.log($('img')[0])
-      var logoNodes = Array.prototype.slice.call( $('img') )
-        .filter(imgNode => {
-       if (imgNode.type === 'tag' && imgNode.name === 'img' && imgNode.attribs.src && (imgNode.attribs.src.toLowerCase().indexOf('logo') > -1 || imgNode.attribs.src.toLowerCase().indexOf('brand') > -1) ){
-        return true
-       } else {
-        return false;
-       }
-      }).map(logo => logo.attribs.src);
-      // logoNodes = logoNodes.map(node => node.attribs.src);
-     companyLogoObj[companyURL] = logoNodes
-    })
+//       var $ = cheerio.load(resBody);
+//       // console.log($('img')[0])
+//       var logoNodes = Array.prototype.slice.call( $('img') )
+//         .filter(imgNode => {
+//        if (imgNode.type === 'tag' && imgNode.name === 'img' && imgNode.attribs.src && (imgNode.attribs.src.toLowerCase().indexOf('logo') > -1 || imgNode.attribs.src.toLowerCase().indexOf('brand') > -1) ){
+//         return true
+//        } else {
+//         return false;
+//        }
+//       }).map(logo => logo.attribs.src);
+//       // logoNodes = logoNodes.map(node => node.attribs.src);
+//      companyLogoObj[companyURL] = logoNodes
+//     })
   
-  })
-  .then(result => console.log(companyLogoObj))
-  .catch(err => console.log('err:', err, 'logos: ', logos))
+//   })
+//   .then(result => console.log(companyLogoObj))
+//   .catch(err => console.log('err:', err, 'logos: ', logos))
 
   })
   .catch(err => console.log(err))
