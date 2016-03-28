@@ -93,6 +93,10 @@ const cardsController = {
 
               if (err) {
                 console.log("Error while getting google events: ", err);
+                if(err.code === 401){
+                  res.sendStatus(401);
+                  return;
+                }
                 res.sendStatus(500);
                 return;
               }

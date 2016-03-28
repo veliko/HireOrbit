@@ -4,7 +4,7 @@ import ToolbarContainer from '../containers/ToolbarContainer';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Utils from '../utils/Utils';
-
+import Auth from '../utils/Auth';
 
 class KanbanBoard extends Component {
   constructor() {
@@ -19,7 +19,12 @@ class KanbanBoard extends Component {
         console.log('managed to get cards: ', cards);
         self.props.addCardsToKanban(cards);
       })
-      .fail((error) => console.log('error fetching cards: ', error));
+      .fail((error) => {
+        console.log('error fetching cards: ', error)
+        if(error.status === 401){
+          window.location.assign('/logout');
+        }
+      });
   }
 
   filterCardsByStatus(status) {
