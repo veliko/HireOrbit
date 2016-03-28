@@ -106,6 +106,9 @@ class Search extends React.Component {
     Utils.getSavedSearch(id)
     .done(search => {
       console.log(search);
+      if(search.length === 0) {
+        return;
+      }
       self.props.updateCurrentSearch({results: search})
     })
     .fail(console.log);
