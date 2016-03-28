@@ -8,6 +8,7 @@ const GITHUB_CLIENT_SECRET = config.githubClientSecret;
 const GOOGLE_CLIENT_ID = config.googleClientID;
 const GOOGLE_CLIENT_SECRET = config.googleClientSecret;
 const User = require('../../db/dbSequelize').users
+const callbackURL = process.env.NODE_ENV === 'PRODUCTION' ? 'http://hireorb.it/auth/google/callback' : 'http://localhost:3000/auth/google/callback'
 
 // This sets up sessions for the authenticated user 
 passport.serializeUser(function(user, done) {
@@ -29,7 +30,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL:'http://localhost:3000/auth/google/callback'
+    callbackURL: callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('trying to write user info to db');
