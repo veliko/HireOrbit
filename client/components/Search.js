@@ -16,13 +16,14 @@ class Search extends React.Component {
       location: '',
       position: '',
       radius: 0,
-      sort: 'relevance',
+      sort: '',
       start: 0,
       q: {},
       allSavedSearches: [],
       searchName:""
     };
   }
+
   componentDidMount() {
     let { query } = this.props.location;
     let { q, l, limit, radius, jt, st, start } = query;
@@ -76,11 +77,11 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
+
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-
 
     browserHistory.push({
       pathname: '/search',
@@ -88,14 +89,14 @@ class Search extends React.Component {
     });
   }
 
-  stateChange(event) {
+  updateText(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
     });
   }
 
-  selectChange(event) {
+  updateState(event) {
     let key = event.target.name;
     this.setState({
       [key]: event.target.value
@@ -125,112 +126,105 @@ class Search extends React.Component {
   fetchSavedSearch(id){
     self = this;
     Utils.getSavedSearch(id)
-      .done(search => {
-        console.log(search);
-        self.props.updateCurrentSearch({results: search})
-      })
-      .fail(console.log)
+    .done(search => {
+      console.log(search);
+      self.props.updateCurrentSearch({results: search})
+    })
+    .fail(console.log);
+  }
+
+  Paginate(event) {
+    console.log(event.target.value);
   }
 
   render(){
-    // Pagination can use TO and FROM attr
     var Pagination = (props) => (
       <div className="pagination">
-        {[...Array(10)].map((x, i) =>
-          <button key={i + 1} name="start" value={i * 25} onClick={this.selectChange.bind(this)}>{i + 1}</button>
-        )}
+        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateState.bind(this) }>Prev</button>
+        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateState.bind(this) }>Next</button>
       </div>
     );
+
     var Sort = (props) => (
       <div className="sort">
-        <select onChange={this.selectChange.bind(this)} name="sort">
-          <option value="relevance">Relevance</option>
-          <option value="date">Date</option>
+        <select onChange={ this.updateState.bind(this) } name="sort" value={ this.state.sort }>
+          <option value="relevance" name="sort">Relevance</option>
+          <option value="date" name="sort">Date</option>
         </select>
       </div>
     );
-    return (  
-      <div className="search-results">
-        <aside>
-          <div className="sticky">
-            <h2>Refine Results</h2>
-            <div>
-              <h3>Position</h3>
-              <div className="flex">
-                <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.stateChange.bind(this) } />
-                <button onClick={this.updateSearch.bind(this)}>Update</button>
-              </div>
-            </div>
-            <div>
-              <h3>Location</h3>
-              <div className="flex">
-                <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />            
-                <button onClick={this.updateSearch.bind(this)}>Update</button>
-              </div>
-            </div>
-            <div>
-              <h3>Radius</h3>
-              <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.selectChange.bind(this) } />
-              <div className="range">
-                <span>0<br/>miles</span>
-                <span>50</span>          
-                <span>100<br/>miles</span>
-              </div>
-            </div>
-            <div className="job-type type">
-              <h3>Job Type</h3>
-              <div>
-                <a href="#" >Any</a>
-              </div>
-              <div>
-                <a href="#">Full Time</a>
-              </div>
-              <div>
-                 <a href="#">Contract</a>
-              </div>
-              <div>
-                <a href="#">Part Time</a>
-              </div>
-              <div>
-                <a href="#">Internship</a>       
-              </div>
-              <div>
-                <a href="#">Temporary</a>       
-              </div>
-            </div>
-            <div className="employer-type type">
-              <h3>Employer Type</h3>
-              <div>
-                <a href="#">Any</a>
-              </div>
-              <div>
-                <a href="#">Recruiter</a>
-              </div>
-              <div>
-                 <a href="#">Employer</a>
-              </div>
-            </div>
+
+    var Types = (props) => (
+      <div className="types">
+        <h3>{props.title}</h3>
+        {props.types.map((item, i) =>
+          // make this active based on the 'checked' match
+          <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
+            <span>{item.label}</span>
+            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateState.bind(this) } />
           </div>
-        </aside>
-        <div className="jobs">
-          <Sort />
-          <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
-          <Pagination />
-        </div>
-        { Auth.isLoggedIn() ? 
-          <aside>
-           <div className="saved-search">
-           <h2>Saved Searches</h2>
-             {this.state.allSavedSearches.map(saved => (
-               <div className="ss"><div onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}><h4>{saved.name}</h4></div></div>
-               ))}
-           </div>
-           <div>
-             <button onClick={ this.saveCurrentSearch.bind(this) }>Save this Search</button>
-             <input type='text' value={this.state.searchName} name="searchName" onChange={this.stateChange.bind(this)} placeholder='enter a name for this search'/>
-           </div>
-          </aside> : null  }
+        )}
       </div>
+    );
+
+    var SavedSearches = (props) => (
+      <aside className="saved-search">
+        <div>
+          <h4>Saved Searches</h4>
+          <ul>
+          {this.state.allSavedSearches.map(saved => (
+            <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
+          ))}
+          </ul>
+        </div>
+        <div>
+          <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
+          <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
+        </div>
+      </aside>
+    );
+
+    return (
+      <div className="flex">
+        <div className="search-results">
+          <aside>
+            <div className="sticky">
+              <h2>Refine Results</h2>
+              <div>
+                <h3>Position</h3>
+                <div className="flex">
+                  <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.updateText.bind(this) } />
+                  <button onClick={this.updateSearch.bind(this)}>Update</button>
+                </div>
+              </div>
+              <div>
+                <h3>Location</h3>
+                <div className="flex">
+                  <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.updateText.bind(this) } />            
+                  <button onClick={this.updateSearch.bind(this)}>Update</button>
+                </div>
+              </div>
+              <div>
+                <h3>Radius</h3>
+                <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.updateState.bind(this) } />
+                <div className="range">
+                  <span>0<br/>miles</span>
+                  <span>50</span>          
+                  <span>100<br/>miles</span>
+                </div>
+              </div>
+              <Types types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
+              <Types types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+            </div>
+          </aside>
+          <div className="jobs">
+            <Sort />
+            <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
+            <Pagination />
+          </div>
+        </div>
+        { Auth.isLoggedIn() ? <SavedSearches /> : null }
+      </div>  
     )
   }
 }

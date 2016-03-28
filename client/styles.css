@@ -246,21 +246,25 @@ form.search .advanced {
 /* search results */
 .search-results {
   display: flex;
-  max-width: 1200px;
+  max-width: 900px;
 }
 
 .search-results aside {
   flex: 3;
-  margin: 51px 15px  15px 0;
+  margin: 51px 15px 15px 0;
   position: relative;
 }
 
 .search-results .sticky {
   position: fixed;
-  max-width: 295px;
+  max-width: 265px;
   width: 100%;
   background: rgba(255, 255, 255, 0.75);
   padding: 15px;
+}
+
+.search-results aside span {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .search-results aside h2,
@@ -283,6 +287,8 @@ form.search .advanced {
   width: 100%;
   margin: 5px 0;
   padding: 5px;
+  color: #333;
+  font-size: 0.875rem;
 }
 
 .search-results aside .radio-box {
@@ -292,26 +298,40 @@ form.search .advanced {
 .search-results aside .radio-box > div {
   display: flex;
 }
-.search-results aside .type {
+
+.search-results aside .types {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }  
 
-.search-results aside .type a {
+.search-results aside .types div {
   text-decoration: none;
   line-height: 1.25rem;
   color: rgb(92, 94, 220);
+  position: relative;
 }
 
-.search-results aside .type a:hover {
+.search-results aside .types div.active span {
+  color: rgb(92, 94, 220);
+  font-weight: bold;
+}
+
+.search-results aside .types input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  opacity: 0;
+}
+
+.search-results aside .types input:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
-.search-results aside span {
-  color: rgba(0, 0, 0, 0.5);
-}
 .search-results .jobs {
-  flex: 9;
+  flex: 7;
 }
 
 .search-results .jobs .sort {
@@ -347,15 +367,19 @@ form.search .advanced {
 }
 
 .search-results .job > div:nth-child(2) > div {
-   display: flex;
+  display: flex;
   justify-content: space-between;
+}
+
+.search-results .job h2 {
+  margin: 0;
+  padding-bottom: 10px;
+  line-height: 1.5rem;
 }
 
 .search-results .job h2 a {
   font-size: 1.25rem;
-  margin: 0;
-  margin-bottom: 6px;
-  color: rgb(92,94,220);
+  color: rgb(92, 94, 220);
   text-decoration: none;
 }
 
@@ -426,6 +450,7 @@ form.search .advanced {
   letter-spacing: 1px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
   transition: background 0.5s;
+  margin: 6px 0;
 }
 
 .search-results button:hover {
@@ -588,8 +613,17 @@ ul {
 .saved-search {
   padding-left: 1em;
   color: #1144ff;
+  position: fixed;
+  right: 0;
+  bottom: 60px;
+  width: 19%;
+  background: rgb(28,29,34);
 }
 
-.saved-search .ss {
+.saved-search h4 {
+  margin: 10px 0;
+}
+
+.saved-search li:hover {
   cursor: pointer;
 }
