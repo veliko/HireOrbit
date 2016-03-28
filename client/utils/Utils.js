@@ -91,7 +91,6 @@ const Utils = {
       data: query,
       success: (res) => {
         res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
-        console.log('from Utils', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 

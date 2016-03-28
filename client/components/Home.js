@@ -89,7 +89,7 @@ class Home extends Component {
             <div>
               <div className="radius">
                 <h3>Radius</h3>
-                <input type="range" name="range" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
+                <input type="range" name="radius" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
                 <div className="range">
                   <span>0<br/>miles</span>
                   <span>50</span>
