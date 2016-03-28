@@ -132,11 +132,7 @@ class Search extends React.Component {
     })
     .fail(console.log);
   }
-
-  Paginate(event) {
-    console.log(event.target.value);
-  }
-
+  
   render(){
     var Pagination = (props) => (
       <div className="pagination">
