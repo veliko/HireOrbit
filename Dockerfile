@@ -8,6 +8,8 @@ COPY package.json /usr/src/hireorbit
 
 RUN npm install
 
+RUN npm install -g nodemon
+
 COPY . /usr/src/hireorbit
 
 EXPOSE 80
