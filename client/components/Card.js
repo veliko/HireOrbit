@@ -173,10 +173,13 @@ class Card extends Component {
 
     let widgets = this.state.showDetails ? 
       (
-        <div className="events__list">
+        <div>
           <div className="card_details" dangerouslySetInnerHTML={{__html: this.props.snippet}}></div>
           <br />
-          <div className="fa fa-calendar-check-o">{"  Events"}</div>
+          <div className="card__section__title"> 
+            <span className="fa fa-calendar-check-o"></span>
+            {"  Events"}
+          </div>
           {eventsList}
           <div className="date__time__picker">
             <DateTimePicker onChange={this.getStartDateTime.bind(this)} defaultValue={new Date()} placeholder='Enter start date/time' />
@@ -187,7 +190,10 @@ class Card extends Component {
                  placeholder="enter event description.." 
                  onKeyPress={this.saveEvent.bind(this)}/>
           <br />
-          <div className="fa fa-sticky-note-o">{"  Notes"}</div>
+          <div className="card__section__title"> 
+            <span className="fa fa-sticky-note-o"></span>
+            {"  Notes"}
+          </div>
           <NotesList updateCardNotes={this.props.updateCardNotes} notes={this.props.notes} card_id={this.props.id}/> 
         </div>
       ) : null;

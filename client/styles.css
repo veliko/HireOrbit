@@ -864,6 +864,7 @@ iframe {
 }
 
 .toggle-enter {
+  width: 100%;
   max-height: 0;
   overflow: hidden;
 }
@@ -873,6 +874,7 @@ iframe {
   transition: max-height .25s ease-in;
 }
 .toggle-leave {
+  width: 100%;
   max-height: 300px;
   overflow: hidden;
 }
@@ -881,6 +883,7 @@ iframe {
   overflow: hidden;
   transition: max-height .25s ease-out;
 } 
+
 .fa.fa-star-o{
   color: #aaa;
   margin-bottom: 0px;
@@ -890,16 +893,6 @@ iframe {
   color: #000;
   margin-bottom: 0px;
   margin-right: 2px;
-}
-.fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
-  font-size: 1.20em;
-  color: #aaa;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.fa.fa-sticky-note-o {
-  margin-top: 10px;
 }
 
 .card__input {
@@ -926,10 +919,6 @@ iframe {
   color: #aaa;
 } 
 
-.date__time__picker {
-  overflow: visible;
-}
-
 .view__job__posting {
   font-size: 0.75em;
   background-color: #ececec;
@@ -955,4 +944,20 @@ iframe {
 
 .job__posting__link:hover {
   color: white;
+}
+
+.card__section__title {
+  font-size: 1.25em;
+  font-family: Helvetica, sans-serif;
+  margin-bottom: 10px;
+  color: #aaa;
+}
+
+.fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
+  font-size: 1.25em;
+  color: #aaa;
+}
+
+.fa.fa-sticky-note-o {
+  margin-top: 10px;
 }
