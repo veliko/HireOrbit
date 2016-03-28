@@ -18,7 +18,7 @@ db.raw(`select * from indeed_jobs`)
 
 
 // Get google search for all companies // 
-var promisesSpaced = companyListSpaced.map(company => {
+var promisesSpaced = ['united airlines'].map(company => {
   return new Promise(function(resolve, reject) {
     var searchFormat = company.split(" ").join("+");
     var option = {
@@ -32,7 +32,7 @@ var promisesSpaced = companyListSpaced.map(company => {
     request(option)
       .then(res => {
         // console.log(res)
-        resolve([res.request.uri.href, res.body]);
+        resolve([res.request.uri.href, res]);
       })
       .catch(console.log)
   });
@@ -41,14 +41,25 @@ var promisesSpaced = companyListSpaced.map(company => {
 Promise.all(promisesSpaced)
   .then(allResolves => {
     allResolves.map(arrayURLBody => {
-      console.log(arrayURLBody[0])
+      // console.log(arrayURLBody[0]);
+
+      var companyURL = arrayURLBody[0];
+      var resBody = arrayURLBody[1];
+
+      var $ = cheerio.load(resBody);
+      // console.log($('img')[0])
+      var logoNodes = Array.prototype.slice.call($('script'));
+      console.log(resBody)
     })
   })
   .catch(console.log)
   // first link fetch page  
     // use same logic for logoNodes
 
-  
+//   First link can be twitter
+
+// class = med > [1]
+//  First H3 <a href is the link to I’m feeling lucky>
 
 
 
