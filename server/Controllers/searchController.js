@@ -6,6 +6,10 @@ const IndeedJobs = require('../../db/dbSequelize').indeed_jobs;
 const knex = require('../../db/dbKnex');
 const path = require('path');
 const rootDir = path.resolve(__dirname, '../../client');
+const request = require('request-promise');
+const cheerio = require('cheerio');
+const url = require('url');
+const uuid = require('uuid');
 
 const searchController = {
   getSavedSearch: function (req, res, next) {
@@ -88,15 +92,78 @@ const searchController = {
         res.sendStatus(500);
       })
 
+  },
+
+  parseUrlForKanban: function (req, res, next) {
+    var user_id = req.cookies.userid;
+    var urlToParse = req.body.urlToParse
+    request({
+      uri: urlToParse,
+      resolveWithFullResponse: true,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+      }
+    })
+    .then(response => {
+      parsedURL = url.parse(req.body.urlToParse)
+      // console.log(response.body);
+      var $ = cheerio.load(response.body);
+      console.log(parsedURL.hostname)
+
+      if(parsedURL.hostname.indexOf('monster') > -1){
+        var title = $('title').text().trim()
+        console.log(title)
+        var jobtitle = title.split(' in')[0].trim();
+        var location = title.split(',').slice(-1).join(' ').trim();
+        console.log(jobtitle, "+", location)
+        var state = location.split(' ')[0]
+        var country = location.split(' ')[1]
+        var jobkey = uuid.v4();   
+
+        // var company = $('.location').find('a').text();
+        // else company null
+        var jobSummary = $('#jobsummary_content');
+        if(jobSummary.length){
+          var company = $('#jobsummary_content').find('span')[0]
+          var jobLocation = $('#jobsummary_content').find('span')[1]
+          company = $(company).text();
+
+          console.log('company:  ', $(company).text());
+          console.log('location ', $(jobLocation).text());
+        };
+        company = company || "";
+        location = location || "";
+        var jobCardToSend = { card_id: jobkey, 
+          status: 'interested', 
+          job_data: {
+            snippet: title,
+            jobkey,
+            company,
+            country,
+            jobtitle,
+            location,
+            state,
+            url: urlToParse
+          }
+                            
+        }
+      }
+
+      // console.log($('title').text())
+      if(jobCardToSend){
+        res.json(jobCardToSend);
+        return
+      } else {
+        res.json({url:urlToParse});
+      }
+
+    })
+    .catch(err => {
+      console.log('error fetching data from :', urlToParse, 'error :', err)
+    })
+
   }
 
-  // deepLink: function (req, res, next) {
-  //   console.log('Path is: ', req.originalUrl);
-  //   if(req.originalUrl === '/kanban'){
-  //     res.sendFile('index.html', {root: rootDir });
-  //   }
-  //   next();
-  // }
 }
 
 module.exports = searchController;

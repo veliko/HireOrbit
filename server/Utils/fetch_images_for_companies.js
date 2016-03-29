@@ -32,7 +32,7 @@ var promisesSpaced = ['united airlines'].map(company => {
     request(option)
       .then(res => {
         // console.log(res)
-        resolve([res.request.uri.href, res]);
+        resolve([res.request.uri.href, res.body]);
       })
       .catch(console.log)
   });

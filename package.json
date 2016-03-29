@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./spec/support/setup.mocha.js 'spec/**/*.test.js'",
     "test:watch": "npm run test -- --watch",
-    "start": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js; node server/server.js",
+    "start": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js; nodemon server/server.js",
     "deploy": "NODE_ENV=PRODUCTION webpack --config ./webpack.config.js;NODE_ENV=PRODUCTION node server/server.js",
     "testdeploy": "NODE_ENV=PRODUCTION webpack --config ./webpack.config.js;NODE_ENV=testdeploy node server/server.js",
     "dev": "webpack-dev-server --inline --content-base ./client/"
@@ -62,6 +62,7 @@
     "sequelize": "^3.19.3",
     "string_decoder": "^0.10.31",
     "underscore": "^1.8.3",
+    "uuid": "^2.0.1",
     "webpack": "^1.12.14",
     "whatwg-fetch": "^0.11.0"
   },
