@@ -116,12 +116,6 @@ class Search extends React.Component {
   }
 
   render(){
-    var Pagination = (props) => (
-      <div className="pagination">
-        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch.bind(this) }>Prev</button>
-        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch.bind(this) }>Next</button>
-      </div>
-    );
 
     var Sort = (props) => (
       <div className="sort">
