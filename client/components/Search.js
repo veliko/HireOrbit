@@ -191,7 +191,7 @@ class Search extends React.Component {
             </div>
           </aside>
           <div className="jobs">
-            <Sort />
+            <Sort updateSearch={this.updateSearch} value={this.state.sort} />
             <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
             <Paginate start={this.state.start} updateSearch={this.updateSearch} />
           </div>
