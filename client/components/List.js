@@ -69,7 +69,11 @@ class List extends Component {
 
     return connectDropTarget(
       <div className="list">
-        <h1>{this.props.title} <span className="card-count">{this.props.cards ? this.props.cards.length : 0}</span></h1>
+        <h1>
+          {this.props.title + " "} 
+          <span className="card-count">{this.props.cards ? this.props.cards.length : 0}</span>
+          <span className="fa fa-compress list"></span>
+        </h1>
         {cards}
       </div>
     );
