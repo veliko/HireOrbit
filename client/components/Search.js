@@ -2,6 +2,7 @@ import React from 'react';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import JobsList from './JobsList';
+import Paginate from './Paginate';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -20,7 +21,7 @@ class Search extends React.Component {
       start: 0,
       q: {},
       allSavedSearches: [],
-      searchName:""
+      searchName:''
     };
   }
 
@@ -50,7 +51,7 @@ class Search extends React.Component {
       radius: radius,
       start: start,
       sort: 'relevance',
-      searchName:"",
+      searchName:'',
     });
   }
 
@@ -184,7 +185,7 @@ class Search extends React.Component {
               </div>
               <div>
                 <h3>Radius</h3>
-                <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.updateSearch.bind(this) } />
+                <input type="range" name="radius" min="0" max="100" step="25" value={this.state.radius} onDragExit={ this.updateSearch.bind(this) } />
                 <div className="range">
                   <span>0<br/>miles</span>
                   <span>50</span>          
@@ -198,7 +199,7 @@ class Search extends React.Component {
           <div className="jobs">
             <Sort />
             <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
-            <Pagination />
+            <Paginate start={this.state.start} updateSearch={this.updateSearch} />
           </div>
         </div>
         { Auth.isLoggedIn() ?  
