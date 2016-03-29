@@ -109,6 +109,7 @@ const searchController = {
       // console.log(response.body);
       var $ = cheerio.load(response.body);
       console.log(parsedURL.hostname)
+      var jobkey = uuid.v4();   
 
       if(parsedURL.hostname.indexOf('monster') > -1){
         var title = $('title').text().trim()
@@ -118,7 +119,6 @@ const searchController = {
         console.log(jobtitle, "+", location)
         var state = location.split(' ')[0]
         var country = location.split(' ')[1]
-        var jobkey = uuid.v4();   
 
         // var company = $('.location').find('a').text();
         // else company null
@@ -147,19 +147,48 @@ const searchController = {
           }
                             
         }
-      }
+      } else if(parsedURL.hostname.indexOf('dice') > -1){
+          var title = $('title').text().trim()
+          var jobtitle = title.split('-')[0].trim();
+          var location = title.split(" - ")[2]
 
+          var company = $('.employer').children()[0]
+          company = $(company).text();
+          company = company || "";
+          
+          location = location || "";
+          console.log('From Dice .....: ', jobtitle, 'company is: ', company)
+          
+          var country = country || ""
+          var state = location.split(' ')[location.split(' ').length-1];
+          var jobCardToSend = { card_id: jobkey, 
+            status: 'interested', 
+            job_data: {
+              snippet: title,
+              jobkey,
+              company,
+              country,
+              jobtitle,
+              location,
+              state,
+              url: urlToParse
+            }
+                              
+          }
+      }
       // console.log($('title').text())
       if(jobCardToSend){
         res.json(jobCardToSend);
         return
       } else {
-        res.json({url:urlToParse});
+        var title = $('title').text().trim();
+        res.json({card_id: jobkey, status: 'interested', job_data: {snippet: title, url:urlToParse} });
       }
 
     })
     .catch(err => {
       console.log('error fetching data from :', urlToParse, 'error :', err)
+      res.send(500)
     })
 
   }
