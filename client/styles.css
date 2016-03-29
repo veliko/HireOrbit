@@ -756,6 +756,7 @@ iframe {
 }
 
 .help-text {
+  left:5px;
   font-size:1em;
   line-height: 1.1em;
 }
@@ -775,14 +776,14 @@ iframe {
 
 .expired-text {
   margin-top: 0.75em;
-  color: red;
+  color: #E82C0C;
   font-size: 1.5em;
   font-style: bold;
 }
 
 .saved-text {
   margin-top: 0.75em;
-  color: green;
+  color: #43D657;
   font-size: 1.5em;
   font-style: bold;
 }

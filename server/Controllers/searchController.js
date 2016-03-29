@@ -9,7 +9,7 @@ const rootDir = path.resolve(__dirname, '../../client');
 const request = require('request-promise');
 const cheerio = require('cheerio');
 const url = require('url');
-const uuid = require('uuid');
+const crypto = require('crypto');
 
 const searchController = {
   getSavedSearch: function (req, res, next) {
@@ -108,8 +108,10 @@ const searchController = {
       parsedURL = url.parse(req.body.urlToParse)
       // console.log(response.body);
       var $ = cheerio.load(response.body);
-      console.log(parsedURL.hostname)
-      var jobkey = uuid.v4();   
+      console.log(parsedURL.hostname);
+      const hash = crypto.createHash('sha256');
+      hash.update(req.body.urlToParse);
+      var jobkey = hash.digest('hex');
 
       if(parsedURL.hostname.indexOf('monster') > -1){
         var title = $('title').text().trim()
@@ -235,7 +237,7 @@ const searchController = {
         res.sendStatus(404)
         return
       }
-      console.log('error fetching data from :', urlToParse)
+      console.log('error fetching data from :', urlToParse, err)
       res.sendStatus(500)
     })
 
