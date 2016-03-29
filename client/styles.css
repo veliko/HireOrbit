@@ -644,14 +644,20 @@ ul {
   padding-left: 15px;
 }
 
+.saved-search ol li {
+  transition: all 0.35s ease-in;
+}
+
 .saved-search li:hover {
   cursor: pointer;
+  color: #A9A9A0;
+  border-bottom-color: #A9A9A0;
 }
 
 .save-search {
   width: 235px;
   opacity: 0.6;
-  transition: opacity 0.5s ease-in;
+  transition: opacity 0.35s ease-in;
   margin-top: 20px;
 }
 

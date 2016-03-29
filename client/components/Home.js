@@ -44,6 +44,8 @@ class Home extends Component {
       sort: this.state.sort,
       start: 0
     }
+
+    this.props.updateCurrentQuery(q);
     return q;
   }
 
