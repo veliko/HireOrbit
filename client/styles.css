@@ -636,6 +636,12 @@ ul {
 
 .saved-search h4 {
   margin: 10px 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 100;
+}
+
+.saved-search ol {
+  padding-left: 15px;
 }
 
 .saved-search li:hover {
@@ -648,6 +654,7 @@ ul {
   transition: opacity 0.5s ease-in;
   margin-top: 20px;
 }
+
 
 .save-search:hover {
   opacity: 1;

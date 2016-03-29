@@ -225,11 +225,11 @@ class Search extends React.Component {
             <div>
               <div>
                 <h4>Saved Searches</h4>
-                <ul>
+                <ol>
                 {this.state.allSavedSearches.map(saved => (
                   <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
                 ))}
-                </ul>
+                </ol>
               </div>
               <div className="save-search">
                 <h4>Add new search</h4>
