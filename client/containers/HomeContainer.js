@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Home from '../components/Home';
 import { connect } from 'react-redux';
-import { updateCurrentSearch } from '../actions';
+import { updateCurrentSearch, updateCurrentQuery } from '../actions';
 
 class HomeContainer extends Component {
 	render() {
@@ -11,4 +11,4 @@ class HomeContainer extends Component {
 	}
 }
 
-export default connect(null, { updateCurrentSearch })(HomeContainer);
+export default connect(null, { updateCurrentSearch, updateCurrentQuery })(HomeContainer);

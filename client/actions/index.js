@@ -125,3 +125,12 @@ export function fetchDataVis(searches) {
     payload: [obj]
   }
 }
+
+export function updateCurrentQuery(currentQuery) {
+  return {
+    type: actions.UPDATE_CURRENT_QUERY,
+    payload: {
+      currentQuery
+    }
+  }
+}

@@ -25,7 +25,7 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    let { query } = this.props.location;
+    let query = this.props.currentQuery;
     let { q, l, limit, radius, jt, st, start } = query;
     let self = this;
 
@@ -67,28 +67,6 @@ class Search extends React.Component {
     Utils.saveSearch(searchObj);
   }
 
-  updateSearch() {
-    var q = {
-      q: this.state.position,
-      l: this.state.location,
-      radius: this.state.range,
-      jt: this.state.jobType,
-      st: this.state.employerType,
-      sort: this.state.sort,
-      start: this.state.start
-    }
-
-    let self = this;
-    Utils.getJobsFromIndeed(q, (res) => {
-      self.props.updateCurrentSearch(res);
-    }, console.log.bind(console));
-
-    browserHistory.push({
-      pathname: '/search',
-      query: q
-    });
-  }
-
   updateText(event) {
     let key = event.target.name;
     this.setState({
@@ -96,8 +74,9 @@ class Search extends React.Component {
     });
   }
 
-  updateState(event) {
+  updateSearch(event) {
     let key = event.target.name;
+
     this.setState({
       [key]: event.target.value
     });
@@ -111,6 +90,8 @@ class Search extends React.Component {
       sort: this.state.sort,
       start: this.state.start
     }
+
+    this.props.updateCurrentQuery(q);
 
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
@@ -136,14 +117,14 @@ class Search extends React.Component {
   render(){
     var Pagination = (props) => (
       <div className="pagination">
-        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateState.bind(this) }>Prev</button>
-        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateState.bind(this) }>Next</button>
+        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch.bind(this) }>Prev</button>
+        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch.bind(this) }>Next</button>
       </div>
     );
 
     var Sort = (props) => (
       <div className="sort">
-        <select onChange={ this.updateState.bind(this) } name="sort" value={ this.state.sort }>
+        <select onChange={ this.updateSearch.bind(this) } name="sort" value={ this.state.sort }>
           <option value="relevance" name="sort">Relevance</option>
           <option value="date" name="sort">Date</option>
         </select>
@@ -156,7 +137,7 @@ class Search extends React.Component {
         {props.types.map((item, i) =>
           <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
-            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateState.bind(this) } />
+            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateSearch.bind(this) } />
           </div>
         )}
       </div>
@@ -203,7 +184,7 @@ class Search extends React.Component {
               </div>
               <div>
                 <h3>Radius</h3>
-                <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.updateState.bind(this) } />
+                <input type="range" name="range" min="0" max="100" step="25" value={this.state.range} onDragExit={ this.updateSearch.bind(this) } />
                 <div className="range">
                   <span>0<br/>miles</span>
                   <span>50</span>          
