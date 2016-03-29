@@ -7,7 +7,7 @@
     "test": "mocha --compilers js:babel-core/register --require ./spec/support/setup.mocha.js 'spec/**/*.test.js'",
     "test:watch": "npm run test -- --watch",
     "start": "rm -rf ./client/bundle.js; webpack --config ./webpack.config.js; nodemon server/server.js",
-    "deploy": "NODE_ENV=PRODUCTION webpack --config ./webpack.config.js;NODE_ENV=PRODUCTION node server/server.js",
+    "deploy": "NODE_ENV=PRODUCTION webpack --config ./webpack.config.js;NODE_ENV=PRODUCTION nodemon server/server.js",
     "testdeploy": "NODE_ENV=PRODUCTION webpack --config ./webpack.config.js;NODE_ENV=testdeploy node server/server.js",
     "dev": "webpack-dev-server --inline --content-base ./client/"
   },

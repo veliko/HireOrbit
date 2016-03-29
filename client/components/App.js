@@ -13,7 +13,9 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      displayInput: false
+      displayInput: false,
+      showExpired : false,
+      showJobSaved: false
     }
   }
 
@@ -22,13 +24,37 @@ export default class App extends React.Component {
       displayInput: !this.state.displayInput
     });
   }
-
+  toggleExpiredSaved(field) {
+    if(field === 'Expired'){
+      this.setState({
+        showExpired: !this.state.showExpired
+      });
+    } else if (field === 'Saved'){
+      this.setState({
+        showJobSaved: !this.state.showJobSaved
+      });
+    }
+  }
   saveLink(e) {
     e.preventDefault();
+    var self = this;
+    self.toggleInputDisplay();
     var urlPasted = this.refs.urlInput.value
     console.log('this got the input: ', urlPasted);
     if(urlPasted){
-      Utils.sendUrlToParse(urlPasted);
+      Utils.sendUrlToParse(urlPasted)
+        .done(res => {
+          console.log(res)
+          self.toggleExpiredSaved('Saved')
+          setTimeout(() => self.toggleExpiredSaved('Saved'), 2000);
+          self.refs.urlInput.value = "";
+        })
+        .fail(err => {
+          console.log(err);
+          self.toggleExpiredSaved('Expired')
+          setTimeout(() => self.toggleExpiredSaved('Expired'), 2000)
+          self.refs.urlInput.value = "";
+        })
     }
   }
 
@@ -52,6 +78,8 @@ export default class App extends React.Component {
               <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Monster</NavLink></li>
             </ul>
           </nav>
+            {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
+            {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
             <div className="fa fa-bullseye"  onClick={this.toggleInputDisplay.bind(this)}/>
             <input className="url-input" type="text" ref="urlInput"
                    style={

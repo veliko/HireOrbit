@@ -113,10 +113,10 @@ const searchController = {
 
       if(parsedURL.hostname.indexOf('monster') > -1){
         var title = $('title').text().trim()
-        console.log(title)
+        // console.log(title)
         var jobtitle = title.split(' in')[0].trim();
         var location = title.split(',').slice(-1).join(' ').trim();
-        console.log(jobtitle, "+", location)
+        // console.log(jobtitle, "+", location)
         var state = location.split(' ')[0]
         var country = location.split(' ')[1]
 
@@ -128,13 +128,15 @@ const searchController = {
           var jobLocation = $('#jobsummary_content').find('span')[1]
           company = $(company).text();
 
-          console.log('company:  ', $(company).text());
-          console.log('location ', $(jobLocation).text());
+          // console.log('company:  ', $(company).text());
+          // console.log('location ', $(jobLocation).text());
         };
         company = company || "";
         location = location || "";
         var jobCardToSend = { card_id: jobkey, 
-          status: 'interested', 
+          status: 'interested',
+          events:[],
+          rating:0, 
           job_data: {
             snippet: title,
             jobkey,
@@ -143,6 +145,17 @@ const searchController = {
             jobtitle,
             location,
             state,
+            date: (new Date()).toUTCString(),
+            latitude: "",
+            longitude: "",
+            expired: false,
+            indeedapply: false,
+            formattedlocationfull: "",
+            nouniqueurl: false,
+            formattedrelativetime: "",
+            formattedlocation: "",
+            sponsored: false,
+            onmousedown: "",
             url: urlToParse
           }
                             
@@ -162,7 +175,9 @@ const searchController = {
           var country = country || ""
           var state = location.split(' ')[location.split(' ').length-1];
           var jobCardToSend = { card_id: jobkey, 
-            status: 'interested', 
+            status: 'interested',
+            events:[],
+            rating:0,
             job_data: {
               snippet: title,
               jobkey,
@@ -171,6 +186,17 @@ const searchController = {
               jobtitle,
               location,
               state,
+              date: (new Date()).toUTCString(),
+              latitude: "",
+              longitude: "",
+              expired: false,
+              indeedapply: false,
+              formattedlocationfull: "",
+              nouniqueurl: false,
+              formattedrelativetime: "",
+              formattedlocation: "",
+              sponsored: false,
+              onmousedown: "",
               url: urlToParse
             }
                               
@@ -182,13 +208,35 @@ const searchController = {
         return
       } else {
         var title = $('title').text().trim();
-        res.json({card_id: jobkey, status: 'interested', job_data: {snippet: title, url:urlToParse} });
+        res.json({card_id: jobkey, status: 'interested', events:[],
+            rating:0, job_data: {snippet: title, url:urlToParse, date: (new Date()).toUTCString(),
+            latitude: "",
+            longitude: "",
+            expired: false,
+            indeedapply: false,
+            formattedlocationfull: "",
+            nouniqueurl: false,
+            formattedrelativetime: "",
+            formattedlocation: "",
+            sponsored: false,
+            onmousedown: "",
+            jobkey: jobkey,
+            company:"",
+            country:"",
+            jobtitle: title,
+            location: "",
+            state: ""
+          } });
       }
 
     })
     .catch(err => {
-      console.log('error fetching data from :', urlToParse, 'error :', err)
-      res.send(500)
+      if(err.statusCode === 404) {
+        res.sendStatus(404)
+        return
+      }
+      console.log('error fetching data from :', urlToParse)
+      res.sendStatus(500)
     })
 
   }

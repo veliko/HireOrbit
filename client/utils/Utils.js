@@ -154,9 +154,6 @@ const Utils = {
       method: 'POST',
       data: sendUrl
     })
-    .then(res => {
-      console.log(res)
-    })
   }
 }
 export default Utils;
