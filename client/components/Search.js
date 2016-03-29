@@ -132,7 +132,7 @@ class Search extends React.Component {
     })
     .fail(console.log);
   }
-  
+
   render(){
     var Pagination = (props) => (
       <div className="pagination">
@@ -154,7 +154,6 @@ class Search extends React.Component {
       <div className="types">
         <h3>{props.title}</h3>
         {props.types.map((item, i) =>
-          // make this active based on the 'checked' match
           <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
             <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateState.bind(this) } />
@@ -166,22 +165,24 @@ class Search extends React.Component {
     var SavedSearches = (props) => (
       <aside className="saved-search">
         <div>
-          <h4>Saved Searches</h4>
-          <ul>
-          {this.state.allSavedSearches.map(saved => (
-            <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
-          ))}
-          </ul>
-        </div>
-        <div>
-          <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
-          <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
+          <div>
+            <h4>Saved Searches</h4>
+            <ul>
+            {this.state.allSavedSearches.map(saved => (
+              <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
+            ))}
+            </ul>
+          </div>
+          <div>
+            <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
+            <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
+          </div>
         </div>
       </aside>
     );
 
     return (
-      <div className="flex">
+      <div className="flex search">
         <div className="search-results">
           <aside>
             <div className="sticky">
@@ -219,7 +220,27 @@ class Search extends React.Component {
             <Pagination />
           </div>
         </div>
-        { Auth.isLoggedIn() ? <SavedSearches /> : null }
+        { Auth.isLoggedIn() ?  
+          <aside className="saved-search">
+            <div>
+              <div>
+                <h4>Saved Searches</h4>
+                <ul>
+                {this.state.allSavedSearches.map(saved => (
+                  <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
+                ))}
+                </ul>
+              </div>
+              <div className="save-search">
+                <h4>Add new search</h4>
+                <div>
+                  <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
+                  <button onClick={ this.saveCurrentSearch.bind(this) }><span className="fa fa-arrow-circle-right"></span></button>
+                </div>
+              </div>
+            </div>
+          </aside>
+        : '' }
       </div>  
     )
   }
