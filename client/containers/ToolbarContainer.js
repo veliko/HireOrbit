@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Toolbar from '../components/Toolbar';
 import { connect } from 'react-redux';
-import { updateFilterValue } from '../actions';
+import { updateFilterValue, changeSortingCriteria } from '../actions';
 
 class ToolbarContainer extends Component {
   render() {
@@ -11,11 +11,11 @@ class ToolbarContainer extends Component {
   }
 }
 
-function mapDispatchToProps(state) {
+function mapStateToProps(state) {
   return {
-    filterValue: state.filter
+    filterValue: state.filter,
+    sortBy: state.sortingCriteria
   }
 }
 
-export{ ToolbarContainer };
-export default connect(mapDispatchToProps, { updateFilterValue })(ToolbarContainer);
+export default connect(mapStateToProps, { updateFilterValue, changeSortingCriteria })(ToolbarContainer);

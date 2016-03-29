@@ -7,8 +7,11 @@ import RemoveCard from './RemoveCard';
 import CardStatusBar from './CardStatusBar';
 import RemoveButton from './RemoveButton';
 import NotesList from './NotesList';
+import InfoBar from './InfoBar';
 import Rating from 'react-rating';
 import lodash from 'lodash';
+import Modal from 'react-awesome-modal';
+
 // import { Link } from 'react-router';
 
 import { DateTimePicker } from 'react-widgets';
@@ -76,7 +79,8 @@ class Card extends Component {
   constructor() {
     super();
     this.state = {
-      showDetails: false
+      showDetails: false,
+      modalVisible: false
     }
   }
 
@@ -157,14 +161,22 @@ class Card extends Component {
     .fail((error) => console.log("Error while deleting event from card: ", error));
   }
 
+  toggleModalState() {
+    this.setState({
+      modalVisible: !this.state.modalVisible
+    });
+  }
+
   render() {
+    const { connectDragSource, connectDropTarget, isDragging } = this.props;
+
     let eventsList = <span className="card__list__entry">"No events scheduled"</span>;
     if ( this.state.showDetails && !this.props.isDragging && this.props.events && this.props.events.length > 0) {
       eventsList = this.props.events.map((event, i) => {
         return (
           <div className="card__list__entry" key={i}>
             <RemoveButton removeTarget={event.event_id} removeAction={this.deleteEvent.bind(this)} />
-            <span>{event.start ? (Moment(event.start.dateTime).format("MM/Do, h:mma") + ": ") : "no start time"}</span>
+            <span>{event.start ? (Moment(event.start.dateTime).format("MMM Do [/] h:mma") + ": ") : "no start time"}</span>
             <span>{event.summary ? event.summary : "no event summary"}</span>
           </div>
         );
@@ -198,44 +210,59 @@ class Card extends Component {
         </div>
       ) : null;
 
-    const { connectDragSource, connectDropTarget, isDragging } = this.props;
 
     let sideColor = {
       position: 'absolute',
       zIndex: -1,
       top: 0,
-      bottom: 0,
-      left: 0,
+      bottom: -1,
+      left: -1,
       width: 5,
-      backgroundColor: "#00CED1"
+      backgroundColor: "#00CED1",
+      borderRadius: "3px 0 0 3px"
     }
 
     let isDraggingOverlay = <div className="is__dragging__overlay" />;
 
     return connectDropTarget(connectDragSource(
-      <div className="card">
-        { isDragging ? isDraggingOverlay : <div style={sideColor} /> }
-        <RemoveCard card_id={this.props.id} deleteCardFromKanban={this.props.deleteCardFromKanban} />
-        <div className={this.state.showDetails? "card__title card__title--is-open" : "card__title"} 
-             onClick={this.toggleDetails.bind(this)}>
-          {this.props.company ? `${this.props.company}` : null }        
+      <div>
+        <div className="card">
+          { isDragging ? isDraggingOverlay : <div style={sideColor} /> }
+          { this.props.events.length > 0 ? <InfoBar event={this.props.events[0]} /> : null}
+          <div style={{position: "relative", top: "-10px", left: "10px"}} >
+            <RemoveCard card_id={this.props.id} 
+                        toggleModalState={this.toggleModalState.bind(this)} 
+                        deleteCardFromKanban={this.props.deleteCardFromKanban} />
+          </div>
+          <div className={this.state.showDetails? "card__title card__title--is-open" : "card__title"} 
+               onClick={this.toggleDetails.bind(this)}>
+            {this.props.company ? `${this.props.company}` : null }        
+          </div>
+          <span className="position__name">{this.props.title}</span>
+          <Rating start={0} 
+                  stop={5} 
+                  step={1} 
+                  initialRate={this.props.rating}
+                  empty="fa fa-star-o"
+                  full="fa fa-star" 
+                  onChange={this.changeRating.bind(this)}/>
+          <a className="job__posting__link" href={`${this.props.jobLink}`} target="_blank">
+            <button className="view__job__posting">View Job Posting</button>
+          </a>
+          <ReactCSSTransitionGroup transitionName="toggle"
+                                   transitionEnterTimeout={250}
+                                   transitionLeaveTimeout={250} >
+            { widgets }
+          </ReactCSSTransitionGroup>
         </div>
-        <span className="position__name">{this.props.title}</span>
-        <Rating start={0} 
-                stop={5} 
-                step={1} 
-                initialRate={this.props.rating}
-                empty="fa fa-star-o"
-                full="fa fa-star" 
-                onChange={this.changeRating.bind(this)}/>
-        <button className="view__job__posting">
-          <a className="job__posting__link" href={`${this.props.jobLink}`} target="_blank">View Job Posting</a>
-        </button>
-        <ReactCSSTransitionGroup transitionName="toggle"
-                                 transitionEnterTimeout={250}
-                                 transitionLeaveTimeout={250} >
-          { widgets }
-        </ReactCSSTransitionGroup>
+        <Modal visible={this.state.modalVisible}
+               effect="fadeInDown"
+               width="400"
+               height="300">
+          Do you really want to delete card? 
+          <button onClick={() => this.props.deleteCardFromKanban(this.props.id)}>Delete Card</button>
+          <button onClick={this.toggleModalState.bind(this)}>Cancel</button>
+        </Modal>
       </div>
     ));
   }

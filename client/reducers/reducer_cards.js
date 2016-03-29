@@ -17,18 +17,6 @@ export default function(state = [], action) {
         return !cardExists;
       });
 
-      // create card status message to be displayed on top of each card
-      // duplicatesRemoved.forEach((card) => {
-      //   if (card.events && card.events.length > 0) {
-      //     var mostRecentEvent;
-      //     if (card.events.length === 1) {
-      //       card.statusMessage = 
-      //     } else {
-
-      //     }
-      //   });
-      // });
-
       // finally return updated state
       return update(state, {
         $push: [...duplicatesRemoved]

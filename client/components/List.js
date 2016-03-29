@@ -43,6 +43,9 @@ class List extends Component {
     // console.log("card positions are: ", this.props.cardPositions);
     const { connectDropTarget } = this.props;
     var cards = this.props.cards.map((card) => {
+      let sortedEvents = card.events.length === 1 ? 
+                         card.events : 
+                         card.events.sort((a, b) => (new Date(a.start.dateTime)).getTime() - (new Date(b.start.dateTime)).getTime());
       return (
         <Card id={card.card_id}
               key={card.card_id} 
@@ -52,7 +55,7 @@ class List extends Component {
               rating={card.rating}
               snippet={card.job_data.snippet}
               jobLink={card.job_data.url}
-              events={card.events}
+              events={sortedEvents}
               notes={card.notes}
               cardPositions={this.props.cardPositions}
               updateCardPosition={this.props.updateCardPosition}

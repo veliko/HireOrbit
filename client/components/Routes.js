@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import MonsterJobs from './MonsterJobs'
 
-let store = createStore(reducers/*, applyMiddleware(logger())*/);
+let store = createStore(reducers, applyMiddleware(logger()));
 
 const requireAuth = (nextState, replace) => {
   console.log('In requireAuth')

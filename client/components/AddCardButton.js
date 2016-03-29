@@ -4,7 +4,7 @@ import { DropTarget } from 'react-dnd';
 class AddCardButton extends Component {
   render() {
     return (
-      <span className="fa fa-plus"></span>
+      <span onClick={this.props.toggleModalState} className="fa fa-plus"></span>
     );
   }
 }

@@ -160,3 +160,12 @@ export function changeCardRating(card_id, newRating) {
     }
   }
 }
+
+export function changeSortingCriteria(sortingCriteria) {
+  return {
+    type: actions.CHANGE_SORTING_CRITERIA,
+    payload: {
+      sortingCriteria
+    }
+  }
+}

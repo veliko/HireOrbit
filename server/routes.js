@@ -33,7 +33,6 @@ module.exports = function (app) {
 
   app.delete('/api/gcal/delete', gcalController.deleteEvent);
 
-
   app.post('/api/parse', searchController.parseUrlForKanban)
 
   // handler for /auth/github & /logout =>
@@ -41,7 +40,7 @@ module.exports = function (app) {
   githubPassportHandler(app);
 
   app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, '../client', 'index.html'))
+    response.sendFile(path.resolve(__dirname, '../client', 'index.html'))
   })
 
 }
