@@ -22,6 +22,8 @@ class Search extends React.Component {
       allSavedSearches: [],
       searchName:''
     };
+    this.updateText = this.updateText.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
   componentDidMount() {
@@ -117,8 +119,8 @@ class Search extends React.Component {
   render(){
     var Pagination = (props) => (
       <div className="pagination">
-        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch.bind(this) }>Prev</button>
-        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch.bind(this) }>Next</button>
+        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch }>Prev</button>
+        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch }>Next</button>
       </div>
     );
 
@@ -128,7 +130,7 @@ class Search extends React.Component {
         {props.types.map((item, i) =>
           <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
-            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateSearch.bind(this) } />
+            <input type="radio" name={props.name} value={item.value} checked={item.value === this.state[props.name]} onChange={ this.updateSearch } />
           </div>
         )}
       </div>
@@ -155,7 +157,7 @@ class Search extends React.Component {
             </ul>
           </div>
           <div>
-            <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
+            <input type='text' value={this.state.searchName} name="searchName" onChange={ this.updateText } placeholder='Save this search'/>
             <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
           </div>
         </div>
@@ -171,15 +173,15 @@ class Search extends React.Component {
               <div>
                 <h3>Position</h3>
                 <div className="flex">
-                  <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.updateText.bind(this) } />
-                  <button onClick={this.updateSearch.bind(this)}>Update</button>
+                  <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.updateText } />
+                  <button onClick={ this.updateSearch }>Update</button>
                 </div>
               </div>
               <div>
                 <h3>Location</h3>
                 <div className="flex">
-                  <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.updateText.bind(this) } />            
-                  <button onClick={this.updateSearch.bind(this)}>Update</button>
+                  <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.updateText } />            
+                  <button onClick={ this.updateSearch }>Update</button>
                 </div>
               </div>
               <div>
@@ -215,7 +217,7 @@ class Search extends React.Component {
               <div className="save-search">
                 <h4>Add new search</h4>
                 <div>
-                  <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
+                  <input type='text' value={this.state.searchName} name="searchName" onChange={ this.updateText } placeholder='Save this search'/>
                   <button onClick={ this.saveCurrentSearch.bind(this) }><span className="fa fa-arrow-circle-right"></span></button>
                 </div>
               </div>
