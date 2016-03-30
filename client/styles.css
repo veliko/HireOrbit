@@ -1075,3 +1075,28 @@ iframe {
   background: none;
   border: none;
 }
+
+.remove__card__h1 {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.remove__card__button {
+  margin-left: 10px;
+  padding-top: 4px;
+  height: 30px;
+  border: 1px dashed #bcbcbc;
+  border-radius: 3px;
+  background-color: #dcdcdc;
+  color: #fff;
+  outline: none;
+  transition: 0.20s;
+}
+
+.remove__card__button:hover {
+  background-color: #BCD240;
+}
+
+.delete:hover {
+  background-color: #E24E2A;
+}

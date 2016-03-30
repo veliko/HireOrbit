@@ -257,11 +257,11 @@ class Card extends Component {
         </div>
         <Modal visible={this.state.modalVisible}
                effect="fadeInDown"
-               width="400"
-               height="300">
-          Do you really want to delete card? 
-          <button onClick={() => this.props.deleteCardFromKanban(this.props.id)}>Delete Card</button>
-          <button onClick={this.toggleModalState.bind(this)}>Cancel</button>
+               width="300"
+               height="120">
+          <h1 className="remove__card__h1">Remove card from board?</h1> 
+          <button className="remove__card__button delete"onClick={() => this.props.deleteCardFromKanban(this.props.id)}>Delete</button>
+          <button className="remove__card__button"onClick={this.toggleModalState.bind(this)}>Nope</button>
         </Modal>
       </div>
     ));
