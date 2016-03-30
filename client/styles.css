@@ -826,6 +826,7 @@ iframe {
   color: #dcdcdc;
   font-size: 14px;
   transition: 0.25s;
+  cursor: pointer;
 }
 
 .fa.fa-times:hover {
@@ -1060,6 +1061,7 @@ iframe {
   height: auto;
   transform: rotate(45deg);
   background: none;
+  cursor: pointer;
 }
 
 .card-count.compressed {
@@ -1078,6 +1080,7 @@ iframe {
   transform: rotate(45deg);
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .remove__card__h1 {
@@ -1098,7 +1101,8 @@ iframe {
 }
 
 .remove__card__button:hover {
-  background-color: #BCD240;
+  background-color: #bcbcbc;
+  color: #fff;
 }
 
 .delete {
@@ -1106,5 +1110,21 @@ iframe {
 }
 
 .delete:hover {
-  background-color: #E24E2A;
+  background-color: #D32F2F;
+  color: #fff;
+}
+
+.column__instruction {
+  color: #bcbcbc;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.column__instruction.title {
+  margin-top: 25%;
+  font-size: 2em;
 }
