@@ -145,6 +145,15 @@ const Utils = {
       url: '/api/cards',
       method: 'GET',
     })
+  },
+
+  sendUrlToParse: function (sendUrlToParse) {
+    var sendUrl = {urlToParse: sendUrlToParse}
+    return $.ajax({
+      url: '/api/parse',
+      method: 'POST',
+      data: sendUrl
+    })
   }
 }
 export default Utils;

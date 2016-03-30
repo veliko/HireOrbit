@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
+import {browserHistory} from 'react-router'
 
 class KanbanBoard extends Component {
   constructor() {
@@ -22,7 +23,7 @@ class KanbanBoard extends Component {
       .fail((error) => {
         console.log('error fetching cards: ', error)
         if(error.status === 401){
-          window.location.assign('/logout');
+          browserHistory.push('/logout')
         }
       });
   }

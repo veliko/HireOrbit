@@ -28,6 +28,8 @@ module.exports = function (app) {
 
   app.delete('/api/gcal/delete', gcalController.deleteEvent)
 
+  app.post('/api/parse', searchController.parseUrlForKanban)
+
   // handler for /auth/github & /logout =>
   //routes for passport github OAuth2 login and sessions are here
   githubPassportHandler(app);
