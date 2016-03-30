@@ -67,20 +67,18 @@ export default class App extends React.Component {
 
         <header>
           <h1 id="logo">
-            <Link to="/"><img src="img/logo.svg" /></Link>
+            <Link to="/"><img src="img/hireOrbit.png" /></Link>
           </h1>
           <nav>
             <ul role="nav">
-              <li><NavLink to="/" onlyActiveOnIndex><i className="fa fa-home"></i>Home</NavLink></li>
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
               <li><NavLink to="/kanban"><i className="fa fa-table"></i>Kanban</NavLink></li>
-              <li><NavLink to="/data-vis"><i className="fa fa-bar-chart"></i>Data</NavLink></li>
               <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Monster</NavLink></li>
             </ul>
           </nav>
             {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
             {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
-            <div className="fa fa-bullseye"  onClick={this.toggleInputDisplay.bind(this)}/>
+            <div className="fa fa-bullseye" onClick={this.toggleInputDisplay.bind(this)}/>
             <input className="url-input" type="text" ref="urlInput"
                    style={
                      this.state.displayInput ? {display: "inline-block"} : {display: "none"}
@@ -93,7 +91,14 @@ export default class App extends React.Component {
                 }
                 className="fa fa-plus-circle">
             </div>
-          {loggedIn ? <NavLink to="/logout" className="fa fa-user">Log Out</NavLink> : <NavLink to="/auth/google" className="fa fa-user">Log in with Google</NavLink>}
+          {loggedIn ? (<div className="login">
+                         <span>{"Welcome, User "}</span>
+                         <NavLink to="/logout" className="fa fa-user"></NavLink>
+                       </div>) :
+                      (<div className="login">
+                         <span>{"Log in with Google "}</span>
+                         <NavLink to="/auth/google" className="fa fa-user"></NavLink>  
+                       </div>) }
         </header>
 
         <div className="content">

@@ -7,6 +7,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 body {
   background: rgb(59,61,74);
+  background: radial-gradient(circle at center, #303030 0%, #101010 100%);
   font-family: Arial, Helvetica, "Helvetica Neue", sans-serif;
   font-size: 16px;
   color: #28201d;
@@ -24,18 +25,18 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  background: #2a2b30;
+  background: #333333;
 }
 
 header h1 {
   text-align: center;
-  margin: 15px 0 0 10px;
 }
 
 header h1 a {
   display: block;
   position: relative;
   transition: opacity 0.25s ease-in;
+  padding: 7px 0 0 10px;
 }
 
 header h1 a:hover {
@@ -50,6 +51,7 @@ header h1 img {
 .content {
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 /* navigation styles */ 
@@ -63,21 +65,15 @@ nav ul {
 }
 
 nav ul li {
-  border-width: 1px 0 0 0;
-  border-color: rgba(0, 0, 0, 0.25);
-  border-style: solid;
-  line-height: 2.5rem;
   font-size: 1.1rem;
   font-weight: 200;
+  line-height: 4rem;
 }
 
-nav ul li:last-child {
-  border-bottom-width: 1px;
-}
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  color: #ececec;
   transition: color 0.5s ease-in;
 }
 
@@ -86,9 +82,8 @@ nav a:hover {
 }
 
 nav ul li a {
-  padding: 10px 20px;
+  padding: 0px 12px 0 12px;
   display: block;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   transition: background 0.5s ease-in;
 }
 
@@ -103,12 +98,12 @@ nav a i {
 .fa.fa-user {
   font-size: 1.5rem;
   text-decoration: none;
-  color: #fff;
+  color: #ececec;
   padding: 13px 14px 0;
   transition: color 0.25s;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 45px;
-  display: block;
+  border-radius: 50px;
+  display: inline-block;
   height: 50px;
   text-align: center;
   margin: 4px 10px 0 0;
@@ -122,12 +117,12 @@ nav a i {
 
 /* homepage */
 .search-container {
-  margin-top: 9%;
+  margin-top: 1.6%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 600px;
+  height: 100vh;
 }
 
 /*.content {
@@ -141,7 +136,7 @@ nav a i {
 */
 
 .searchLogo {
-  max-width: 45%;
+  max-width: 59%;
   margin-bottom: 20px;
 }
 
@@ -718,6 +713,7 @@ iframe {
   padding-left: 1em;
   padding-top: 0.15em;
   transition-duration: 0.5s;
+  display: none;
 }
 
 .fa.fa-bullseye:hover {
@@ -1133,7 +1129,7 @@ iframe {
   outline: none;
   background: none;
   margin: 5px;
-  margin-bottom: 25%;
+  margin-bottom: 30%;
   line-height: 2.5rem;
   font-size: 1.3rem;
   border: 3px solid #ececec;
@@ -1167,4 +1163,16 @@ iframe {
   padding-right: 25px;
   padding-left: 22px;
   padding-top: 3px;
+}
+
+.login {
+  width: 200px;
+  position: absolute;
+  top: 2px;
+  right: 0;
+  text-align: right;
+}
+
+.login span {
+  color: #ececec;
 }
