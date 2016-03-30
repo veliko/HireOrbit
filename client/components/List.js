@@ -87,6 +87,8 @@ class List extends Component {
                    <span className="fa fa-compress list"
                          onClick={this.handleCompressExpandButtonClick.bind(this)}></span>
                  </h1>
+                 {this.props.cards.length === 0 ? <h1 className="column__instruction title">{this.props.title}</h1> : null}
+                 {this.props.cards.length === 0 ? <h1 className="column__instruction">{this.props.description}</h1> : null}
                  {cards}
                </div>
              );

@@ -9,6 +9,7 @@ body {
   background: rgb(59,61,74);
   font-family: Arial, Helvetica, "Helvetica Neue", sans-serif;
   font-size: 16px;
+  color: #28201d;
 }
 
 .container {
@@ -552,13 +553,14 @@ ul {
   border-radius: 3px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
   transition: 0.25s;
+  cursor: move;
 }
 
 .card:hover {
   z-index: 5;
   background: #fff;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.30);
-  border-color: #00CED1;
+  border-color: #dcdcdc;
   transform: scale(1.008, 1.008);
 }
 
@@ -566,15 +568,16 @@ ul {
   font-size: 1.20em;
   font-weight: bold;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 
 .position__name {
   display: block;
-  font-weight: 300;
+  font-weight: 100;
   font-style: italic;
-  font-size: 1em;
+  font-size: 0.90em;
   margin-bottom: 10px;
-  color: #00585C;
+  color: #999;
 }
 
 .card__title:before {
@@ -623,7 +626,7 @@ ul {
 .toolbar {
   height: 40px;
   text-align: right;
-  background-color: #fff;
+  background-color: #fbfbfb;
   border-bottom: 1px solid #e1e1e1;
 }
 
@@ -823,6 +826,7 @@ iframe {
   color: #dcdcdc;
   font-size: 14px;
   transition: 0.25s;
+  cursor: pointer;
 }
 
 .fa.fa-times:hover {
@@ -831,30 +835,28 @@ iframe {
 
 .fa.fa-plus {
   position: absolute;
-  height: 56px;
-  width: 56px;
+  height: 60px;
+  width: 60px;
   z-index: 2;
-  right: 20px;
-  bottom: 20px;
-  background: #D47001;
-  color: #ececec;
-  border-radius: 100%;
-  font-size: 28px;
+  right: 30px;
+  bottom: 30px;
+  background: #DECA10;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 2.4em;
   text-align: center;
   text-decoration: none;
-  line-height: 50px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-  padding-top: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border: 3px solid #fbfbfb;
+  padding-top: 11px;
   transition: 0.25s;   
-  opacity: 0.7;
 }
 
 .fa.fa-plus:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  background: #D47001;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  background: #F8D613;
+  border: 3px solid #fbfbfb;
   color: white;
-  opacity: 1;
-  transform: scale(0.95,0.95);
 }
 
 .fa.fa-times.remove-event {
@@ -875,7 +877,7 @@ iframe {
 }
 
 .card-count {
-  color: #D47001;
+  color: #6D3A0A;
 }
 
 .toggle-enter {
@@ -905,7 +907,7 @@ iframe {
   margin-right: 2px;
 }
 .fa.fa-star {
-  color: #000;
+  color: #00CED1;
   margin-bottom: 0px;
   margin-right: 2px;
 }
@@ -964,15 +966,15 @@ iframe {
 }
 
 .card__section__title {
-  font-size: 1.25em;
+  font-size: 1.20em;
   font-family: Helvetica, sans-serif;
   margin-bottom: 10px;
-  color: #aaa;
+  color: #999;
 }
 
 .fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
-  font-size: 1.25em;
-  color: #aaa;
+  font-size: 1.20em;
+  color: #999;
 }
 
 .fa.fa-sticky-note-o {
@@ -985,12 +987,12 @@ iframe {
   left: -16px;
   width: calc(100% + 27px);
   height: 22px;
-  background-color: #00CED1;
+  background-color: #9AC359;
   border-radius: 3px 3px 0 0;
   box-shadow: 0 0px 0px #ccc;
   padding: 4px 10px 0 10px;
   font-size: 0.75em;
-  color: #fff;
+  color: #fbfbfb;
 }
 
 .info__bar__upcoming__event {
@@ -1003,7 +1005,7 @@ iframe {
 .info__bar__time {
   float: right;
   overflow: hidden;
-  max-width: 40%;
+  max-width: 60%;
 }
 
 .toolbar__button {
@@ -1059,10 +1061,11 @@ iframe {
   height: auto;
   transform: rotate(45deg);
   background: none;
+  cursor: pointer;
 }
 
 .card-count.compressed {
-  color: #D47001;
+  color: #6D3A0A;
   display: inline;
 }
 
@@ -1077,6 +1080,7 @@ iframe {
   transform: rotate(45deg);
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .remove__card__h1 {
@@ -1090,16 +1094,37 @@ iframe {
   height: 30px;
   border: 1px dashed #bcbcbc;
   border-radius: 3px;
-  background-color: #dcdcdc;
-  color: #fff;
+  background-color: #ececec;
+  color: #999;
   outline: none;
-  transition: 0.20s;
+  transition: 0.15s;
 }
 
 .remove__card__button:hover {
-  background-color: #BCD240;
+  background-color: #bcbcbc;
+  color: #fff;
+}
+
+.delete {
+  margin-left: 0;
 }
 
 .delete:hover {
-  background-color: #E24E2A;
+  background-color: #D32F2F;
+  color: #fff;
+}
+
+.column__instruction {
+  color: #bcbcbc;
+  text-align: center;
+  position: relative;
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.column__instruction.title {
+  margin-top: 25%;
+  font-size: 2em;
 }

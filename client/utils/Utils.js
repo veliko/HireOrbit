@@ -156,7 +156,7 @@ const Utils = {
     });
   },
 
-  deleteCardFromKanban: function(card_id, card_positions) {
+  deleteCardFromKanban: function(card_id, card_positions, eventIdsForRemoval) {
     return $.ajax({
       url: '/api/cards',
       method: 'DELETE',
