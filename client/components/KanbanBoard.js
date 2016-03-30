@@ -17,7 +17,8 @@ class KanbanBoard extends Component {
     super(...arguments);
     this.filterCardsByStatusAndSort = this.filterCardsByStatusAndSort.bind(this);
     this.state = {
-      modalVisible: false
+      modalVisible: false,
+      expandedLists: 4
     }
   }
 
@@ -64,23 +65,38 @@ class KanbanBoard extends Component {
     });
   }
 
+  updateNumberOfExpandedLists(listStatus) {
+    this.setState({
+      expandedLists: this.state.expandedLists + listStatus
+    });
+  }
+
   render() {
+    console.log("number of expanded lists: ", this.state.expandedLists);
     return (
       <div className="App">
         <ToolbarContainer />
         <AddCardButton toggleModalState={this.toggleModalState.bind(this)}/> 
         <ListContainer id="interested" 
                        title="Interested"
-                       cards={this.filterCardsByStatusAndSort('interested', this.props.sortBy)} />
+                       cards={this.filterCardsByStatusAndSort('interested', this.props.sortBy)}
+                       numberOfExpandedLists={this.state.expandedLists}
+                       updateNumberOfExpandedLists={this.updateNumberOfExpandedLists.bind(this)} />
         <ListContainer id="applied" 
                        title="Applied"
-                       cards={this.filterCardsByStatusAndSort('applied', this.props.sortBy)} />
+                       cards={this.filterCardsByStatusAndSort('applied', this.props.sortBy)}
+                       numberOfExpandedLists={this.state.expandedLists}
+                       updateNumberOfExpandedLists={this.updateNumberOfExpandedLists.bind(this)} />
         <ListContainer id="interview" 
                        title="Interview / Follow-up"
-                       cards={this.filterCardsByStatusAndSort('interview', this.props.sortBy)} />
+                       cards={this.filterCardsByStatusAndSort('interview', this.props.sortBy)}
+                       numberOfExpandedLists={this.state.expandedLists}
+                       updateNumberOfExpandedLists={this.updateNumberOfExpandedLists.bind(this)} />
         <ListContainer id="offer" 
                        title="Offer"
-                       cards={this.filterCardsByStatusAndSort('offer', this.props.sortBy)} />
+                       cards={this.filterCardsByStatusAndSort('offer', this.props.sortBy)}
+                       numberOfExpandedLists={this.state.expandedLists}
+                       updateNumberOfExpandedLists={this.updateNumberOfExpandedLists.bind(this)} />
         <Modal visible={this.state.modalVisible}
                effect="fadeInDown"
                width="400"

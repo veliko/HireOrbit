@@ -38,11 +38,22 @@ let collect = (connect, monitor) => {
 class List extends Component {
   constructor() {
     super(...arguments);
+    this.state = {
+      expanded: 1
+    }
   }
+
+  handleCompressExpandButtonClick() {
+    this.setState({
+      expanded: this.state.expanded * -1
+    });
+    this.props.updateNumberOfExpandedLists(this.state.expanded * -1);
+  }
+
   render() {
-    // console.log("card positions are: ", this.props.cardPositions);
     const { connectDropTarget } = this.props;
-    var cards = this.props.cards.map((card) => {
+    let list;
+    let cards = this.props.cards.map((card) => {
       let sortedEvents = card.events.length === 1 ? 
                          card.events : 
                          card.events.sort((a, b) => (new Date(a.start.dateTime)).getTime() - (new Date(b.start.dateTime)).getTime());
@@ -67,16 +78,31 @@ class List extends Component {
       );
     });
 
-    return connectDropTarget(
-      <div className="list">
-        <h1>
-          {this.props.title + " "} 
-          <span className="card-count">{this.props.cards ? this.props.cards.length : 0}</span>
-          <span className="fa fa-compress list"></span>
-        </h1>
-        {cards}
-      </div>
-    );
+    if (this.state.expanded === 1) {
+      list = connectDropTarget(
+               <div className="list" style={{width: `calc( (100% - ((4 - ${this.props.numberOfExpandedLists}) * 60px)) / ${this.props.numberOfExpandedLists} )`}}>
+                 <h1 className="list__heading__expanded">
+                   {this.props.title + " "} 
+                   <span className="card-count">{this.props.cards ? this.props.cards.length : 0}</span>
+                   <span className="fa fa-compress list"
+                         onClick={this.handleCompressExpandButtonClick.bind(this)}></span>
+                 </h1>
+                 {cards}
+               </div>
+             );
+    } else if (this.state.expanded === -1) {
+      list = (
+               <div className="list" style={{width: "60px", backgroundColor: "#dcdcdc", padding: "0", textAlign: "left"}}>
+                 <span className="fa fa-expand list compressed"
+                       onClick={this.handleCompressExpandButtonClick.bind(this)}></span>
+                 <h1 className="list__heading__compressed">
+                   <span className="card-count compressed">{this.props.cards ? this.props.cards.length : 0}</span> {" " + this.props.title + " "}
+                 </h1>
+               </div>
+             );
+    }
+
+    return list;
   }
 }
 

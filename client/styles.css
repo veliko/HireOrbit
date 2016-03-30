@@ -506,6 +506,10 @@ ul {
   height:100%;
 }
 
+.App {
+  background-color: #bcbcbc;
+}
+
 .list {
   position: relative;
   text-align: center;
@@ -513,13 +517,22 @@ ul {
   vertical-align: top;
   white-space: normal;
   height: 100vh;
-  width: 25%;
   padding: 0 20px;
   overflow: auto;
   background: #dcdcdc;
 }
 
-.list:not(:last-child) {
+.list__heading__compressed {
+  transform: rotate(90deg);
+  transform-origin: right bottom 0;
+  position: relative;
+  width: 400px;
+  height: 30px;
+  top: 410px;
+  left: -390px;
+}
+
+.list:not(:last-child), .list__compressed:not(:last-child) {
   border-right: 3px solid #bcbcbc;
 }
 
@@ -1033,7 +1046,7 @@ iframe {
   height: auto;
 }
 
-.fa.fa-compress.list {
+.fa.fa-compress.list, .fa.fa-expand.list {
   position: absolute;
   top: 10px;
   right: 5px;
@@ -1043,4 +1056,22 @@ iframe {
   height: auto;
   transform: rotate(45deg);
   background: none;
+}
+
+.card-count.compressed {
+  color: #D47001;
+  display: inline;
+}
+
+.fa.fa-expand.list.compressed {
+  position: absolute;
+  top: 13px;
+  right: 1px;
+  color: #999;
+  font-size: 0.93em;
+  width: auto;
+  height: auto;
+  transform: rotate(45deg);
+  background: none;
+  border: none;
 }

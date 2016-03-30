@@ -57,6 +57,7 @@ export default function(state = [], action) {
         }
       });
 
+      
     case actions.DELETE_EVENT_FROM_CARD:
       let evt = action.payload.event;
       cardIndex = state.findIndex((card) => card.card_id === evt.card_id);
