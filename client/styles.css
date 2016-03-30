@@ -244,23 +244,32 @@ form.search .advanced {
 /* homepage */
 
 /* search results */
+.search {
+  justify-content: space-between;
+  width: 100%;
+}
+
 .search-results {
   display: flex;
-  max-width: 1200px;
+  max-width: 1100px;
 }
 
 .search-results aside {
   flex: 3;
-  margin: 51px 15px  15px 0;
+  margin: 51px 15px 15px 0;
   position: relative;
 }
 
 .search-results .sticky {
   position: fixed;
-  max-width: 295px;
+  max-width: 265px;
   width: 100%;
   background: rgba(255, 255, 255, 0.75);
   padding: 15px;
+}
+
+.search-results aside span {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .search-results aside h2,
@@ -283,6 +292,8 @@ form.search .advanced {
   width: 100%;
   margin: 5px 0;
   padding: 5px;
+  color: #333;
+  font-size: 0.875rem;
 }
 
 .search-results aside .radio-box {
@@ -292,26 +303,40 @@ form.search .advanced {
 .search-results aside .radio-box > div {
   display: flex;
 }
-.search-results aside .type {
+
+.search-results aside .types {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }  
 
-.search-results aside .type a {
+.search-results aside .types div {
   text-decoration: none;
   line-height: 1.25rem;
   color: rgb(92, 94, 220);
+  position: relative;
 }
 
-.search-results aside .type a:hover {
+.search-results aside .types div.active span {
+  color: rgb(92, 94, 220);
+  font-weight: bold;
+}
+
+.search-results aside .types input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  opacity: 0;
+}
+
+.search-results aside .types input:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
-.search-results aside span {
-  color: rgba(0, 0, 0, 0.5);
-}
 .search-results .jobs {
-  flex: 9;
+  flex: 7;
 }
 
 .search-results .jobs .sort {
@@ -347,16 +372,24 @@ form.search .advanced {
 }
 
 .search-results .job > div:nth-child(2) > div {
-   display: flex;
+  display: flex;
   justify-content: space-between;
+}
+
+.search-results .job h2 {
+  margin: 0;
+  padding-bottom: 10px;
+  line-height: 1.5rem;
 }
 
 .search-results .job h2 a {
   font-size: 1.25rem;
-  margin: 0;
-  margin-bottom: 6px;
-  color: rgb(92,94,220);
+  color: rgb(92, 94, 220);
   text-decoration: none;
+}
+
+.search-results .job h2 a:visited {
+  color: rgb(189, 189, 189);
 }
 
 .job h3 {
@@ -426,6 +459,7 @@ form.search .advanced {
   letter-spacing: 1px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
   transition: background 0.5s;
+  margin: 6px 0;
 }
 
 .search-results button:hover {
@@ -587,9 +621,62 @@ ul {
 
 .saved-search {
   padding-left: 1em;
-  color: #1144ff;
+  color: rgb(92,94,220);
+  width: 19%;
+  background: rgb(28, 29, 34);
+  position: relative;
 }
 
-.saved-search .ss {
+.save-search,
+.saved-search li {
+  line-height: 1.5rem;
+  margin: 0 0 10px;
+  border-bottom: solid 1px rgb(92, 94, 220);
+}
+
+.saved-search > div {
+  position: fixed;
+}
+
+.saved-search h4 {
+  margin: 10px 0;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 100;
+}
+
+.saved-search ol {
+  padding-left: 15px;
+}
+
+.saved-search ol li {
+  transition: all 0.35s ease-in;
+}
+
+.saved-search li:hover {
   cursor: pointer;
+  color: #A9A9A0;
+  border-bottom-color: #A9A9A0;
+}
+
+.save-search {
+  width: 235px;
+  opacity: 0.6;
+  transition: opacity 0.35s ease-in;
+  margin-top: 20px;
+}
+
+
+.save-search:hover {
+  opacity: 1;
+}
+
+.save-search input,
+.save-search button {
+  background: transparent;
+  border: 0;
+}
+
+.save-search > div {
+  display: flex;
+  justify-content: space-between;
 }

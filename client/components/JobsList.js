@@ -40,10 +40,6 @@ class JobsList extends Component {
     }
   }
 
-  logger(event) {
-    console.log(event.target.text);
-  }
-
   render(){
     return (
       <div>

@@ -38,12 +38,14 @@ class Home extends Component {
     var q = {
       q: this.state.position,
       l: this.state.location,
-      radius: this.state.range,
+      radius: this.state.radius,
       jt: this.state.jobType,
       st: this.state.employerType,
       sort: this.state.sort,
       start: 0
     }
+
+    this.props.updateCurrentQuery(q);
     return q;
   }
 
@@ -89,7 +91,7 @@ class Home extends Component {
             <div>
               <div className="radius">
                 <h3>Radius</h3>
-                <input type="range" name="range" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
+                <input type="range" value={this.state.radius} name="radius" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
                 <div className="range">
                   <span>0<br/>miles</span>
                   <span>50</span>

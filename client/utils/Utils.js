@@ -75,7 +75,7 @@ const Utils = {
     query = query || {q:'software engineer', l: 'san francisco'};
     var queryStr = {
         publisher: 788696528762292, 
-        radius: 200,
+        radius: 25,
         format: 'json',
         limit:25,
         highlight:0,
@@ -91,7 +91,6 @@ const Utils = {
       data: query,
       success: (res) => {
         res.results = res.results.map(job => Utils.lowerCaseObjKeys(job));
-        console.log('from Utils', res.results);
         // indeedCallback(JSON.stringify(res.results));
         successCb(res);
 
