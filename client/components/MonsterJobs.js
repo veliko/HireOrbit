@@ -2,24 +2,35 @@ import React from 'react';
 import Iframe from 'react-iframe'
 
 class MonsterFrame extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    
+    console.log("monster jobs: ", this.props);
+
+    var q = this.props.query.q.split(" ").join("-") || "Software-Engineer";
+    var where = this.props.query.l.split(" ").join("-") || "San-Francisco";
 
     this.state = {
-      iframeURL: "http://jobs.monster.com/search/?q=react"
+      iframeURL: `http://jobs.monster.com/search/?q=${q}&where=${where}`
     };
   }
 
 
   onClickDice() {
+    var q = this.props.query.q.split(" ").join("+") || "Software+Engineer";
+    var where = this.props.query.l.split(" ").join("+") || "San+Francisco";
+
     this.setState({
-      iframeURL: "https://www.dice.com/jobs?q=react"
+      iframeURL: `https://www.dice.com/jobs?q=${q}&l=${where}`
     })
   }
 
   onClickMonster() {
+    var q = this.props.query.q.split(" ").join("-") || "Software-Engineer";
+    var where = this.props.query.l.split(" ").join("-") || "San-Francisco";
+
     this.setState({
-      iframeURL: "http://jobs.monster.com/search/?q=react"
+      iframeURL: `http://jobs.monster.com/search/?q=${q}&where=${where}`
     })
     
   }

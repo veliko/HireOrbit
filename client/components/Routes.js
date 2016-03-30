@@ -13,7 +13,7 @@ import Auth from '../utils/Auth';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import MonsterJobs from './MonsterJobs'
+import MonsterJobsContainer from '../containers/MonsterJobsContainer'
 
 let store = createStore(reducers, applyMiddleware(logger()));
 
@@ -40,7 +40,7 @@ export default () =>
         <Route path="/data-vis" onEnter={requireAuth} component={DataVisSearchContainer}/>
         <Route path="/logout" onEnter={logOut} />
         <Route path="/auth/google" onEnter={requireAuth} />
-        <Route path="/monster-jobs" component={MonsterJobs} />
+        <Route path="/monster-jobs" component={MonsterJobsContainer} />
 
       </Route>
     </Router>

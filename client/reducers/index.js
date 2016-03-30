@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
   cards: cardsReducer,
   filter: filterReducer,
   currentSearch: currentSearchReducer,
+  currentQuery: currentQueryReducer,
   dataVisual: dataVisReducer,
   sortingCriteria: sortingCriteriaReducer,
   savedSearches: savedSearchesReducer
