@@ -9,6 +9,7 @@ body {
   background: rgb(59,61,74);
   font-family: Arial, Helvetica, "Helvetica Neue", sans-serif;
   font-size: 16px;
+  color: #28201d;
 }
 
 .container {
@@ -552,13 +553,14 @@ ul {
   border-radius: 3px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
   transition: 0.25s;
+  cursor: move;
 }
 
 .card:hover {
   z-index: 5;
   background: #fff;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.30);
-  border-color: #00CED1;
+  border-color: #dcdcdc;
   transform: scale(1.008, 1.008);
 }
 
@@ -566,15 +568,16 @@ ul {
   font-size: 1.20em;
   font-weight: bold;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 
 .position__name {
   display: block;
-  font-weight: 300;
+  font-weight: 100;
   font-style: italic;
-  font-size: 1em;
+  font-size: 0.90em;
   margin-bottom: 10px;
-  color: #00585C;
+  color: #999;
 }
 
 .card__title:before {
@@ -836,24 +839,23 @@ iframe {
   z-index: 2;
   right: 30px;
   bottom: 30px;
-  background: #829901;
+  background: #DECA10;
   color: #fff;
   border-radius: 12px;
   font-size: 2.4em;
   text-align: center;
   text-decoration: none;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-  border: 2px solid #c5da01;
+  border: 3px solid #fbfbfb;
   padding-top: 11px;
   transition: 0.25s;   
 }
 
 .fa.fa-plus:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  background: #c5da01;
-  border: 2px solid #E7FF02;
+  background: #F8D613;
+  border: 3px solid #fbfbfb;
   color: white;
-  transform: scale(0.95,0.95);
 }
 
 .fa.fa-times.remove-event {
@@ -874,7 +876,7 @@ iframe {
 }
 
 .card-count {
-  color: #D47001;
+  color: #6D3A0A;
 }
 
 .toggle-enter {
@@ -904,7 +906,7 @@ iframe {
   margin-right: 2px;
 }
 .fa.fa-star {
-  color: #000;
+  color: #00CED1;
   margin-bottom: 0px;
   margin-right: 2px;
 }
@@ -963,15 +965,15 @@ iframe {
 }
 
 .card__section__title {
-  font-size: 1.25em;
+  font-size: 1.20em;
   font-family: Helvetica, sans-serif;
   margin-bottom: 10px;
-  color: #aaa;
+  color: #999;
 }
 
 .fa.fa-calendar-check-o, .fa.fa-sticky-note-o {
-  font-size: 1.25em;
-  color: #aaa;
+  font-size: 1.20em;
+  color: #999;
 }
 
 .fa.fa-sticky-note-o {
@@ -984,12 +986,12 @@ iframe {
   left: -16px;
   width: calc(100% + 27px);
   height: 22px;
-  background-color: #00CED1;
+  background-color: #9AC359;
   border-radius: 3px 3px 0 0;
   box-shadow: 0 0px 0px #ccc;
   padding: 4px 10px 0 10px;
   font-size: 0.75em;
-  color: #fff;
+  color: #fbfbfb;
 }
 
 .info__bar__upcoming__event {
@@ -1002,7 +1004,7 @@ iframe {
 .info__bar__time {
   float: right;
   overflow: hidden;
-  max-width: 40%;
+  max-width: 60%;
 }
 
 .toolbar__button {
@@ -1061,7 +1063,7 @@ iframe {
 }
 
 .card-count.compressed {
-  color: #D47001;
+  color: #6D3A0A;
   display: inline;
 }
 
