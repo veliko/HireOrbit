@@ -75,7 +75,7 @@ const Utils = {
     query = query || {q:'software engineer', l: 'san francisco'};
     var queryStr = {
         publisher: 788696528762292, 
-        radius: 200,
+        radius: 25,
         format: 'json',
         limit:25,
         highlight:0,

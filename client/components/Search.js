@@ -2,7 +2,6 @@ import React from 'react';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import JobsList from './JobsList';
-import Paginate from './Paginate';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -26,9 +25,11 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    let query = this.props.currentQuery;
+    let query = this.props.currentQuery || this.props.location.query;
     let { q, l, limit, radius, jt, st, start } = query;
     let self = this;
+
+    console.log('@Search Q', this.props.currentQuery);
 
     Utils.getJobsFromIndeed(query, (res) => {
       self.props.updateCurrentSearch(res);
@@ -85,7 +86,7 @@ class Search extends React.Component {
     var q = {
       q: this.state.position,
       l: this.state.location,
-      radius: this.state.range,
+      radius: this.state.radius,
       jt: this.state.jobType,
       st: this.state.employerType,
       sort: this.state.sort,
@@ -98,11 +99,6 @@ class Search extends React.Component {
     Utils.getJobsFromIndeed(q, (res) => {
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
-
-    browserHistory.push({
-      pathname: '/search',
-      query: q
-    });
   }
 
   fetchSavedSearch(id){
@@ -117,12 +113,10 @@ class Search extends React.Component {
 
   render(){
 
-    var Sort = (props) => (
-      <div className="sort">
-        <select onChange={ this.updateSearch.bind(this) } name="sort" value={ this.state.sort }>
-          <option value="relevance" name="sort">Relevance</option>
-          <option value="date" name="sort">Date</option>
-        </select>
+    var Pagination = (props) => (
+      <div className="pagination">
+        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch.bind(this) }>Prev</button>
+        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch.bind(this) }>Next</button>
       </div>
     );
 
@@ -138,23 +132,13 @@ class Search extends React.Component {
       </div>
     );
 
-    var SavedSearches = (props) => (
-      <aside className="saved-search">
-        <div>
-          <div>
-            <h4>Saved Searches</h4>
-            <ul>
-            {this.state.allSavedSearches.map(saved => (
-              <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
-            ))}
-            </ul>
-          </div>
-          <div>
-            <input type='text' value={this.state.searchName} name="searchName" onChange={this.updateText.bind(this)} placeholder='Save this search'/>
-            <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
-          </div>
-        </div>
-      </aside>
+    var Sort = (props) => (
+      <div className="sort">
+        <select onChange={ this.updateSearch.bind(this) } name="sort" value={ this.state.sort }>
+          <option value="relevance" name="sort">Relevance</option>
+          <option value="date" name="sort">Date</option>
+        </select>
+      </div>
     );
 
     return (
@@ -179,7 +163,7 @@ class Search extends React.Component {
               </div>
               <div>
                 <h3>Radius</h3>
-                <input type="range" name="radius" min="0" max="100" step="25" value={this.state.radius} onDragExit={ this.updateSearch.bind(this) } />
+                <input type="range" name="radius" min="0" max="100" step="25" value={this.state.radius} onChange={ this.updateSearch.bind(this) } />
                 <div className="range">
                   <span>0<br/>miles</span>
                   <span>50</span>          
@@ -191,9 +175,9 @@ class Search extends React.Component {
             </div>
           </aside>
           <div className="jobs">
-            <Sort updateSearch={this.updateSearch} value={this.state.sort} />
+            <Sort />
             <JobsList addCardsToKanban={this.props.addCardsToKanban} cardPositions={this.props.cardPositions} jobs={this.props.currentSearch.results} />
-            <Paginate start={this.state.start} updateSearch={this.updateSearch} />
+            <Pagination />
           </div>
         </div>
         { Auth.isLoggedIn() ?  

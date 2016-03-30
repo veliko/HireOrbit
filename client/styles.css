@@ -388,6 +388,10 @@ form.search .advanced {
   text-decoration: none;
 }
 
+.search-results .job h2 a:visited {
+  color: rgb(189, 189, 189);
+}
+
 .job h3 {
   margin: 0;
   font-weight: 100;
