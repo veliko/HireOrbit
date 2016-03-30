@@ -124,11 +124,11 @@ const Utils = {
     .fail((error) => console.log('Error while persisting new card data to Kanban: ', error));
   },
 
-  persistCardStatusAndPositions: function(cardStatusAndPositions) {
+  persistCardPositions: function(cardPositions) {
     return $.ajax({
       url: '/api/cards/positions',
       method: 'PUT',
-      data: cardStatusAndPositions
+      data: cardPositions
     })
   },
 
@@ -153,8 +153,43 @@ const Utils = {
       url: '/api/parse',
       method: 'POST',
       data: sendUrl
+    });
+  },
+
+  deleteCardFromKanban: function(card_id, card_positions) {
+    return $.ajax({
+      url: '/api/cards',
+      method: 'DELETE',
+      data: {
+        card_id,
+        card_positions,
+        eventIdsForRemoval
+      }
+    })
+  },
+
+  updateCardNotes: function(card_id, notes) {
+    return $.ajax({
+      url: 'api/cards/notes',
+      method: 'POST',
+      data: {
+        card_id,
+        notes
+      }
+    });
+  },
+
+  updateCardRating: function(card_id, newRating) {
+    return $.ajax({
+      url: 'api/cards/rating',
+      method: 'PUT',
+      data: {
+        card_id,
+        newRating
+      }
     })
   }
 }
+
 export default Utils;
 

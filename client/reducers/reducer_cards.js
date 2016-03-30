@@ -1,5 +1,7 @@
 import { actions } from '../constants';
 import update from 'react-addons-update';
+import Utils from '../utils/Utils';
+import Moment from 'moment';
 
 
 export default function(state = [], action) {
@@ -9,10 +11,13 @@ export default function(state = [], action) {
       return action.payload.cards;
 
     case actions.ADD_CARDS_TO_KANBAN: 
+      // make sure no duplicating jobs are added to the kanban
       let duplicatesRemoved = action.payload.cards.filter((card) => {
         var cardExists = state.find((existingCard) => card.card_id === existingCard.card_id);
         return !cardExists;
       });
+
+      // finally return updated state
       return update(state, {
         $push: [...duplicatesRemoved]
       });
@@ -21,7 +26,9 @@ export default function(state = [], action) {
       let cardIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
       return update(state, {
         [cardIndex]: {
-            status: {$set: action.payload.status}
+            status: {
+              $set: action.payload.status
+            }
           }
       });
 
@@ -30,7 +37,6 @@ export default function(state = [], action) {
       let dropTargetCardIndex = state.findIndex((card) => card.card_id === action.payload.cardBelowId);
 
       let draggedCard = state[draggedCardIndex];
-      let dropTargetCard = state[dropTargetCardIndex];
 
       return update(state, {
         $splice: [
@@ -51,6 +57,7 @@ export default function(state = [], action) {
         }
       });
 
+      
     case actions.DELETE_EVENT_FROM_CARD:
       let evt = action.payload.event;
       cardIndex = state.findIndex((card) => card.card_id === evt.card_id);
@@ -67,7 +74,65 @@ export default function(state = [], action) {
           }
         }
       })
+
+    case actions.DELETE_CARD_FROM_KANBAN: 
+      let cardToBeDeletedIndex = state.findIndex((card) => card.card_id === action.payload.card_id);
+      let cardToBeDeleted = state[cardToBeDeletedIndex];
+      let updatedState = update(state, {
+        $splice: [
+          [cardToBeDeletedIndex, 1]
+        ]
+      });
+
+      let card_positions = updatedState.reduce((result, card, index) => {
+        result[card.card_id] = index;
+        return result;
+      }, {})
+
+      let eventIdsForRemoval = cardToBeDeleted.events.map(event => event.event_id);
+
+      console.log('updated state looks like this: ', updatedState);
+      console.log('card_positions look like this: ', card_positions);
+
+      Utils.deleteCardFromKanban(action.payload.card_id, card_positions, eventIdsForRemoval)
+      .done(() => console.log('Successfully deleted card from Kanban'))
+      .fail((error) => console.log('Error while deleting card from Kanban'));
+      return updatedState;
+
+    case actions.UPDATE_CARD_NOTES: 
+      let card_id = action.payload.card_id;
+      cardIndex = state.findIndex((card) => card.card_id === card_id);
+      let notesArray = action.payload.notes;
+
+      Utils.updateCardNotes(card_id, notesArray)
+        .done(() => console.log("Successfully updated card notes"))
+        .fail((error) => console.log("Error updating card notes"));
+
+      return update(state, {
+        [cardIndex]: {
+          notes: {
+            $set: notesArray
+          }
+        }
+      });
     
+      case actions.CHANGE_CARD_RATING:
+        card_id = action.payload.card_id;
+        cardIndex = state.findIndex((card) => card.card_id === card_id);
+        let newRating = action.payload.newRating;
+
+        Utils.updateCardRating(card_id, newRating)
+          .done(() => console.log('Successfully persisted card rating'))
+          .fail((error) => console.log('Error while persisting card rating: ', error));
+
+        return update(state, {
+          [cardIndex]: {
+            rating: {
+              $set: newRating
+            }
+          }
+        });
+
     default: return state;
   }
 }

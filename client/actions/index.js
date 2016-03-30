@@ -39,14 +39,12 @@ export function updateCardStatus(card_id, status) {
   }
 }
 
-export function updateCardPosition(hoverCardId, cardBelowId, cardBeforeId) {
-  console.log("about to fire position update");
+export function updateCardPosition(hoverCardId, cardBelowId) {
   return {
     type: actions.UPDATE_CARD_POSITION,
     payload: {
       hoverCardId,
       cardBelowId,
-      cardBeforeId
     }
   };
 }
@@ -79,7 +77,6 @@ export function fetchSavedSearches(savedSearches) {
 }
 
 export function addCardsToKanban(cards) {
-  console.log("inside addCardsToKanban: ", cards);
   return {
     type: actions.ADD_CARDS_TO_KANBAN,
     payload: {
@@ -131,6 +128,44 @@ export function updateCurrentQuery(currentQuery) {
     type: actions.UPDATE_CURRENT_QUERY,
     payload: {
       currentQuery
+    }
+  }
+}
+
+export function deleteCardFromKanban(card_id) {
+  return {
+    type: actions.DELETE_CARD_FROM_KANBAN,
+    payload: {
+      card_id
+    }
+  }  
+}
+
+export function updateCardNotes(card_id, notes) {
+  return {
+    type: actions.UPDATE_CARD_NOTES,
+    payload: {
+      card_id,
+      notes
+    }
+  }
+}
+
+export function changeCardRating(card_id, newRating) {
+  return {
+    type: actions.CHANGE_CARD_RATING,
+    payload: {
+      card_id,
+      newRating
+    }
+  }
+}
+
+export function changeSortingCriteria(sortingCriteria) {
+  return {
+    type: actions.CHANGE_SORTING_CRITERIA,
+    payload: {
+      sortingCriteria
     }
   }
 }

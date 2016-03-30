@@ -1,7 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import List from '../components/List';
 import { connect } from 'react-redux';
-import { updateCardStatus, updateCardPosition, addEventToCard, deleteEventFromCard } from '../actions';
+import { updateCardStatus, 
+         updateCardPosition, 
+         addEventToCard, 
+         deleteEventFromCard , 
+         deleteCardFromKanban,
+         updateCardNotes,
+         changeCardRating } from '../actions';
 
 class ListContainer extends Component {
   render() {
@@ -25,8 +31,11 @@ ListContainer.propTypes = {
   updateCardPosition: PropTypes.func.isRequired
 }
 
-export { ListContainer };
 export default connect(mapStateToProps, { updateCardStatus, 
                                           updateCardPosition, 
                                           addEventToCard, 
-                                          deleteEventFromCard })(ListContainer);
+                                          deleteEventFromCard,
+                                          deleteCardFromKanban,
+                                          updateCardNotes,
+                                          changeCardRating })(ListContainer);
+

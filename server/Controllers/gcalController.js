@@ -135,6 +135,34 @@ gcalController.deleteEvent = function (req, res, next) {
     .catch(err => console.log('Error deleting event: ', err))
 }
 
+gcalController.deleteCardEvents = function(events, userid) {
+  User.findOne({where:{google_id:userid}})
+    .then(results => {
+      var accessToken = results.dataValues.google_access_token;
+      oauth2Client.setCredentials({
+        access_token: accessToken
+      })
+
+      if (events) {
+        events.forEach((event, i) => {
+          setTimeout(function () {
+            calendar.events.delete({
+              auth: oauth2Client,
+              calendarId: 'primary',
+              eventId: event
+            }, function (err, resp) {
+              if(err){
+                console.log('Error while sending '+ i+ ' event')
+                return;
+              } 
+              console.log('Success deleting '+ i+ " event")
+            })
+          }, i*2*100)
+        })
+      }
+    })
+}
+
 
 
 module.exports = gcalController;
