@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-
+const knex = require('../db/dbKnex')
 const router = require('./routes');
 var productionIP = process.env.PORT || 80;
 
@@ -43,7 +43,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-if(process.env.NODE_ENV === 'PRODUCTION'){
+if(process.env.NODE_ENV === 'PRODUCTION' || process.NODE_ENV === 'DBSTART'){
   app.listen(productionIP);
   console.log('Listening at port ', productionIP )
 } else {
