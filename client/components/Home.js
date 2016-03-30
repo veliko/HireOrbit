@@ -28,7 +28,7 @@ class Home extends Component {
       jobType: '',
       location: 'San Francisco, CA',
       position: 'Software Engineer',
-      radius: 25,
+      radius: 50,
       sort: 'relevance',
       start: 0
     });
@@ -73,33 +73,29 @@ class Home extends Component {
 
     return (
       <div className="search-container">
-        <img src="img/logo.svg" className="searchLogo"/>
+        <img  className="searchLogo" src="img/hireOrbit.png"/>
         <form action="" className="search">
           <div className="main-search">
             <div>
-              <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.stateChange.bind(this) } />
+              <input className="main__input left" type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.stateChange.bind(this) } />
             </div>
             <div>
-              <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
+              <input className="main__input right" type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.stateChange.bind(this) } />
             </div>
-            <Link to={{ pathname: '/search', query: this.submitForm.bind(this)() }} ><button> <i className="fa fa-arrow-circle-right"></i></button></Link>
-          </div>
-          <div>
-            <a href="#" className="advanced">Advanced Search</a>
+            <Link to={{ pathname: '/search', query: this.submitForm.bind(this)() }} ><button className="main__search__button">Search</button></Link>
           </div>
           <div className="advanced">
-            <div>
+            <div className="advanced__container">
               <div className="radius">
-                <h3>Radius</h3>
                 <input type="range" value={this.state.radius} name="radius" min="0" max="100" step="25" onChange={ this.stateChange.bind(this) } />
                 <div className="range">
-                  <span>0<br/>miles</span>
+                  <span>0<br/><span className="range__miles__label">miles</span></span>
                   <span>50</span>
-                  <span>100<br/>miles</span>
+                  <span>100<br/><span className="range__miles__label">miles</span></span>
                 </div>
               </div>
-              <Tabs types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
-              <Tabs types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+              <Tabs types={this.state.jobSet} name={"jobType"} title={""} />
+              <Tabs types={this.state.employerSet} name={"employerType"} title={""} />
             </div>
           </div>
           </form>

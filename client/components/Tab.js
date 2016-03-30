@@ -8,9 +8,7 @@ class Tabs extends Component {
   render() {
     return(
       <div className="radio-box job">
-        <h3>{props.title}</h3>
         {props.types.map((item, i) =>
-          // make this active based on the 'checked' match
           <div key={i} className={ (item.value === this.state[props.name]) ? 'active' : '' }>
             <span>{item.label}</span>
             <input type="radio" name={props.name} value={item.value}
