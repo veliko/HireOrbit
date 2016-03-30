@@ -504,10 +504,13 @@ ul {
 .app {
   white-space: nowrap;
   height:100%;
+  width: 100%;
 }
 
 .App {
   background-color: #bcbcbc;
+  height:100%;
+  width: 100%;
 }
 
 .list {
