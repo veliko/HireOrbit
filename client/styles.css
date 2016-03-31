@@ -143,6 +143,7 @@ video#bgvid {
   transform: translateX(-50%) translateY(-50%);
 }
 
+
 .overlay {
   position: absolute;
   top: 0;
@@ -150,7 +151,7 @@ video#bgvid {
   width: 100%;
   height: 100vh;
   /*background: url(img/overlay/scan-line-h.png) repeat;*/
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .25);
   z-index: -1;
 }
 
@@ -181,6 +182,7 @@ form.search .advanced {
 
 form.search .advanced .advanced__container {
   margin: 0 25px 0 29px;
+  width: 720px;
 }
 
 .main-search {
@@ -192,7 +194,7 @@ form.search .advanced .advanced__container {
   display: flex;
   margin: 0 0 1.5% 0;
   border: none;
-  font-size: 0.9375rem;
+  font-size: 1rem;
 }
 
 .radio-box h3 {
@@ -207,11 +209,10 @@ form.search .advanced .advanced__container {
 .radio-box > div {
   position: relative;
   border-radius: 5px;
-  line-height: 2.75rem;
-  height: 43px;
+  line-height: 2.5rem;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  margin: 0 5px;
-  padding: 0 10px;
+  margin: 0 5px 0 0;
+  padding: 0px 13px;
   text-align: center;
   transition: all 0.5s ease-in;
   white-space: nowrap;
@@ -249,7 +250,7 @@ form.search .advanced .advanced__container {
 .radius {
   display: flex;
   flex-direction: column;
-  margin: 0 4px 0 6px;
+  margin: 0;
 }
 
 .radius h3 {
@@ -1153,7 +1154,7 @@ iframe {
   color: #bcbcbc;
   outline: none;
   background: rgba(255, 255, 255, 0.1);
-  margin: 5px;
+  margin: 0px;
   line-height: 2.5rem;
   font-size: 1.3rem;
   border: 0px solid #ececec;
@@ -1162,16 +1163,18 @@ iframe {
 .main__input.left {
   border-radius: 5px 0 0 5px;
   border-right: none;
-  margin-right: 0;
-  padding-left: 27px;
+  margin-right: 0px;
+  padding-left: 30px;
+  width: 310px;
 }
 
 .main__input.right {
   border-right: none;
-  border-left: none; 
+  border-left: none;
   margin-left: 0;
   margin-right: 0;
   border-radius: 0 5px 5px 0;
+  width: 288.04px;
 }
 
 .main__search__button { 
@@ -1183,7 +1186,7 @@ iframe {
   font-size: 1.3rem;
   line-height: 2.5rem;
   letter-spacing: 1px;
-  margin: 5px 0 0;
+  margin: 0px 0 0;
   padding-right: 25px;
   padding-left: 22px;
   padding-top: 3px;
