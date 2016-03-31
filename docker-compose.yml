@@ -3,12 +3,12 @@ services:
   web1:
     build: .
     ports:
-        - "3001:80"
+      - "3001:80"
 
   web2:
     build: .
     ports:
-       - "3002":"80"
+      - "3002":"80"
 
   postgres:
     image: postgres
@@ -17,4 +17,3 @@ services:
       PGDATA: "/var/postgres/data/pgdata"
     volumes:
       - /var/postgres/data/pgdata:/var/postgres/data/pgdata
-      
