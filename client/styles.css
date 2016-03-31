@@ -382,44 +382,38 @@ form.search .advanced .advanced__container {
 
 .search-results .job {
   background: #fff;
-  padding: 15px;
+  padding: 10px 15px;
   margin: 15px 0;
   display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
 }
 
-.search-results .job > div:first-child {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  padding-right: 15px;
-}
-
-.search-results .job > div:first-child a {
-  text-align: center;
-  display: block;
-  text-decoration: none;
-  color: rgb(92, 94, 220);
-  padding: 10px;
-}
-
-.search-results .job > div:nth-child(2) {
-  flex: 5;
-}
-
-.search-results .job > div:nth-child(2) > div {
+.search-results .job > div > div {
   display: flex;
   justify-content: space-between;
 }
 
+.search-results .job > .strip {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: -1px;
+  left: 0px;
+  width: 7px;
+  background-color: #00CED1;
+  border-radius: 3px 0 0 3px;
+}
+
 .search-results .job h2 {
-  margin: 0;
-  padding-bottom: 10px;
+  margin: 0 0 10px;
   line-height: 1.5rem;
 }
 
 .search-results .job h2 a {
-  font-size: 1.25rem;
-  color: rgb(92, 94, 220);
+  font-size: 1.1875rem;
+  color: rgb(40, 32, 29);
   text-decoration: none;
 }
 
@@ -428,77 +422,59 @@ form.search .advanced .advanced__container {
 }
 
 .job h3 {
-  margin: 0;
+  margin: 0 0 5px;
+  color: #999;
   font-weight: 100;
-  font-size: 0.9375rem;
-  color: rgb(150, 150, 150);
+  font-style: italic;
+  font-size: 0.90em;
 }
 
-.search-results .job .tile {
-  position: relative;
-  color: #fff;
-  border: solid 1px rgba(0 ,0, 0, 0.25);
-  margin-bottom: 15px;
-  max-width: 180px;
-}
-
-.search-results .job .tile img {
-  width: 100%;
-}
-
-.job .tile h3 {
-  color: #fff;
-  background: url(./img/low-poly.jpg);
-  background-size: cover;
-  margin: 10px;
-  height: 140px;
-  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
-  border: solid 1px rgba(0, 0, 0, 0.1);
-}
-
-.job .tile .overlay {
-  width: 100%;
-  height: 100%;
-  font-size: 21px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.3));
-}
-
-.job .tile span {
-  text-align: center;
+.job h3 a {
+  color: #999;
+  text-decoration: none;
 }
 
 .job small {
-  color: rgba(0, 0, 0, 0.35);
-  font-weight: 400;
+  font-size: 0.75em;
+  background-color: #ececec;
+  color: #999;
+  border-radius: 3px;
+  padding: 3px 6px 4px;
+  margin-bottom: 5px;
 }
 
-.job h3 {
-  background: transparent;
+.job hr {
+  margin: 3px 0 9px;
+}
+
+.job button,
+.job button a {
+  color: rgb(51, 51, 51);
+  text-decoration: none;
+  transition: background 0.25s;
+}
+
+.job button {
+  padding: 7px 5px;
+  border-radius: 3px;
+  background: #fff;
+  border: solid 1px #adadad;
+}
+
+.job button:hover {
+  background: rgb(204, 204, 204);
+  cursor: pointer;
+}
+
+.job button a i {
+  color: rgb(51, 51, 51);
 }
 
 .search-results .description {
   font-size: 1rem;
   line-height: 1.4rem;
-  color: #666;
-}
-
-.search-results button {
-  background: rgb(148, 148, 148);
-  color: #fff;
-  border: 0;
-  font-size: 14px;
-  padding: 10px;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-  transition: background 0.5s;
-  margin: 6px 0;
-}
-
-.search-results button:hover {
-  background: rgb(92, 94, 220);
+  color: rgb(40, 32, 29);
+  margin-bottom: 10px;
 }
 
 .search-results .pagination {
@@ -951,7 +927,7 @@ iframe {
   margin-bottom: 5px;
 }
 
-.fa.fa-clock-o, .fa.fa-check {
+.fa.fa-clock-o {
   color: #aaa;
 } 
 
