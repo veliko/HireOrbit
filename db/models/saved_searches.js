@@ -1,5 +1,9 @@
 /* jshint indent: 2 */
-
+/**
+ * @param  {function}
+ * @param  {function}
+ * @return {model}
+ */
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('saved_searches', {
     internal_id: {

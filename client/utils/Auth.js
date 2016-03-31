@@ -12,7 +12,15 @@ const Auth = {
   },
 
   getUserId: function () {
-    return document.cookie.split("=")[1];
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + 'userid' + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  },
+
+  getUserImage: function () {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + 'user_img' + "=");
+    if (parts.length == 2) return decodeURIComponent(parts.pop().split(";").shift());
   }
 }
 

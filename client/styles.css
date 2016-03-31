@@ -750,6 +750,7 @@ iframe {
 .fa.fa-bullseye:hover {
   font-size: 3em;
   color: #ff0000;
+  cursor: pointer;
 }
 
 .fa.fa-plus-circle {
@@ -1202,4 +1203,16 @@ iframe {
 
 .login span {
   color: #ececec;
+  background-color: #E24E2A;
+}
+
+.circular-image {
+  width: 3em;
+  height: 3em;
+  border-radius: 1.5em;
+  -webkit-border-radius: 1.5em;
+  -moz-border-radius: 1.5em;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }

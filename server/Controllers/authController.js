@@ -60,7 +60,9 @@ passport.use(new GoogleStrategy({
 ));
 
 
-
+/**
+ * @param {function}
+ */
 const AuthController = function (app) {
 // set up passport
   app.use(passport.initialize());
@@ -80,6 +82,7 @@ const AuthController = function (app) {
       // add the user_id to the cookie
       console.log('google callback was called successfully', req.user);
       res.cookie('userid', req.user.dataValues.google_id, { maxAge: 2592000000 });
+      res.cookie('user_img', req.user.dataValues.google_image_url, { maxAge: 2592000000 });
       res.redirect('/');
   });
 

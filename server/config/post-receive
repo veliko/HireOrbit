@@ -1,0 +1,6 @@
+#!/bin/sh
+git --work-tree=/var/www/hireorbit.com --git-dir=/root/repo/hireorbit.git checkout -f
+cp /root/repo/config.js /var/www/hireorbit.com/db/config.js
+mkdir /var/wwww/hireorbit.com/server/config
+cp /root/repo/serverConfig.js /var/www/hireorbit.com/server/config/config.js
+(cd /var/www/hireorbit.com && docker-compose down; docker images -q --filter "dangling=true" | xargs docker rmi; docker-compose build web &&  nohup docker-compose up >> /startup.log)
