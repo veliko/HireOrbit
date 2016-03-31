@@ -51,6 +51,7 @@ header h1 a:hover {
 header h1 img {
   width: 150px;
   position: absolute;
+  margin-top: -8px;
 }
 
 .content {
@@ -72,7 +73,7 @@ nav ul {
 nav ul li {
   font-size: 1.1rem;
   font-weight: 200;
-  line-height: 4rem;
+  line-height: 3.2rem;
 }
 
 nav a {
@@ -102,9 +103,8 @@ nav a i {
   font-size: 1.5rem;
   text-decoration: none;
   color: #ececec;
-  padding: 13px 14px 0;
+  padding: 6px 14px 0;
   transition: color 0.25s;
-  background: rgba(255, 255, 255, 0.1);
   border-radius: 50px;
   display: inline-block;
   height: 50px;
