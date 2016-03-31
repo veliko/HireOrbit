@@ -742,11 +742,13 @@ iframe {
   display: none;
 }
 
-.fa.fa-bullseye:hover {
-  font-size: 3em;
-  color: #ececec;
-  cursor: pointer;
+
+.fa.fa-plus-circle {
+  color: #fff;
+  font-size: 1.5em;
+  padding-top: 0.75em;
 }
+
 
 .url-input {
   height: 1.75em;
