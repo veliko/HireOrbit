@@ -60,7 +60,9 @@ passport.use(new GoogleStrategy({
 ));
 
 
-
+/**
+ * @param {function}
+ */
 const AuthController = function (app) {
 // set up passport
   app.use(passport.initialize());
