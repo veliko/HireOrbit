@@ -41,7 +41,7 @@ header h1 a {
   display: block;
   position: relative;
   transition: opacity 0.25s ease-in;
-  padding: 7px 0 0 10px;
+  padding: 7px 0 0 20px;
 }
 
 header h1 a:hover {
@@ -49,7 +49,7 @@ header h1 a:hover {
 }
 
 header h1 img {
-  width: 150px;
+  width: 135px;
   position: absolute;
   margin-top: -8px;
 }
@@ -71,19 +71,19 @@ nav ul {
 }
 
 nav ul li {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 200;
-  line-height: 3.2rem;
+  line-height: 50px;
 }
 
 nav a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.65);
+  color: #a7a7a7;
   transition: all 0.5s ease-in;
 }
 
 nav a:hover {
-  color: rgba(255, 255, 255, 1);
+  color: #00ced1;
 }
 
 nav ul li a {
@@ -97,19 +97,18 @@ nav ul li a:hover {
 
 nav a i {
   margin-right: 5px;
+  font-size: 1.3rem !important;
+  color: #ececec;
 }
 
 .fa.fa-user {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-decoration: none;
   color: #ececec;
-  padding: 6px 14px 0;
   transition: color 0.25s;
-  border-radius: 50px;
   display: inline-block;
-  height: 50px;
   text-align: center;
-  margin: 4px 10px 0 0;
+  margin: 0px 0px 0 0;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
@@ -156,8 +155,8 @@ video#bgvid {
 }
 
 .searchLogo {
-  max-width: 59%;
-  margin-bottom: 20px;
+  max-width: 50%;
+  margin-bottom: 5%;
 }
 
 form.search {
@@ -212,7 +211,7 @@ form.search .advanced .advanced__container {
   line-height: 2.5rem;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   margin: 0 5px 0 0;
-  padding: 0px 13px;
+  padding: 0px 23px;
   text-align: center;
   transition: all 0.5s ease-in;
   white-space: nowrap;
@@ -1151,7 +1150,7 @@ iframe {
 .main__input {
   padding-top: 4px;
   padding-bottom: 2px;
-  color: #bcbcbc;
+  color: #c2c2c2;
   outline: none;
   background: rgba(255, 255, 255, 0.1);
   margin: 0px;
@@ -1165,22 +1164,23 @@ iframe {
   border-right: none;
   margin-right: 0px;
   padding-left: 30px;
-  width: 310px;
+  width: 300px;
 }
 
 .main__input.right {
   border-right: none;
   border-left: none;
+  padding-left: 30px;
   margin-left: 0;
   margin-right: 0;
   border-radius: 0 5px 5px 0;
-  width: 288.04px;
+  width: 298.04px;
 }
 
 .main__search__button { 
   background: none;
   transition: color 0.5s ease-in;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ebebeb;
   outline: none;
   border: 0;
   font-size: 1.3rem;
@@ -1199,8 +1199,8 @@ iframe {
 .login {
   width: 200px;
   position: absolute;
-  top: 2px;
-  right: 0;
+  top: 13px;
+  right: 20px;
   text-align: right;
 }
 
@@ -1218,4 +1218,5 @@ iframe {
   box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  color: #acacac;
 }
