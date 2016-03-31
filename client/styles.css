@@ -25,7 +25,7 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  background: #333333;
+  background: rgba(0, 0, 0,0.25);
 }
 
 header h1 {
@@ -70,21 +70,19 @@ nav ul li {
   line-height: 4rem;
 }
 
-
 nav a {
   text-decoration: none;
-  color: #ececec;
-  transition: color 0.5s ease-in;
+  color: rgba(255, 255, 255, 0.65);
+  transition: all 0.5s ease-in;
 }
 
 nav a:hover {
-  color: #ececec;
+  color: rgba(255, 255, 255, 1);
 }
 
 nav ul li a {
   padding: 0px 12px 0 12px;
   display: block;
-  transition: background 0.5s ease-in;
 }
 
 nav ul li a:hover {
@@ -125,15 +123,31 @@ nav a i {
   height: 100vh;
 }
 
-/*.content {
-  flex: 9;
-  background-color: #ececec;
+video#bgvid { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
-.home {
-  margin: 20px;
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /*background: url(img/overlay/scan-line-h.png) repeat;*/
+  background-color: rgba(0, 0, 0, .5);
+  z-index: -1;
 }
-*/
 
 .searchLogo {
   max-width: 59%;
@@ -156,11 +170,17 @@ form.search .advanced {
   color: #bcbcbc;
   text-decoration: none;
   font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form.search .advanced .advanced__container {
-  width: 67.5%;
   margin: 0 25px 0 29px;
+}
+
+.main-search {
+  margin-bottom: 50px;
 }
 
 /* radio-box */
@@ -168,6 +188,7 @@ form.search .advanced .advanced__container {
   display: flex;
   margin: 0 0 1.5% 0;
   border: none;
+  font-size: 0.9375rem;
 }
 
 .radio-box h3 {
@@ -182,12 +203,18 @@ form.search .advanced .advanced__container {
 .radio-box > div {
   position: relative;
   border-radius: 5px;
-  line-height: 2.5rem;
+  line-height: 2.75rem;
   height: 43px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  margin: 0 5px;
   padding: 0 10px;
+  text-align: center;
+  transition: all 0.5s ease-in;
+  white-space: nowrap;
 }
 
-.radio-box > div.active {
+.radio-box > div.active,
+.radio-box > div:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ececec;
 }
@@ -198,9 +225,10 @@ form.search .advanced .advanced__container {
   text-align: center;
 }
 
-.radio-box > div:hover {
+.radio-box > div span:hover {
   cursor: pointer;
 }
+
 .radio-box > div input {
   position: absolute;
   left: 0;
@@ -217,7 +245,7 @@ form.search .advanced .advanced__container {
 .radius {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 0 4px 0 6px;
 }
 
 .radius h3 {
@@ -638,7 +666,6 @@ ul {
   height: 50px;
 }
 
-
 .saved-search {
   padding-left: 1em;
   color: rgb(92,94,220);
@@ -732,18 +759,12 @@ iframe {
 }
 
 .url-input {
-    height: 1.75em;
-     -webkit-box-shadow: 
-       inset 0 0 8px  rgba(0,0,0,0.1),
-             0 0 16px rgba(0,0,0,0.1); 
-     -moz-box-shadow: 
-       inset 0 0 8px  rgba(0,0,0,0.1),
-             0 0 16px rgba(0,0,0,0.1); 
-     box-shadow: 
-       inset 0 0 8px  rgba(0,0,0,0.1),
-             0 0 16px rgba(0,0,0,0.1); 
-     background: rgba(255,255,255,0.8);
-     margin: 0.75em 0.25em;
+  height: 1.75em;
+  -webkit-box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
+  background: rgba(255,255,255,0.8);
+  margin: 0.75em 0.25em;
 }
 
 .iframe__aside {
@@ -1122,21 +1143,19 @@ iframe {
 }
 
 .main__input {
-  padding-left: 25px;
   padding-top: 4px;
   padding-bottom: 2px;
   color: #bcbcbc;
   outline: none;
-  background: none;
+  background: rgba(255, 255, 255, 0.1);
   margin: 5px;
-  margin-bottom: 30%;
   line-height: 2.5rem;
   font-size: 1.3rem;
-  border: 3px solid #ececec;
+  border: 0px solid #ececec;
 }
 
 .main__input.left {
-  border-radius: 50px 0 0 50px;
+  border-radius: 5px 0 0 5px;
   border-right: none;
   margin-right: 0;
   padding-left: 27px;
@@ -1147,22 +1166,26 @@ iframe {
   border-left: none; 
   margin-left: 0;
   margin-right: 0;
+  border-radius: 0 5px 5px 0;
 }
 
 .main__search__button { 
   background: none;
-  color: #ececec;
+  transition: color 0.5s ease-in;
+  color: rgba(255, 255, 255, 0.5);
   outline: none;
-  border: 3px solid #ececec;
-  border-left: 3px solid #ececec;
+  border: 0;
   font-size: 1.3rem;
   line-height: 2.5rem;
   letter-spacing: 1px;
-  margin: 5px 0 20% 0;
-  border-radius: 0 50px 50px 0;
+  margin: 5px 0 0;
   padding-right: 25px;
   padding-left: 22px;
   padding-top: 3px;
+}
+
+.main__search__button:hover {
+  color: rgba(255, 255, 255, 1);
 }
 
 .login {

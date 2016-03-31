@@ -1,7 +1,8 @@
 // const $ = require ('jquery')
 // const mergeDefault = require('lodash.defaults');
 // const Promise = require('bluebird');
-const mergeDefault = _.defaults
+const _ = require('underscore')
+const mergeDefault = _.defaults;
 
 const Utils = {
   addGCalEvent: function (event) {
