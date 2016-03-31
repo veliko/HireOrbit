@@ -1223,3 +1223,7 @@ iframe {
   -moz-border-radius: 1.5em;
   color: #acacac;
 }
+
+.saved-job {
+  border: 1px solid red!important;
+}

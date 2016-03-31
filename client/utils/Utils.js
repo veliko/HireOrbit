@@ -1,8 +1,7 @@
 // const $ = require ('jquery')
 // const mergeDefault = require('lodash.defaults');
 // const Promise = require('bluebird');
-const _ = require('underscore')
-const mergeDefault = _.defaults;
+const mergeDefault = require('lodash.merge')
 
 const Utils = {
   addGCalEvent: function (event) {
@@ -73,7 +72,6 @@ const Utils = {
 
   getJobsFromIndeed: function (query, successCb, errorCb) {
 
-    query = query || {q:'software engineer', l: 'san francisco'};
     var queryStr = {
         publisher: 788696528762292, 
         radius: 25,
@@ -83,8 +81,8 @@ const Utils = {
         v:2,
     };
     //use query as default and add in defaults from queryStr. query is the determining factor in the resulting object
-    mergeDefault(query, queryStr);
-
+    query = mergeDefault(query, queryStr);
+    console.log('Check mergeDefault NOW..............:', query)
     var options = {
       url: 'http://api.indeed.com/ads/apisearch',
       method: 'GET',

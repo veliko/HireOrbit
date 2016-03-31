@@ -45,7 +45,7 @@ class JobsList extends Component {
     return (
       <div>
         {this.props.jobs.map(job =>
-          <div className="job" key={job.jobkey}>
+          <div className={job.isInKanban ? "job saved-job" : "job"} key={job.jobkey}>
             <div>
               <div className="tile">
                 <h3>
@@ -60,7 +60,8 @@ class JobsList extends Component {
             <div>
               <h2><a href={job.url} target="_blank">{job.jobtitle}</a></h2>
               <div>
-                <h3>{job.formattedlocation}</h3>
+                <h3>{job.formattedlocation+", "}</h3>
+                <h5>{job.company}</h5>
                 <small>{job.formattedrelativetime}</small>
               </div>
               <hr />
