@@ -2,6 +2,7 @@ import React from 'react';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import JobsList from './JobsList';
+import Video from './Video';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -184,6 +185,7 @@ class Search extends React.Component {
     return (
       <div className="flex search">
         <div className="search-results">
+          <Video />
           <aside>
             <div className="sticky">
               <h2>Refine Results</h2>
@@ -212,6 +214,7 @@ class Search extends React.Component {
               </div>
               <Types types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
               <Types types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+              <div className="strip"></div>
             </div>
           </aside>
           <div className="jobs">

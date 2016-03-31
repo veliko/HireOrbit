@@ -296,7 +296,13 @@ form.search .advanced .advanced__container {
   max-width: 265px;
   width: 100%;
   background: rgba(255, 255, 255, 0.75);
-  padding: 15px;
+  padding: 15px 15px 15px 20px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.search-results .sticky .strip {
+  background-color: rgb(92, 94, 220);
 }
 
 .search-results aside span {
@@ -378,7 +384,7 @@ form.search .advanced .advanced__container {
 
 .search-results .job {
   background: #fff;
-  padding: 10px 15px;
+  padding: 10px 15px 17px 20px;
   margin: 15px 0;
   display: flex;
   border-radius: 3px;
@@ -390,8 +396,8 @@ form.search .advanced .advanced__container {
   display: flex;
   justify-content: space-between;
 }
-
-.search-results .job > .strip {
+ 
+.search-results .strip {
   position: absolute;
   z-index: 0;
   top: 0;
