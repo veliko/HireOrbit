@@ -25,6 +25,7 @@ header {
   display: flex;
   justify-content: space-between;
   /*background: rgba(0, 0, 0, 0.85);*/
+  background: rgb(0, 0, 0);
   position: fixed;
   width: 100%;
   top: 0;
@@ -58,6 +59,7 @@ header h1 a:hover {
   display: flex;
   justify-content: center;
   height: 100%;
+  padding-top: 66px;
 }
 
 /* navigation styles */ 
@@ -137,7 +139,6 @@ video#bgvid {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
-
 
 .overlay__video {
   position: fixed;
@@ -1212,6 +1213,7 @@ iframe {
   float: right;
   margin-top: 14px;
   margin-right: 10px;
+  color: #ececec;
 }
 
 .circular-image {

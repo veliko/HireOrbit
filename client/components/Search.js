@@ -33,8 +33,6 @@ class Search extends React.Component {
     query.l = query.l || 'san francisco';
     let self = this;
 
-    console.log('@Search Q', this.props.currentQuery);
-
     Utils.getJobsFromIndeed(query, (res) => {
       res = self.checkJobInKanban(res);
       console.log('add condition check..........:', res)
