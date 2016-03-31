@@ -74,9 +74,19 @@ class KanbanBoard extends Component {
   render() {
     console.log("number of expanded lists: ", this.state.expandedLists);
     return (
-      <div className="App">
-        <ToolbarContainer />
+      <div className="App__Kanban">
         <AddCardButton toggleModalState={this.toggleModalState.bind(this)}/> 
+        <Modal visible={this.state.modalVisible}
+               effect="fadeInDown"
+               width="400"
+               height="300">
+          <h1>Add a New Card</h1>
+          <CardForm cards={this.props.cards} 
+                    cardData={null} 
+                    addCardsToKanban={this.props.addCardsToKanban}
+                    toggleModalState={this.toggleModalState.bind(this)} />
+        </Modal>
+        <ToolbarContainer />
         <ListContainer id="interested" 
                        title="Interested"
                        description="Your newly added cards will first show-up in this column"
@@ -101,17 +111,6 @@ class KanbanBoard extends Component {
                        cards={this.filterCardsByStatusAndSort('offer', this.props.sortBy)}
                        numberOfExpandedLists={this.state.expandedLists}
                        updateNumberOfExpandedLists={this.updateNumberOfExpandedLists.bind(this)} />
-        <Modal visible={this.state.modalVisible}
-               effect="fadeInDown"
-               width="400"
-               height="300">
-          <h1>Add a New Card</h1>
-          <CardForm cards={this.props.cards} 
-                    cardData={null} 
-                    addCardsToKanban={this.props.addCardsToKanban}
-                    toggleModalState={this.toggleModalState.bind(this)}
-                    />
-        </Modal>
       </div>
     );
   }

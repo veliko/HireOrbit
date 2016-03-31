@@ -77,13 +77,13 @@ export default class App extends React.Component {
 
         <header>
           <h1 id="logo">
-            <Link to="/"><img src="img/hireOrbit.png" /></Link>
+            <Link to="/"><img className="logo__header" src="img/hireOrbit.png" /></Link>
           </h1>
           <nav>
             <ul role="nav">
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
-              <li><NavLink to="/kanban"><i className="fa fa-table"></i>Kanban</NavLink></li>
-              <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Monster</NavLink></li>
+              <li><NavLink to="/kanban"><i className="fa fa-calendar"></i>Kanban</NavLink></li>
+              <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Other Sources</NavLink></li>
             </ul>
           </nav>
             {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
@@ -103,12 +103,12 @@ export default class App extends React.Component {
                 className="fa fa-plus-circle">
             </div>
           {loggedIn ? (<div className="login">
-                         <span>{"Welcome, User "}</span>
-                         <NavLink to="/logout" className="fa fa-user"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
+                         <NavLink to="/logout"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
+                         <span>{`Welcome, ${Auth.getUserName() || "User"}`}</span>
                        </div>) :
                       (<div className="login">
-                         <span>{"Log in with Google "}</span>
                          <NavLink to="/auth/google" className="fa fa-user"></NavLink>  
+                         <span className="login__with__google__text">{"Log in with Google "}</span>
                        </div>) }
         </header>
 
