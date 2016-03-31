@@ -1163,7 +1163,7 @@ iframe {
 }
 
 .login {
-  width: 200px;
+  width: auto;
   position: absolute;
   top: 4px;
   right: 20px;
@@ -1189,5 +1189,5 @@ iframe {
 }
 
 .saved-job {
-  border: 1px solid red!important;
+  border: 10px solid red!important;
 }
