@@ -29,11 +29,15 @@ class Search extends React.Component {
   componentDidMount() {
     let query = this.props.currentQuery || this.props.location.query;
     let { q, l, limit, radius, jt, st, start } = query;
+    query.q = query.q || 'software engineer';
+    query.l = query.l || 'san francisco';
     let self = this;
 
     console.log('@Search Q', this.props.currentQuery);
 
     Utils.getJobsFromIndeed(query, (res) => {
+      res = self.checkJobInKanban(res);
+      console.log('add condition check..........:', res)
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
 
@@ -56,6 +60,17 @@ class Search extends React.Component {
       sort: 'relevance',
       searchName:'',
     });
+  }
+
+  checkJobInKanban(response) {
+    response.results.forEach(job => {
+      if(job.jobkey in this.props.cardPositions) {
+        job.isInKanban = true;
+      } else { 
+        job.isInKanban = false;
+      }
+    });
+      return response; 
   }
 
   saveCurrentSearch(){
@@ -99,6 +114,8 @@ class Search extends React.Component {
 
     let self = this;
     Utils.getJobsFromIndeed(q, (res) => {
+      res = self.checkJobInKanban(res);
+      console.log('add condition check..........:', res)
       self.props.updateCurrentSearch(res);
     }, console.log.bind(console));
   }
@@ -111,7 +128,9 @@ class Search extends React.Component {
       if(search.length === 0) {
         return;
       }
-      self.props.updateCurrentSearch({results: search})
+      var res = {results: search}
+      res = self.checkJobInKanban(res);
+      self.props.updateCurrentSearch({results: res.results})
     })
     .fail(console.log);
   }
