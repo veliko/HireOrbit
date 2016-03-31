@@ -74,7 +74,7 @@ class KanbanBoard extends Component {
   render() {
     console.log("number of expanded lists: ", this.state.expandedLists);
     return (
-      <div className="App">
+      <div className="App__Kanban">
         <ToolbarContainer />
         <AddCardButton toggleModalState={this.toggleModalState.bind(this)}/> 
         <ListContainer id="interested" 
