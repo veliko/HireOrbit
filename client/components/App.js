@@ -59,7 +59,7 @@ export default class App extends React.Component {
   }
 
   render() {
-
+    console.log('UserID is ', decodeURIComponent(Auth.getUserImage()));
     let loggedIn = Auth.isLoggedIn();
 
     return (
@@ -93,7 +93,7 @@ export default class App extends React.Component {
             </div>
           {loggedIn ? (<div className="login">
                          <span>{"Welcome, User "}</span>
-                         <NavLink to="/logout" className="fa fa-user"></NavLink>
+                         <NavLink to="/logout" className="fa fa-user"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
                        </div>) :
                       (<div className="login">
                          <span>{"Log in with Google "}</span>
