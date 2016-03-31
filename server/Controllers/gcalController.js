@@ -21,10 +21,6 @@ gcalController.getEvents =  function (req, res, next, cb) {
       oauth2Client.setCredentials({
         access_token: accessToken
       });
-      // plus.people.get({ userId: 'me', auth: oauth2Client }, function(err, response) {
-      //   // handle err and response
-      //   console.log('response from google plus', response)
-      // });
 
       calendar.events.list({
         auth: oauth2Client,

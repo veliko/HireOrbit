@@ -733,13 +733,16 @@ iframe {
   left: 15%;
 }
 
-.fa.fa-bullseye {
-  color: #fff;
-  font-size: 2.75em;
-  padding-left: 1em;
-  padding-top: 0.15em;
+.fa.fa-crosshairs {
+  color: #ececec;
+  font-size: 2rem;
+  float: left;
+  margin: 3px 12px 0 12px;
   transition-duration: 0.5s;
-  display: none;
+}
+
+.fa.fa-crosshairs:hover {
+  color: #00CED1;
 }
 
 
@@ -751,12 +754,25 @@ iframe {
 
 
 .url-input {
-  height: 1.75em;
-  -webkit-box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
-  -moz-box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
-  box-shadow: inset 0 0 8px  rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1); 
-  background: rgba(255,255,255,0.8);
-  margin: 0.75em 0.25em;
+  height: 2rem;
+  float: left;
+  -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1);
+  background: #373B3E;
+  margin-top: 4px;
+  border-radius: 5px;
+  border: 0px solid #017171;
+  padding-left: 10px;
+  color: #00CED1;
+  outline: none;
+}
+
+.url-input::-webkit-input-placeholder {
+   color: #898989;
+}
+
+.url-input::-moz-placeholder {  /* Firefox 19+ */
+   color: #898989;  
 }
 
 .iframe__aside {
@@ -1208,4 +1224,13 @@ iframe {
   -webkit-border-radius: 1.5em;
   -moz-border-radius: 1.5em;
   color: #acacac;
+}
+
+.saved-job {
+  border: 1px solid red!important;
+}
+
+.bullseye__container {
+  line-height: 47px;
+  margin-top: 3px;
 }

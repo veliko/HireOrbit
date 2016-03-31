@@ -39,8 +39,7 @@ export default class App extends React.Component {
       })
     }
   }
-  saveLink(e) {
-    e.preventDefault();
+  saveLink() {
     var self = this;
     self.toggleInputDisplay();
     var urlPasted = this.refs.urlInput.value;
@@ -67,8 +66,13 @@ export default class App extends React.Component {
     }
   }
 
+  handleCrosshairsInputKeyPress(e) {
+    if (e.key === "Enter") {
+      this.saveLink();
+    }
+  }
+
   render() {
-    console.log('UserID is ', decodeURIComponent(Auth.getUserImage()));
     let loggedIn = Auth.isLoggedIn();
 
     return (
@@ -83,24 +87,23 @@ export default class App extends React.Component {
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
               <li><NavLink to="/kanban"><i className="fa fa-calendar"></i>Kanban</NavLink></li>
               <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Other Sources</NavLink></li>
+              <li>
+                <div className="bullseye__container">
+                  <div className="fa fa-crosshairs" onClick={this.toggleInputDisplay.bind(this)} />
+                  {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
+                  {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
+                  {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
+                  <input className="url-input" type="text" ref="urlInput"
+                         style={
+                           this.state.displayInput ? {display: "inline-block"} : {display: "none"}
+                         }
+                         placeholder="place job link here"
+                         onKeyPress={this.handleCrosshairsInputKeyPress.bind(this)} /> 
+                </div>
+              </li>
             </ul>
           </nav>
-            {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
-            {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
-            {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
-            <div className="fa fa-bullseye" onClick={this.toggleInputDisplay.bind(this)}/>
-            <input className="url-input" type="text" ref="urlInput"
-                   style={
-                     this.state.displayInput ? {display: "inline-block"} : {display: "none"}
-                   }
-                   placeholder="place job link here"
-            /> 
-            <div onClick={this.saveLink.bind(this)} 
-                style={
-                  this.state.displayInput ? {display: "inline-block"} : {display: "none"}
-                }
-                className="fa fa-plus-circle">
-            </div>
+
           {loggedIn ? (<div className="login">
                          <NavLink to="/logout"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
                          <span>{`Welcome, ${Auth.getUserName() || "User"}`}</span>
