@@ -31,6 +31,7 @@ header {
   top: 0;
   z-index: 3;
   left: 0;
+  background: #202224;
 }
 
 header h1 {
@@ -73,7 +74,8 @@ nav ul {
 nav ul li {
   font-size: 1rem;
   font-weight: 200;
-  line-height: 50px;
+  line-height: 47px;
+  padding-top: 3px;
 }
 
 nav a {
@@ -83,7 +85,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #00ced1;
+  color: #ececec;
 }
 
 nav ul li a {
@@ -1199,7 +1201,7 @@ iframe {
 .login {
   width: 200px;
   position: absolute;
-  top: 13px;
+  top: 15px;
   right: 20px;
   text-align: right;
 }

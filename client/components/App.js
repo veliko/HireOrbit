@@ -82,8 +82,8 @@ export default class App extends React.Component {
           <nav>
             <ul role="nav">
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
-              <li><NavLink to="/kanban"><i className="fa fa-table"></i>Kanban</NavLink></li>
-              <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Monster</NavLink></li>
+              <li><NavLink to="/kanban"><i className="fa fa-calendar"></i>Kanban</NavLink></li>
+              <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Other Sources</NavLink></li>
             </ul>
           </nav>
             {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
