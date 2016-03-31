@@ -67,6 +67,7 @@
     "string_decoder": "^0.10.31",
     "underscore": "^1.8.3",
     "uuid": "^2.0.1",
+    "validator": "^5.1.0",
     "webpack": "^1.12.14",
     "whatwg-fetch": "^0.11.0"
   },

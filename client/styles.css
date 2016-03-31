@@ -750,6 +750,7 @@ iframe {
 .fa.fa-bullseye:hover {
   font-size: 3em;
   color: #ff0000;
+  cursor: pointer;
 }
 
 .fa.fa-plus-circle {

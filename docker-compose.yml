@@ -9,3 +9,6 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: "hireorbit"
+      PGDATA: "/var/postgres/data/pgdata"
+    volumes:
+      - /var/postgres/data/pgdata:/var/postgres/data/pgdata

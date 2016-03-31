@@ -6,8 +6,8 @@ import Home from '../components/Home';
 import Auth from '../utils/Auth';
 import DragTarget from './DragTarget'
 import Utils from '../utils/Utils';
+import isURL from 'validator/lib/isURL';
 
-const onDropParse = (e) => console.log(e)
 
 export default class App extends React.Component {
   constructor() {
@@ -15,7 +15,8 @@ export default class App extends React.Component {
     this.state = {
       displayInput: false,
       showExpired : false,
-      showJobSaved: false
+      showJobSaved: false,
+      showInvalid: false
     }
   }
 
@@ -33,13 +34,22 @@ export default class App extends React.Component {
       this.setState({
         showJobSaved: !this.state.showJobSaved
       });
+    } else if (field === 'Invalid'){
+      this.setState({
+        showInvalid: !this.state.showInvalid
+      })
     }
   }
   saveLink(e) {
     e.preventDefault();
     var self = this;
     self.toggleInputDisplay();
-    var urlPasted = this.refs.urlInput.value
+    var urlPasted = this.refs.urlInput.value;
+    if(!isURL(urlPasted)) {
+      self.toggleExpiredSaved('Invalid');
+      setTimeout(() => self.toggleExpiredSaved('Invalid'), 2000);
+      return;
+    }
     console.log('this got the input: ', urlPasted);
     if(urlPasted){
       Utils.sendUrlToParse(urlPasted)
@@ -78,6 +88,7 @@ export default class App extends React.Component {
           </nav>
             {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
             {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
+            {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
             <div className="fa fa-bullseye" onClick={this.toggleInputDisplay.bind(this)}/>
             <input className="url-input" type="text" ref="urlInput"
                    style={
