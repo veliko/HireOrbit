@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Utils from '../utils/Utils';
 import { Link } from 'react-router';
+import Video from './Video';
 
 class Home extends Component {
   constructor(){
@@ -82,10 +83,7 @@ class Home extends Component {
 
     return (
       <div className="search-container">
-        <div className="video-overlay"></div>
-        <video autoPlay loop poster="img/EarthShineCyan.jpg" id="bgvid">
-          <source src="video/EarthShineCyan.mp4" type="video/mp4" />
-        </video>
+        <Video />
         <img  className="searchLogo" src="img/hireOrbit.png"/>
         <form action="" className="search">
           <div className="main-search">
