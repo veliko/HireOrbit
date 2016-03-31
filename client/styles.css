@@ -48,7 +48,7 @@ header h1 a:hover {
   opacity: 0.5;
 }
 
-header h1 img {
+.logo__header {
   width: 135px;
   position: absolute;
   margin-top: -8px;
@@ -107,15 +107,10 @@ nav a i {
   text-decoration: none;
   color: #ececec;
   transition: color 0.25s;
-  display: inline-block;
-  text-align: center;
-  margin: 0px 0px 0 0;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  float: right;
+  margin-top: 13px;
 }
 
-.fa-user:hover {
-  color: rgb(92, 94, 220);
-}
 /* navigation styles */ 
 
 /* homepage */
@@ -144,7 +139,7 @@ video#bgvid {
 }
 
 
-.overlay {
+.overlay__video {
   position: fixed;
   top: 0;
   left: 0;
@@ -757,7 +752,7 @@ iframe {
 
 .fa.fa-bullseye:hover {
   font-size: 3em;
-  color: #ff0000;
+  color: #ececec;
   cursor: pointer;
 }
 
@@ -768,7 +763,7 @@ iframe {
 }
 
 .fa.fa-plus-circle:hover {
-  color: #ff0000;
+  color: #ececec;
 }
 
 .url-input {
@@ -1207,30 +1202,24 @@ iframe {
 .login {
   width: 200px;
   position: absolute;
-  top: 15px;
+  top: 4px;
   right: 20px;
   text-align: right;
 }
 
 .login span {
-  color: #ececec;
-  background-color: #E24E2A;
+  color: #a7a7a7;
+  float: right;
+  margin-top: 14px;
+  margin-right: 10px;
 }
 
 .circular-image {
-  width: 3em;
-  height: 3em;
-  border-radius: 1.5em;
+  width: 2em;
+  height: 2em;
+  float: right;
+  margin-top: 4px;
   -webkit-border-radius: 1.5em;
   -moz-border-radius: 1.5em;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   color: #acacac;
-}
-
-.slogan {
-  color: #00ced1;
-  font-size: 1rem;
-  letter-spacing: 5px;
 }

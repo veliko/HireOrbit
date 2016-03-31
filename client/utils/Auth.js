@@ -21,6 +21,12 @@ const Auth = {
     var value = "; " + document.cookie;
     var parts = value.split("; " + 'user_img' + "=");
     if (parts.length == 2) return decodeURIComponent(parts.pop().split(";").shift());
+  },
+
+  getUserName: function() {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + 'user_name' + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
   }
 }
 

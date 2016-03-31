@@ -77,7 +77,7 @@ export default class App extends React.Component {
 
         <header>
           <h1 id="logo">
-            <Link to="/"><img src="img/hireOrbit.png" /></Link>
+            <Link to="/"><img className="logo__header" src="img/hireOrbit.png" /></Link>
           </h1>
           <nav>
             <ul role="nav">
@@ -103,12 +103,12 @@ export default class App extends React.Component {
                 className="fa fa-plus-circle">
             </div>
           {loggedIn ? (<div className="login">
-                         <span>{"Welcome, User "}</span>
-                         <NavLink to="/logout" className="fa fa-user"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
+                         <NavLink to="/logout"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
+                         <span>{`Welcome, ${Auth.getUserName() || "User"}`}</span>
                        </div>) :
                       (<div className="login">
-                         <span>{"Log in with Google "}</span>
                          <NavLink to="/auth/google" className="fa fa-user"></NavLink>  
+                         <span className="login__with__google__text">{"Log in with Google "}</span>
                        </div>) }
         </header>
 
