@@ -146,7 +146,7 @@ video#bgvid {
 
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -1221,4 +1221,10 @@ iframe {
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   color: #acacac;
+}
+
+.slogan {
+  color: #00ced1;
+  font-size: 1rem;
+  letter-spacing: 5px;
 }
