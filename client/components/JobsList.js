@@ -7,6 +7,8 @@ class JobsList extends Component {
   }
 
   addJobToKanban(job) {
+    job.isInKanban = true;
+    
     let card = [
       {
         card_id: job.jobkey,
