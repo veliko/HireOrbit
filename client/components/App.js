@@ -1,5 +1,4 @@
 import React from 'react';
-import Note from './Note';
 import { Link } from 'react-router';
 import NavLink from './NavLink';
 import Home from '../components/Home';

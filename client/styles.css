@@ -294,29 +294,49 @@ form.search .advanced .advanced__container {
   position: relative;
 }
 
-.search-results .sticky {
-  position: fixed;
+.search-results .panel {
+  position: relative;
   max-width: 265px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.15);
   padding: 15px 15px 15px 20px;
   overflow: hidden;
   border-radius: 3px;
+  color: rgba(255, 255, 255, 1);
+  margin-bottom: 10px;
 }
 
-.search-results .sticky .strip {
+.search-results .panel .strip {
   background-color: rgb(92, 94, 220);
 }
 
+.search-results .panel .flex {
+  background: rgba(255, 255, 255, 0.15);
+  border-bottom: solid 1px rgb(92, 94, 220);
+}
+
+.search-results .panel .flex input[type="text"],
+.search-results .panel .flex button {
+  background: none;
+  border: 0;
+}
+
+.search-results .panel .flex input[type="text"] {
+  color: rgb(255, 255, 255);  
+}
+
+.search-results .panel .flex button i {
+  color: rgb(92, 94, 220);
+}
+
 .search-results aside span {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 1);
 }
 
 .search-results aside h2,
 .search-results aside h3 {
   font-size: 0.9375rem;
   padding-bottom: 10px;
-  color: rgba(0, 0, 0, 0.5);
   margin: 0;
 }
 
@@ -324,7 +344,12 @@ form.search .advanced .advanced__container {
   margin: 5px 0;
   border-bottom: solid 1px rgba(0, 0, 0, 0.25);
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.65);
+}
+
+.search-results aside h2,
+.search-results aside h3 {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
 }
 
 .search-results aside input[type="text"],
@@ -347,6 +372,7 @@ form.search .advanced .advanced__container {
 .search-results aside .types {
   font-size: 0.875rem;
   line-height: 1.25rem;
+  margin-bottom: 10px;
 }  
 
 .search-results aside .types div {
@@ -652,52 +678,12 @@ ul {
   height: 50px;
 }
 
-.saved-search {
-  padding-left: 1em;
-  color: rgb(92,94,220);
-  width: 19%;
-  background: rgb(28, 29, 34);
-  position: relative;
-}
-
-.save-search,
-.saved-search li {
-  line-height: 1.5rem;
-  margin: 0 0 10px;
-  border-bottom: solid 1px rgb(92, 94, 220);
-}
-
-.saved-search > div {
-  position: fixed;
-}
-
-.saved-search h4 {
-  margin: 10px 0;
-  color: rgba(255, 255, 255, 0.35);
-  font-weight: 100;
-}
-
-.saved-search ol {
-  padding-left: 15px;
-}
-
-.saved-search ol li {
-  transition: all 0.35s ease-in;
-}
-
-.saved-search li:hover {
-  cursor: pointer;
-  color: #A9A9A0;
-  border-bottom-color: #A9A9A0;
-}
-
 .save-search {
   width: 235px;
   opacity: 0.6;
   transition: opacity 0.35s ease-in;
   margin-top: 20px;
 }
-
 
 .save-search:hover {
   opacity: 1;
@@ -707,6 +693,10 @@ ul {
 .save-search button {
   background: transparent;
   border: 0;
+}
+
+.save-search h4:hover {
+  cursor: pointer;
 }
 
 .save-search > div {
@@ -733,16 +723,6 @@ iframe {
   font-size: 3em;
   color: #ff0000;
   cursor: pointer;
-}
-
-.fa.fa-plus-circle {
-  color: #fff;
-  font-size: 1.5em;
-  padding-top: 0.75em;
-}
-
-.fa.fa-plus-circle:hover {
-  color: #ff0000;
 }
 
 .url-input {
