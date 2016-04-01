@@ -29,6 +29,7 @@ export default class App extends React.Component {
       displayInput: !this.state.displayInput
     });
   }
+  
   toggleExpiredSaved(field) {
     if(field === 'Expired'){
       this.setState({
@@ -44,6 +45,7 @@ export default class App extends React.Component {
       })
     }
   }
+  
   saveLink() {
     var self = this;
     self.toggleInputDisplay();
