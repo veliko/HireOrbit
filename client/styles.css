@@ -66,7 +66,6 @@ header h1 a:hover {
   display: flex;
   justify-content: center;
   height: 100%;
-  padding-top: 66px;
 }
 
 /* navigation styles */ 
@@ -130,6 +129,10 @@ nav a i {
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.search__container {
+  padding-top: 66px;
 }
 
 video#bgvid { 
@@ -1253,10 +1256,6 @@ iframe {
   -webkit-border-radius: 1.5em;
   -moz-border-radius: 1.5em;
   color: #acacac;
-}
-
-.saved-job {
-  border: 1px solid red!important;
 }
 
 .bullseye__container {
