@@ -296,7 +296,7 @@ form.search .advanced .advanced__container {
   position: relative;
 }
 
-.search-results .panel {
+.panel {
   position: relative;
   max-width: 265px;
   width: 100%;
@@ -309,26 +309,26 @@ form.search .advanced .advanced__container {
   border: solid 1px rgba(255, 255, 255, 0.15)
 }
 
-.search-results .panel .strip {
+.panel .strip {
   background-color: rgb(92, 94, 220);
 }
 
-.search-results .panel .flex {
+.panel .flex {
   background: rgba(255, 255, 255, 0.15);
   border-bottom: solid 1px rgb(92, 94, 220);
 }
 
-.search-results .panel .flex input[type="text"],
-.search-results .panel .flex button {
+.panel .flex input[type="text"],
+.panel .flex button {
   background: none;
   border: 0;
 }
 
-.search-results .panel .flex input[type="text"] {
+.panel .flex input[type="text"] {
   color: rgb(255, 255, 255);  
 }
 
-.search-results .panel .flex button i {
+.panel .flex button i {
   color: rgb(92, 94, 220);
 }
 
@@ -736,8 +736,8 @@ ul {
 
 iframe {
   position: relative;
-  width: 85%;
-  left: 15%;
+  width: 100%;
+  max-width: 100%;
 }
 
 .fa.fa-crosshairs {
@@ -782,30 +782,33 @@ iframe {
    color: #898989;  
 }
 
-.iframe__aside {
-  position: relative;
-  left: 0;
-  height: 100vh;
-  width: 15%;
-  background-color: #000;
-}
-
 .iframe__container {
   position: relative;
   width: 100%;
   height: 100%;
-  margin-top: 50px;
+  padding-top: 50px;
+}
+
+.iframe__container .iframe {
+  position: fixed;
+}
+
+.iframe__container .nav {
+  display: flex;
+  justify-content: center;
+  background: rgb(32, 34, 36);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .iframe-site-name {
-  padding-top: 2em;
-  color: #fff;
-  font-size: 3em;
-  cursor: pointer;
+  color: #a7a7a7;
+  line-height: 47px;
+  padding: 0px 12px 0 12px;
 }
 
 .iframe-site-name:hover {
-  color: #2244ff;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
 }
 
 .help-header {
