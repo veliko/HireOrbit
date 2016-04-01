@@ -296,7 +296,7 @@ form.search .advanced .advanced__container {
   position: relative;
 }
 
-.panel {
+.search-results .panel {
   position: relative;
   max-width: 265px;
   width: 100%;
@@ -309,11 +309,11 @@ form.search .advanced .advanced__container {
   border: solid 1px rgba(255, 255, 255, 0.15)
 }
 
-.panel .strip {
+.search-results .panel .strip {
   background-color: rgb(92, 94, 220);
 }
 
-.panel .flex {
+.search-results .panel .flex {
   background: rgba(255, 255, 255, 0.15);
   border-bottom: solid 1px rgb(92, 94, 220);
 }
@@ -796,17 +796,19 @@ iframe {
 .iframe__container .nav {
   display: flex;
   justify-content: center;
-  background: rgb(32, 34, 36);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #404448;
 }
 
 .iframe-site-name {
-  color: #a7a7a7;
-  line-height: 47px;
+  color: #dcdcdc;
+  font-size: 1rem;
+  line-height: 40px;
   padding: 0px 12px 0 12px;
+  transition: 0.25s;
 }
 
 .iframe-site-name:hover {
+  color: #00CED1;
   background-color: rgba(255, 255, 255, 0.05);
   cursor: pointer;
 }
@@ -1355,8 +1357,13 @@ rect.bar {
   stroke-linecap: "round";
 }
 
+text {
+  fill: #fbfbfb;
+  font-size: 0.75em;
+}
+
 svg.svg {
-  background-color: #fbfbfb;
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 3px;
 }
 
@@ -1366,15 +1373,16 @@ svg.svg {
 
 #chartBackground .searchBar {
   width: 372px;
-  padding: 8px;
+  padding: 8px 10px 8px 10px;
   font-size: 18px;
   line-height: 20px;
   outline: 0;
   border-radius: 3px;
-  background-color: #fff;
-  border: 1px solid #e1e8ed;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
   display: inline-block;
   float: right;
+  color: #00CED1;
 }
 
 #chartBackground .radio-box {
@@ -1382,5 +1390,5 @@ svg.svg {
 }
 
 .radio-box .dataVizForm {
- color: #fff;
+ color: #fbfbfb;
 }
