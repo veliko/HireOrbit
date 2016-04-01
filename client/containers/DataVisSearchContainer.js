@@ -43,7 +43,8 @@ import _ from 'lodash';
             checkbox2: 'Javascript React',
             checkbox3: 'Javascript Angular',
             checkbox4: 'Javascript Backbone'
-       });   
+       });
+        this.promiseQuerySearch('front end developer')
     }
         
     // Change state on each keyboard input

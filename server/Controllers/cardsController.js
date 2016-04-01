@@ -158,7 +158,14 @@ const cardsController = {
                     }
                   });
                   orderedCards = orderedCards.concat(cardsWithMissingPositions);
-                  res.json(orderedCards);
+                  var newArray = [];
+                  orderedCards.forEach(function(card) {
+                    if (card !== null) {
+                      newArray.push(card);
+                    }
+                  });
+                  console.log("sending these cards back: ", newArray);
+                  res.json(newArray);
                 })
                 .catch(error => {
                   console.log("error in event_query: ", error);
