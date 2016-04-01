@@ -12,6 +12,10 @@ body {
   color: #28201d;
 }
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: transparent;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -300,6 +304,7 @@ form.search .advanced .advanced__container {
   border-radius: 3px;
   color: rgba(255, 255, 255, 1);
   margin-bottom: 10px;
+  border: solid 1px rgba(255, 255, 255, 0.15)
 }
 
 .search-results .panel .strip {
