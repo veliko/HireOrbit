@@ -6,6 +6,9 @@ import Auth from '../utils/Auth';
 import DragTarget from './DragTarget'
 import Utils from '../utils/Utils';
 import isURL from 'validator/lib/isURL';
+import Modal from 'react-awesome-modal';
+import CardForm from './CardForm';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 export default class App extends React.Component {
@@ -15,7 +18,9 @@ export default class App extends React.Component {
       displayInput: false,
       showExpired : false,
       showJobSaved: false,
-      showInvalid: false
+      showInvalid: false,
+      modalVisible: false,
+      cardData: null
     }
   }
 
@@ -39,8 +44,7 @@ export default class App extends React.Component {
       })
     }
   }
-  saveLink(e) {
-    e.preventDefault();
+  saveLink() {
     var self = this;
     self.toggleInputDisplay();
     var urlPasted = this.refs.urlInput.value;
@@ -49,14 +53,15 @@ export default class App extends React.Component {
       setTimeout(() => self.toggleExpiredSaved('Invalid'), 2000);
       return;
     }
-    console.log('this got the input: ', urlPasted);
     if(urlPasted){
       Utils.sendUrlToParse(urlPasted)
         .done(res => {
-          console.log(res)
-          self.toggleExpiredSaved('Saved')
+          // console.log(res)
+          self.toggleExpiredSaved('Saved');
           setTimeout(() => self.toggleExpiredSaved('Saved'), 2000);
-          self.refs.urlInput.value = "";
+          // self.refs.urlInput.value = "";
+          self.setState({cardData: res});
+          self.toggleModalState(res);
         })
         .fail(err => {
           console.log(err);
@@ -67,13 +72,35 @@ export default class App extends React.Component {
     }
   }
 
+  handleCrosshairsInputKeyPress(e) {
+    if (e.key === "Enter") {
+      this.saveLink();
+    }
+  }
+
+  toggleModalState(cardData) {
+    this.setState({
+      modalVisible: !this.state.modalVisible
+    });
+  }
+
   render() {
-    console.log('UserID is ', decodeURIComponent(Auth.getUserImage()));
     let loggedIn = Auth.isLoggedIn();
 
     return (
       <div className="container">
-
+        { this.state.modalVisible ? 
+          <Modal visible={this.state.modalVisible}
+                 effect="fadeInDown"
+                 width="400"
+                 height="415">
+            <h1 className="cardform__heading">Add a New Card</h1>
+            <CardForm cards={this.props.cards} 
+                      cardData={this.state.cardData} 
+                      addCardsToKanban={this.props.addCardsToKanban}
+                      toggleModalState={this.toggleModalState.bind(this)} />
+          </Modal> : 
+        null } 
         <header>
           <h1 id="logo">
             <Link to="/"><img className="logo__header" src="img/hireOrbit.png" /></Link>
@@ -83,24 +110,27 @@ export default class App extends React.Component {
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
               <li><NavLink to="/kanban"><i className="fa fa-calendar"></i>Kanban</NavLink></li>
               <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Other Sources</NavLink></li>
+              <li>
+                <div className="bullseye__container">
+                  <div className="fa fa-crosshairs" onClick={this.toggleInputDisplay.bind(this)} />
+                  {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
+                  {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
+                  {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
+                  <ReactCSSTransitionGroup transitionName="example"
+                                           transitionEnterTimeout={250}
+                                           transitionLeaveTimeout={250} >
+                    {this.state.displayInput ? 
+                      <input className="url-input" type="text" ref="urlInput"
+                             style={{display: "inline-block"}}
+                             placeholder="place job link here"
+                             key="url__input__header"
+                             onKeyPress={this.handleCrosshairsInputKeyPress.bind(this)} /> : null }
+                  </ReactCSSTransitionGroup>
+                </div>
+              </li>
             </ul>
           </nav>
-            {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
-            {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
-            {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
-            <div className="fa fa-bullseye" onClick={this.toggleInputDisplay.bind(this)}/>
-            <input className="url-input" type="text" ref="urlInput"
-                   style={
-                     this.state.displayInput ? {display: "inline-block"} : {display: "none"}
-                   }
-                   placeholder="place job link here"
-            /> 
-            <div onClick={this.saveLink.bind(this)} 
-                style={
-                  this.state.displayInput ? {display: "inline-block"} : {display: "none"}
-                }
-                className="fa fa-plus-circle">
-            </div>
+
           {loggedIn ? (<div className="login">
                          <NavLink to="/logout"><img className="circular-image" src={Auth.getUserImage()}></img></NavLink>
                          <span>{`Welcome, ${Auth.getUserName() || "User"}`}</span>

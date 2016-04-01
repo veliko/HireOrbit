@@ -164,7 +164,7 @@ class Search extends React.Component {
     );
 
     return (
-      <div className="flex search">
+      <div className="flex search search__container">
         <div className="search-results">
           <Video />
           <aside>
