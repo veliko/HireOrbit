@@ -5,7 +5,8 @@ import { fetchDataVis } from '../actions';
 import DataVisContainer from '../containers/DataVisContainer';
 import dataVisual from '../reducers/index';
 import d3 from 'd3';
-import Utils from '../utils/Utils'
+import Utils from '../utils/Utils';
+import Video from '../components/Video';
 import _ from 'lodash';
 
   class DataVisSearchContainer extends Component {
@@ -26,7 +27,7 @@ import _ from 'lodash';
       this.stateChange = this.stateChange.bind(this);
     }
 
-    componentDidMount () {
+    componentWillMount () {
         this.setState({
           term: '',
           city1: '',
@@ -44,7 +45,10 @@ import _ from 'lodash';
             checkbox3: 'Javascript Angular',
             checkbox4: 'Javascript Backbone'
        });
-        this.promiseQuerySearch('front end developer')
+    }
+
+    componentDidMount() {
+      this.promiseQuerySearch('front end developer')
     }
         
     // Change state on each keyboard input
@@ -99,6 +103,7 @@ import _ from 'lodash';
     render() {
       return (
         <div id="chartBackground">
+          <Video />
           <form onSubmit = { this.onSubmit }>
             <div className="radio-box">
               <div>

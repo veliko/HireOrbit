@@ -1355,8 +1355,13 @@ rect.bar {
   stroke-linecap: "round";
 }
 
+text {
+  fill: #fbfbfb;
+  font-size: 0.75em;
+}
+
 svg.svg {
-  background-color: #fbfbfb;
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 3px;
 }
 
@@ -1366,15 +1371,16 @@ svg.svg {
 
 #chartBackground .searchBar {
   width: 372px;
-  padding: 8px;
+  padding: 8px 10px 8px 10px;
   font-size: 18px;
   line-height: 20px;
   outline: 0;
   border-radius: 3px;
-  background-color: #fff;
-  border: 1px solid #e1e8ed;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
   display: inline-block;
   float: right;
+  color: #00CED1;
 }
 
 #chartBackground .radio-box {
@@ -1382,5 +1388,5 @@ svg.svg {
 }
 
 .radio-box .dataVizForm {
- color: #fff;
+ color: #fbfbfb;
 }
