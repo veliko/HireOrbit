@@ -1,9 +1,14 @@
 version: '2'
 services:
-  web:
+  web1:
     build: .
     ports:
-        - "80:80"
+      - "3001:80"
+
+  web2:
+    build: .
+    ports:
+      - "3002:80"
 
   postgres:
     image: postgres
