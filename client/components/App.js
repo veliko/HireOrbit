@@ -109,6 +109,7 @@ export default class App extends React.Component {
             <ul role="nav">
               <li><NavLink to="/search"><i className="fa fa-search"></i>Search</NavLink></li>
               <li><NavLink to="/kanban"><i className="fa fa-calendar"></i>Kanban</NavLink></li>
+              <li><NavLink to="/data-vis"><i className="fa fa-bar-chart"></i>DataViz</NavLink></li>
               <li><NavLink to="/monster-jobs"><i className="fa fa-stack-overflow"></i>Other Sources</NavLink></li>
               <li>
                 <div className="bullseye__container">

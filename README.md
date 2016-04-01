@@ -33,7 +33,7 @@ Config files in *server/config/config.js* need to be added for the Google client
 
 The ports for where the node servers listen to are in *docker-compose.yml*
 
-There is a `haproxy.cfg` in the root which you use if you want to set up load balancing. You would need haproxy for this to work. This page gives fairly detailed explanations for [setting up Haproxy](https://serversforhackers.com/load-balancing-with-haproxy)
+There is a `haproxy.cfg` in the root which you can use if you want to set up load balancing. You need to install haproxy for this to work. This page gives fairly detailed explanations for [setting up Haproxy](https://serversforhackers.com/load-balancing-with-haproxy)
 
 ## Git Deployment
 

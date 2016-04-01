@@ -103,23 +103,11 @@ export function deleteEventFromCard(event) {
   }
 }
 
-export function fetchDataVis(searches) {
-	function location () {
-		return dataset[Math.floor(Math.random() * dataset.length)].location
-	}
-	function totalResults () {
-			return Math.floor((Math.random() * 1000) * 7)
-	}
-
-	var obj = {
-		location: location(),
-		totalResults: totalResults(),
-		query: searches
-	}
+export function fetchDataVis(responses) {
 
   return {
     type: actions.FETCH_DATA_VIS,
-    payload: [obj]
+    payload: responses
   }
 }
 
