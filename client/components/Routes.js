@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
-import App from './App';
+import AppContainer from '../containers/AppContainer';
 import HomeContainer from '../containers/HomeContainer';
 import Home from '../components/Home';
 import SearchContainer from '../containers/SearchContainer';
@@ -33,7 +33,7 @@ const logOut = () => {
 export default () =>
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
+      <Route path="/" component={AppContainer}>
         <IndexRoute component={HomeContainer}/>
         <Route path="/search" component={SearchContainer}/>
         <Route path="/kanban" onEnter={requireAuth} component={KanbanBoardContainer}/>

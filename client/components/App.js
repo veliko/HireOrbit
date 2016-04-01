@@ -6,6 +6,8 @@ import Auth from '../utils/Auth';
 import DragTarget from './DragTarget'
 import Utils from '../utils/Utils';
 import isURL from 'validator/lib/isURL';
+import Modal from 'react-awesome-modal';
+import CardForm from './CardForm';
 
 
 export default class App extends React.Component {
@@ -15,7 +17,9 @@ export default class App extends React.Component {
       displayInput: false,
       showExpired : false,
       showJobSaved: false,
-      showInvalid: false
+      showInvalid: false,
+      modalVisible: false,
+      cardData: null
     }
   }
 
@@ -48,14 +52,15 @@ export default class App extends React.Component {
       setTimeout(() => self.toggleExpiredSaved('Invalid'), 2000);
       return;
     }
-    console.log('this got the input: ', urlPasted);
     if(urlPasted){
       Utils.sendUrlToParse(urlPasted)
         .done(res => {
-          console.log(res)
-          self.toggleExpiredSaved('Saved')
+          // console.log(res)
+          self.toggleExpiredSaved('Saved');
           setTimeout(() => self.toggleExpiredSaved('Saved'), 2000);
           self.refs.urlInput.value = "";
+          self.setState({cardData: res});
+          self.toggleModalState(res);
         })
         .fail(err => {
           console.log(err);
@@ -72,12 +77,29 @@ export default class App extends React.Component {
     }
   }
 
+  toggleModalState(cardData) {
+    this.setState({
+      modalVisible: !this.state.modalVisible
+    });
+  }
+
   render() {
     let loggedIn = Auth.isLoggedIn();
 
     return (
       <div className="container">
-
+        { this.state.modalVisible ? 
+          <Modal visible={this.state.modalVisible}
+                 effect="fadeInDown"
+                 width="400"
+                 height="300">
+            <h1>Add a New Card</h1>
+            <CardForm cards={this.props.cards} 
+                      cardData={this.state.cardData} 
+                      addCardsToKanban={this.props.addCardsToKanban}
+                      toggleModalState={this.toggleModalState.bind(this)} />
+          </Modal> : 
+        null } 
         <header>
           <h1 id="logo">
             <Link to="/"><img className="logo__header" src="img/hireOrbit.png" /></Link>

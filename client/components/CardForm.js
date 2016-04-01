@@ -5,14 +5,30 @@ class CardForm extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      company: this.props.cardData ? this.props.cardData.job_data.company || ''   : '',
-      jobtitle: this.props.cardData ? this.props.cardData.job_data.jobtitle || '' : '',
-      snippet: this.props.cardData ? this.props.cardData.job_data.snippet || ''   : '',
-      city: this.props.cardData ? this.props.cardData.job_data.city || ''         : '',
-      state: this.props.cardData ? this.props.cardData.job_data.state || ''       : '',
-      country: this.props.cardData ? this.props.cardData.job_data.country || ''   : '',
-      url: this.props.cardData ? this.props.cardData.job_data.url || ''           : ''
+      company: '',
+      jobtitle: '',
+      snippet: '',
+      city: '',
+      state: '',
+      country: '',
+      url: ''
     };
+  }
+
+  componentWillMount() {
+    console.log("will be setting the following state: ", this.props);
+    if(this.props.cardData) {
+      let cardData = this.props.cardData;
+      this.setState({
+        company: cardData.job_data.company || '',
+        jobtitle: cardData.job_data.jobtitle || '',
+        snippet: cardData.job_data.snippet || '',
+        city: cardData.job_data.city || '',
+        state: cardData.job_data.state || '',
+        country: cardData.job_data.country || '',
+        url: cardData.job_data.url || ''
+      });
+    }
   }
 
   handleChange(field, e) {

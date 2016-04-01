@@ -574,7 +574,7 @@ ul {
   display: inline-block;
   vertical-align: top;
   white-space: normal;
-  height: 100vh;
+  height: calc(100vh - 90px);
   padding: 0 20px;
   overflow: auto;
   background: #dcdcdc;
@@ -735,9 +735,9 @@ iframe {
 
 .fa.fa-crosshairs {
   color: #ececec;
-  font-size: 2rem;
+  font-size: 2.0rem;
   float: left;
-  margin: 3px 12px 0 12px;
+  margin: 4px 12px 0 12px;
   transition-duration: 0.5s;
 }
 
@@ -826,17 +826,19 @@ iframe {
 }
 
 .expired-text {
-  margin-top: 0.75em;
-  color: #E82C0C;
-  font-size: 1.5em;
-  font-style: bold;
+  margin-top: 13px;
+  float: left;
+  color: #D10060;
+  font-size: 1rem;
+  line-height: 1rem;
 }
 
 .saved-text {
-  margin-top: 0.75em;
-  color: #43D657;
-  font-size: 1.5em;
-  font-style: bold;
+  margin-top: 13px;
+  float: left;
+  color: #9AC359;
+  font-size: 1rem;
+  line-height: 1rem;
 }
 
 .fa.fa-times {
