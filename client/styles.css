@@ -1344,3 +1344,41 @@ iframe {
 #last__job__location__input {
   width: 100%;
 }
+
+/*Styles for DataVis*/
+
+rect.bar {
+  /*fill: #4099FF;*/
+  opacity: .7;
+  stroke-linecap: "round";
+}
+
+svg.svg {
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+#chartBackground {
+  margin: 5em 0;
+}
+
+#chartBackground .searchBar {
+  width: 372px;
+  padding: 8px;
+  font-size: 18px;
+  line-height: 20px;
+  outline: 0;
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid #e1e8ed;
+  display: inline-block;
+  float: right;
+}
+
+#chartBackground .radio-box {
+  float: left;
+}
+
+.radio-box .dataVizForm {
+ color: #fff;
+}
