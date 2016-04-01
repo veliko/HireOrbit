@@ -24,7 +24,6 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-  /*background: rgba(0, 0, 0, 0.85);*/
   background: rgb(0, 0, 0);
   position: fixed;
   width: 100%;
@@ -140,7 +139,7 @@ video#bgvid {
   transform: translateX(-50%) translateY(-50%);
 }
 
-.overlay__video {
+.video-overlay {
   position: fixed;
   top: 0;
   left: 0;
