@@ -92,8 +92,8 @@ export default class App extends React.Component {
           <Modal visible={this.state.modalVisible}
                  effect="fadeInDown"
                  width="400"
-                 height="300">
-            <h1>Add a New Card</h1>
+                 height="415">
+            <h1 className="cardform__heading">Add a New Card</h1>
             <CardForm cards={this.props.cards} 
                       cardData={this.state.cardData} 
                       addCardsToKanban={this.props.addCardsToKanban}

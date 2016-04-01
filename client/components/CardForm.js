@@ -101,40 +101,49 @@ class CardForm extends Component {
   render() {
     return (
       <div>
-        <form>
+        <form className="cardform">
           <input type="text" 
+                 className="cardform__input"
                  value={this.state.company}
                  onChange={this.handleChange.bind(this, 'company')}
                  placeholder="Company Name"
                  required={true}
                  autofocus={true} />
           <input type="text" 
+                 className="cardform__input"
                  value={this.state.jobtitle}
                  onChange={this.handleChange.bind(this, 'jobtitle')}
                  placeholder="Job Title"
                  required={true}
                  autofocus={true} />
-          <textarea onChange={this.handleChange.bind(this, 'snippet')}
+          <textarea className="cardform__textarea"
+                    onChange={this.handleChange.bind(this, 'snippet')}
                     value={this.state.snippet}
                     placeholder="Job Description"></textarea>
           <input type="text" 
+                 id="first__job__location__input"
+                 className="cardform__input job__location"
                  value={this.state.city}
                  onChange={this.handleChange.bind(this, 'city')}
                  placeholder="City" />
           <input type="text"
+                 className="cardform__input job__location"
                  value={this.state.state}
                  onChange={this.handleChange.bind(this, 'state')} 
                  placeholder="State" />
           <input type="text" 
+                 id="last__job__location__input"
+                 className="cardform__input job__location"
                  value={this.state.country}
                  onChange={this.handleChange.bind(this, 'country')} 
                  placeholder="Country" />
           <input type="text" 
+                 className="cardform__input"
                  value={this.state.url}
                  onChange={this.handleChange.bind(this, 'url')} 
                  placeholder="Paste Job Link Here" />
-          <button onClick={this.props.toggleModalState.bind(this)}>Cancel</button>
-          <button onClick={this.createAndSubmitCard.bind(this)}>Create Card</button>
+          <button className="cardform__button create__card__button"onClick={this.createAndSubmitCard.bind(this)}>Create Card</button>
+          <button className="cardform__button"onClick={this.props.toggleModalState.bind(this)}>Cancel</button>
         </form>
       </div>
     );

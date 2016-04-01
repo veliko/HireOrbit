@@ -120,7 +120,7 @@ nav a i {
 
 /* homepage */
 .search-container {
-  margin-top: 1.6%;
+  margin-top: 3%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,7 +185,7 @@ form.search .advanced .advanced__container {
 }
 
 .main-search {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 /* radio-box */
@@ -1235,4 +1235,86 @@ iframe {
 .bullseye__container {
   line-height: 47px;
   margin-top: 3px;
+}
+
+.cardform {
+  margin: 20px;
+}
+
+.cardform__heading {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.cardform__input { 
+  margin: 0 0 10px 0;
+  width: calc(100%);
+  display: block;
+  border-radius: 3px;
+  border: 1px solid #ececec;
+  padding: 5px 0 5px 10px;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.25s;
+}
+
+.cardform__input:hover, 
+.cardform__input:focus {
+  border: 1px solid #dcdcdc;
+  background-color: #fbfbfb;
+}
+
+.job__location {
+  width: calc(50% - 5px);
+  display: inline;
+}
+
+.cardform__textarea {
+  width: calc(100%);
+  margin-bottom: 10px;
+  height: 75px;
+  outline: none;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  padding: 5px 10px 5px 10px;
+  transition: 0.25s;
+}
+
+.cardform__textarea:hover {
+  border: 1px solid #dcdcdc;
+  background-color: #fbfbfb;
+}
+
+.cardform__button {
+  float: right;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-top: 4px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px dashed #bcbcbc;
+  background-color: #ececec;
+  color: #999;
+  outline: none;
+  transition: 0.15s;
+}
+
+.cardform__button:hover {
+  background-color: #cccccc;
+  color: #fff;
+}
+
+.create__card__button:hover {
+  background-color: #9AC359;
+  border-color: #68833C;
+  color: #fff;
+}
+
+#first__job__location__input {
+  margin-right: 10px;
+}
+
+#last__job__location__input {
+  width: 100%;
 }
