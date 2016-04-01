@@ -17,8 +17,6 @@ import _ from 'lodash';
           term: '',
           city1: '',
           top20Cities: [],
-          checked: {},
-          clicked: ''
         }     
       
       // Bind keyboard input submit to DataVisSearchContainer
@@ -102,8 +100,10 @@ import _ from 'lodash';
     // Form data
     render() {
       return (
-        <div id="chartBackground">
+        <div id="chart">
           <Video />
+          <h2>Top paying cities in tech (2016)</h2>
+          <p>Top paying cities in tech, based on salary and job openings.</p>
           <form onSubmit = { this.onSubmit }>
             <div className="radio-box">
               <div>
@@ -119,7 +119,7 @@ import _ from 'lodash';
                 <input type="radio" name='checkbox3' value={this.state['checkbox3']}  onChange={ this.onSubmit } />
               </div>
               <div>
-                <span className="dataVizForm">{'Back Bone JS'}</span>
+                <span className="dataVizForm">{'Backbone JS'}</span>
                 <input type="radio" name='checkbox4' value={this.state['checkbox4']}  onChange={ this.onSubmit } />
               </div>
             </div>
