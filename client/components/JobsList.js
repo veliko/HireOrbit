@@ -57,7 +57,7 @@ class JobsList extends Component {
               { job.expired ?  "Expired" : "" }
               <div className="description" dangerouslySetInnerHTML={{__html: job.snippet}}></div>
               <div>
-                <button onClick={() => this.addJobToKanban(job)}><i className="fa fa-table"></i> Add to Kanban</button>
+                {job.isInKanban ? <button disabled><i className="fa fa-check"></i> Added to Kanban</button> : <button onClick={() => this.addJobToKanban(job)}><i className="fa fa-table"></i> Add to Kanban</button>} 
                 <button><a href={job.url} target="_blank"><i className="fa fa-check"></i> Apply on Indeed</a></button>
               </div>
             </div>

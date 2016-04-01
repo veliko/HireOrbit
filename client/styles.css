@@ -438,6 +438,10 @@ form.search .advanced .advanced__container {
   border-radius: 3px 0 0 3px;
 }
 
+.search-results .job.saved-job .strip {
+  background-color: #9AC359;
+}
+
 .search-results .job h2 {
   margin: 0 0 10px;
   line-height: 1.5rem;
@@ -484,6 +488,11 @@ form.search .advanced .advanced__container {
   color: rgb(51, 51, 51);
   text-decoration: none;
   transition: background 0.25s;
+}
+
+.search-results .job.saved-job button:disabled {
+  background-color: #9AC359;
+  color: #fff;
 }
 
 .job button {
@@ -1201,8 +1210,4 @@ iframe {
   -webkit-border-radius: 1.5em;
   -moz-border-radius: 1.5em;
   color: #acacac;
-}
-
-.saved-job {
-  border: 10px solid red!important;
 }
