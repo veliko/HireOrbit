@@ -5,6 +5,10 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   box-sizing: border-box;
 }
 
+input, button, textarea {
+  outline: none;
+}
+
 body {
   background: rgb(0, 0, 0);
   font-family: Arial, Helvetica, "Helvetica Neue", sans-serif;
@@ -904,6 +908,7 @@ iframe {
   color: #6D3A0A;
 }
 
+
 .toggle-enter {
   width: 100%;
   max-height: 0;
@@ -924,6 +929,28 @@ iframe {
   overflow: hidden;
   transition: max-height .25s ease-out;
 } 
+
+
+
+.example-enter {
+  width: 0;
+}
+
+.example-enter.example-enter-active {
+  width: 200px;
+  transition: width 250ms ease-in;
+}
+
+.example-leave {
+  width: 200px;
+}
+
+.example-leave.example-leave-active {
+  width: 0;
+  transition: width 250ms ease-out;
+}
+
+
 
 .fa.fa-star-o{
   color: #aaa;

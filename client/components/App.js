@@ -8,6 +8,7 @@ import Utils from '../utils/Utils';
 import isURL from 'validator/lib/isURL';
 import Modal from 'react-awesome-modal';
 import CardForm from './CardForm';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 export default class App extends React.Component {
@@ -58,7 +59,7 @@ export default class App extends React.Component {
           // console.log(res)
           self.toggleExpiredSaved('Saved');
           setTimeout(() => self.toggleExpiredSaved('Saved'), 2000);
-          self.refs.urlInput.value = "";
+          // self.refs.urlInput.value = "";
           self.setState({cardData: res});
           self.toggleModalState(res);
         })
@@ -115,12 +116,16 @@ export default class App extends React.Component {
                   {this.state.showExpired ? <div className="expired-text">The job might be expired</div> : null}
                   {this.state.showJobSaved ? <div className="saved-text">Saved the job in Kanban</div> : null}
                   {this.state.isInvalid ? <div className="expired-text">The url seems to be invalid, try again</div> : null}
-                  <input className="url-input" type="text" ref="urlInput"
-                         style={
-                           this.state.displayInput ? {display: "inline-block"} : {display: "none"}
-                         }
-                         placeholder="place job link here"
-                         onKeyPress={this.handleCrosshairsInputKeyPress.bind(this)} /> 
+                  <ReactCSSTransitionGroup transitionName="example"
+                                           transitionEnterTimeout={250}
+                                           transitionLeaveTimeout={250} >
+                    {this.state.displayInput ? 
+                      <input className="url-input" type="text" ref="urlInput"
+                             style={{display: "inline-block"}}
+                             placeholder="place job link here"
+                             key="url__input__header"
+                             onKeyPress={this.handleCrosshairsInputKeyPress.bind(this)} /> : null }
+                  </ReactCSSTransitionGroup>
                 </div>
               </li>
             </ul>

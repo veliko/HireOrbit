@@ -146,14 +146,18 @@ const cardsController = {
               query = `SELECT card_positions FROM users WHERE google_id = '${user_id}'`;
               db.query(query)
                 .then((results) => {
+                  var cardsWithMissingPositions=[];
                   var positions = JSON.parse(results[0][0].card_positions);
                   var orderedCards = new Array(Object.keys(positions).length);
                   cards.forEach((card) => {
                     var correctPosition = positions[card.card_id + ''];
                     if (correctPosition !== undefined) {
                       orderedCards[correctPosition] = card;
+                    } else {
+                      cardsWithMissingPositions.push(card);
                     }
                   });
+                  orderedCards = orderedCards.concat(cardsWithMissingPositions);
                   res.json(orderedCards);
                 })
                 .catch(error => {
