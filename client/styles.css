@@ -1354,12 +1354,12 @@ rect.bar {
 }
 
 svg.svg {
-  background-color: #fff;
+  background-color: #fbfbfb;
   border-radius: 3px;
 }
 
 #chartBackground {
-  margin: 5em 0;
+  margin: 12em 0;
 }
 
 #chartBackground .searchBar {
