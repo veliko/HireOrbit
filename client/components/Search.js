@@ -2,6 +2,7 @@ import React from 'react';
 import Utils from '../utils/Utils';
 import Auth from '../utils/Auth';
 import JobsList from './JobsList';
+import Video from './Video';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
@@ -32,8 +33,6 @@ class Search extends React.Component {
     query.q = query.q || 'software engineer';
     query.l = query.l || 'san francisco';
     let self = this;
-
-    console.log('@Search Q', this.props.currentQuery);
 
     Utils.getJobsFromIndeed(query, (res) => {
       res = self.checkJobInKanban(res);
@@ -164,43 +163,25 @@ class Search extends React.Component {
       </div>
     );
 
-    var SavedSearches = (props) => (
-      <aside className="saved-search">
-        <div>
-          <div>
-            <h4>Saved Searches</h4>
-            <ul>
-            {this.state.allSavedSearches.map(saved => (
-              <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
-            ))}
-            </ul>
-          </div>
-          <div>
-            <input type='text' value={this.state.searchName} name="searchName" onChange={ this.updateText } placeholder='Save this search'/>
-            <button onClick={ this.saveCurrentSearch.bind(this) }>Save</button>
-          </div>
-        </div>
-      </aside>
-    );
-
     return (
       <div className="flex search">
         <div className="search-results">
+          <Video />
           <aside>
-            <div className="sticky">
+            <div className="panel">
               <h2>Refine Results</h2>
               <div>
                 <h3>Position</h3>
                 <div className="flex">
                   <input type="text" placeholder="Position" name="position" value={this.state.position} onChange={ this.updateText } />
-                  <button onClick={ this.updateSearch }>Update</button>
+                  <button onClick={ this.updateSearch }><i className="fa fa-arrow-circle-right"></i></button>
                 </div>
               </div>
               <div>
                 <h3>Location</h3>
                 <div className="flex">
                   <input type="text" placeholder="Location" name="location" value={this.state.location} onChange={ this.updateText } />            
-                  <button onClick={ this.updateSearch }>Update</button>
+                  <button onClick={ this.updateSearch }><i className="fa fa-arrow-circle-right"></i></button>
                 </div>
               </div>
               <div>
@@ -214,7 +195,30 @@ class Search extends React.Component {
               </div>
               <Types types={this.state.jobSet} name={"jobType"} title={"Job Type"} />
               <Types types={this.state.employerSet} name={"employerType"} title={"Post Type"} />
+              <div className="strip"></div>
             </div>
+            { Auth.isLoggedIn() ?  
+              <div className="panel saved-search">
+                <div>
+                  <div>
+                    <h2>Saved Searches</h2>
+                    <ol>
+                    {this.state.allSavedSearches.map(saved => (
+                      <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
+                    ))}
+                    </ol>
+                  </div>
+                  <div className="save-search">
+                    <h4><i className="fa fa-plus-circle"></i> Add new search</h4>
+                    <div>
+                      <input type='text' value={this.state.searchName} name="searchName" onChange={ this.updateText } placeholder='Save this search'/>
+                      <button onClick={ this.saveCurrentSearch.bind(this) }><span className="fa fa-arrow-circle-right"></span></button>
+                    </div>
+                  </div>
+                </div>
+                <div className="strip"></div>
+              </div>
+            : '' }
           </aside>
           <div className="jobs">
             <Sort />
@@ -222,27 +226,6 @@ class Search extends React.Component {
             <Pagination />
           </div>
         </div>
-        { Auth.isLoggedIn() ?  
-          <aside className="saved-search">
-            <div>
-              <div>
-                <h4>Saved Searches</h4>
-                <ol>
-                {this.state.allSavedSearches.map(saved => (
-                  <li onClick={this.fetchSavedSearch.bind(this, saved.internal_id)}>{saved.name}</li>
-                ))}
-                </ol>
-              </div>
-              <div className="save-search">
-                <h4>Add new search</h4>
-                <div>
-                  <input type='text' value={this.state.searchName} name="searchName" onChange={ this.updateText } placeholder='Save this search'/>
-                  <button onClick={ this.saveCurrentSearch.bind(this) }><span className="fa fa-arrow-circle-right"></span></button>
-                </div>
-              </div>
-            </div>
-          </aside>
-        : '' }
       </div>  
     )
   }
