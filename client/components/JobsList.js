@@ -51,7 +51,6 @@ class JobsList extends Component {
               <h3><a href={job.url} target="_blank">{job.jobtitle}</a></h3>
               <div>
                 <h3>{job.formattedlocation+", "}</h3>
-                <h5>{job.company}</h5>
                 <small>{job.formattedrelativetime}</small>
               </div>
               <hr />

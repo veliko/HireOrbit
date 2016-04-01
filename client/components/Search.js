@@ -55,7 +55,7 @@ class Search extends React.Component {
       location: l,
       position: q,
       radius: radius,
-      start: start,
+      start: start || 0,
       sort: 'relevance',
       searchName:'',
     });
@@ -137,8 +137,8 @@ class Search extends React.Component {
   render(){
     var Pagination = (props) => (
       <div className="pagination">
-        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch }>Prev</button>
-        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch }>Next</button>
+        <button name="start" value={ (this.state.start <= 0) ? 0 : this.state.start - 25 } onClick={ this.updateSearch }><i className="fa fa-angle-left"></i> Prev</button>
+        <button name="start" value={ (Number(this.state.start) + 25) } onClick={ this.updateSearch }>Next <i className="fa fa-angle-right"></i></button>
       </div>
     );
 

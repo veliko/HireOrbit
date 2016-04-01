@@ -516,9 +516,19 @@ form.search .advanced .advanced__container {
 }
 
 .pagination button {
-  background: transparent;
-  border: solid 1px rgba(255, 255, 255, 0.1);
-  width: 10%;
+  width: 100px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px 15px 15px 20px;
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 1);
+  border: solid 1px rgba(255, 255, 255, 0.15);
+  margin: 0 5px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  transition: background 0.25s ease-in;
+}
+
+.pagination button:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Kanban styles */ 
