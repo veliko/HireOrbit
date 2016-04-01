@@ -279,8 +279,7 @@ form.search .advanced .advanced__container {
 
 /* search results */
 .search {
-  justify-content: space-between;
-  width: 100%;
+
 }
 
 .search-results {
