@@ -1367,11 +1367,13 @@ svg.svg {
   border-radius: 3px;
 }
 
-#chartBackground {
-  margin: 12em 0;
+#chart {
+  margin: 50px 0 0;
+  color: #fff;
+  text-align: center;
 }
 
-#chartBackground .searchBar {
+#chart .searchBar {
   width: 372px;
   padding: 8px 10px 8px 10px;
   font-size: 18px;
@@ -1385,7 +1387,7 @@ svg.svg {
   color: #00CED1;
 }
 
-#chartBackground .radio-box {
+#chart .radio-box {
   float: left;
 }
 
